@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="blue">#0000FF</color>
+
+    <!-- Colores básicos -->
+    <color name="colorPrimary">#3F51B5</color> <!-- Ejemplo: Azul primario -->
+    <color name="colorPrimaryDark">#303F9F</color> <!-- Ejemplo: Azul primario oscuro -->
+    <color name="colorAccent">#FF4081</color> <!-- Ejemplo: Color de acento -->
+
+    <!-- Colores de texto -->
+    <color name="textColorPrimary">#212121</color> <!-- Ejemplo: Texto principal -->
+    <color name="textColorSecondary">#757575</color> <!-- Ejemplo: Texto secundario -->
+
+    <!-- Colores de fondo -->
+    <color name="backgroundColor">#FFFFFF</color> <!-- Ejemplo: Fondo blanco -->
+    <color name="windowBackgroundColor">#F5F5F5</color> <!-- Ejemplo: Fondo de ventana -->
+
+    <!-- Colores personalizados -->
+    <color name="customColor1">#FF5722</color> <!-- Ejemplo: Color personalizado 1 -->
+    <color name="customColor2">#4CAF50</color> <!-- Ejemplo: Color personalizado 2 -->
+    <!-- Agrega más colores personalizados según tus necesidades -->
+
+    <!-- Colores de estado -->
+    <color name="colorPressed">#FF4081</color> <!-- Ejemplo: Color cuando se presiona un botón -->
+    <color name="colorDisabled">#BDBDBD</color> <!-- Ejemplo: Color cuando un elemento está deshabilitado -->
+
+
+</resources>
