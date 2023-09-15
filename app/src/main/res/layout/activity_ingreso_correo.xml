@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".IngresoCorreoActivity">
+
+
+
+    <ImageView
+        android:id="@+id/telito"
+        android:layout_width="312dp"
+        android:layout_height="138dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/telito" />
+
+    <TextView
+        android:id="@+id/textViewIngresoCorreo"
+        android:layout_width="304dp"
+        android:layout_height="99dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="84dp"
+        android:fontFamily="@font/bree_serif"
+        android:text="Ingrese su correo electronico"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.MyApp.DisplaySmall"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/telito" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/correo2"
+        style="?attr/textInputFilledStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+        android:hint="abc@hotmail.com"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIngresoCorreo">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/buttonCancelar"
+        android:layout_width="190dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="48dp"
+        android:text="Cancelar"
+        android:textSize="20sp"
+        app:backgroundTint="#BCE9251E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/correo2" />
+
+    <Button
+        android:id="@+id/buttonAceptar"
+        android:layout_width="190dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="28dp"
+        android:text="Continuar"
+        android:textSize="20sp"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonCancelar" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
