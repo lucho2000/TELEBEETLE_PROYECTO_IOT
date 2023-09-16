@@ -36,7 +36,7 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="116dp"
         android:fontFamily="@font/bree_serif"
-        android:text="Ingrese su correo electronico"
+        android:text="Ingrese su correo electrónico"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.MyApp.DisplaySmall"
         android:textSize="30sp"
