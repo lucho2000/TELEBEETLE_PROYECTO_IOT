@@ -7,13 +7,24 @@
     tools:context=".IngresoCorreoActivity">
 
 
+    <ImageView
+        android:id="@+id/fondo_logo"
+        android:layout_width="232dp"
+        android:layout_height="223dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/fondo_principal_png" />
 
     <ImageView
         android:id="@+id/telito"
-        android:layout_width="312dp"
-        android:layout_height="138dp"
-        android:layout_marginTop="44dp"
+        android:layout_width="206dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/telito" />
@@ -22,13 +33,13 @@
         android:id="@+id/textViewIngresoCorreo"
         android:layout_width="304dp"
         android:layout_height="99dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="116dp"
         android:fontFamily="@font/bree_serif"
         android:text="Ingrese su correo electronico"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.MyApp.DisplaySmall"
-        android:textSize="34sp"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/telito" />
 
@@ -65,10 +76,10 @@
         app:layout_constraintTop_toBottomOf="@+id/correo2" />
 
     <Button
-        android:id="@+id/buttonAceptar"
+        android:id="@+id/buttonContinuar"
         android:layout_width="190dp"
         android:layout_height="65dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="44dp"
         android:text="Continuar"
         android:textSize="20sp"
         app:backgroundTint="@color/colorPrimary"
@@ -76,6 +87,20 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonCancelar" />
+
+    <TextView
+        android:id="@+id/titulo_telebeetle"
+        android:layout_width="134dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="160dp"
+        android:fontFamily="@font/inter"
+        android:text="Telebeetle"
+        android:textColor="#332DA1"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
