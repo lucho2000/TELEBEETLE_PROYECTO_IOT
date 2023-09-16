@@ -94,16 +94,14 @@
         android:layout_height="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:checked="true"
+        android:checked="false"
         android:fontFamily="@font/inter"
         android:scaleX="0.8"
         android:scaleY="0.8"
         android:text="Recuérdame"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Contrasenia"
-        app:thumbTint="@color/white"
-        app:trackTint="@color/colorLigero" />
+        app:layout_constraintTop_toBottomOf="@+id/Contrasenia" />
 
     <Button
         android:id="@+id/button"
@@ -173,7 +171,7 @@
         android:layout_marginEnd="92dp"
         android:fontFamily="@font/inter"
         android:text="Registrarme"
-        android:textColor="#5669FF"
+        android:textColor="@color/colorPrimary"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
@@ -186,7 +184,7 @@
         android:layout_marginEnd="28dp"
         android:fontFamily="@font/inter"
         android:text="¿Olvido su contraseña?"
-        android:textColor="#5669FF"
+        android:textColor="@color/colorPrimary"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Contrasenia" />
@@ -198,7 +196,7 @@
         android:layout_marginTop="192dp"
         android:fontFamily="@font/inter"
         android:text="Telebeetle"
-        android:textColor="#332DA1"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.544"
