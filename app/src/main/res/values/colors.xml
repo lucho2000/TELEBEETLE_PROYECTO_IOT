@@ -8,6 +8,7 @@
     <color name="colorPrimary">#3F51B5</color> <!-- Ejemplo: Azul primario -->
     <color name="colorPrimaryDark">#303F9F</color> <!-- Ejemplo: Azul primario oscuro -->
     <color name="colorAccent">#FF4081</color> <!-- Ejemplo: Color de acento -->
+    <color name="colorLigero">#b0b8e4</color>
 
     <!-- Colores de texto -->
     <color name="textColorPrimary">#212121</color> <!-- Ejemplo: Texto principal -->

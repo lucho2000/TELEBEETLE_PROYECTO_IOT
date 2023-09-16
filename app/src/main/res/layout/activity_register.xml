@@ -28,8 +28,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="Nombre completo"
+        app:startIconDrawable="@drawable/baseline_person_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:boxBackgroundColor="@color/windowBackgroundColor"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -47,8 +49,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="Codigo PUCP"
+        app:startIconDrawable="@drawable/baseline_numbers_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:boxBackgroundColor="@color/windowBackgroundColor"
         app:layout_constraintTop_toBottomOf="@+id/nombreCompleto">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -66,8 +70,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="Correo"
+        app:startIconDrawable="@drawable/baseline_email_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:boxBackgroundColor="@color/windowBackgroundColor"
         app:layout_constraintTop_toBottomOf="@+id/codigoPUCP">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -85,8 +91,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="Condicion de alumno"
+        app:startIconDrawable="@drawable/baseline_person_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:boxBackgroundColor="@color/windowBackgroundColor"
         app:layout_constraintTop_toBottomOf="@+id/correo">
 
         <AutoCompleteTextView
@@ -106,8 +114,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="Contraseña"
+        app:startIconDrawable="@drawable/baseline_lock_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:boxBackgroundColor="@color/windowBackgroundColor"
         app:layout_constraintTop_toBottomOf="@+id/condicion">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -125,8 +135,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="Confirmar contraseña"
+        app:startIconDrawable="@drawable/baseline_lock_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:boxBackgroundColor="@color/windowBackgroundColor"
         app:layout_constraintTop_toBottomOf="@+id/contrasenia">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -140,11 +152,14 @@
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_width="147dp"
         android:layout_height="60dp"
-
+        android:textColor="@color/white"
+        android:backgroundTint="@color/colorPrimary"
         android:layout_marginTop="16dp"
         android:text="Registrarse"
         app:icon="@drawable/baseline_arrow_forward_24"
         app:layout_constraintEnd_toEndOf="parent"
+        app:iconGravity="textEnd"
+        app:iconPadding="16dp"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nuevaContrasenia" />
@@ -155,7 +170,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" Registrarse con Google"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/colorPrimary"
         app:icon="@drawable/search"
+        app:iconPadding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonRegistro" />

@@ -13,6 +13,9 @@
         <item name="android:textSize">64sp</item>
         <item name="android:letterSpacing">0</item>
         <!-- Puedes agregar más atributos personalizados aquí si es necesario -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="Theme.App" parent="Theme.Material3.Dark">
 
