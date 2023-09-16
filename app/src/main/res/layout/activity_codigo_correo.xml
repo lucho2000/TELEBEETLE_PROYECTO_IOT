@@ -7,12 +7,23 @@
     tools:context=".CodigoCorreoActivity">
 
     <ImageView
-        android:id="@+id/telito"
-        android:layout_width="312dp"
-        android:layout_height="138dp"
-        android:layout_marginTop="64dp"
+        android:id="@+id/fondo_logo"
+        android:layout_width="265dp"
+        android:layout_height="245dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/fondo_principal_png" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="206dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="92dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/telito" />
@@ -22,14 +33,14 @@
         android:layout_width="332dp"
         android:layout_height="114dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="76dp"
         android:fontFamily="@font/bree_serif"
         android:text="Ingrese el codigo enviado al correo"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.MyApp.DisplaySmall"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/telito" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/correo2"
@@ -40,8 +51,10 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="16dp"
         android:hint="Codigo"
+        app:startIconDrawable="@drawable/baseline_numbers_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:boxBackgroundColor="@color/windowBackgroundColor"
         app:layout_constraintTop_toBottomOf="@+id/textViewCodigoCorreo">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -64,7 +77,7 @@
         app:layout_constraintTop_toBottomOf="@+id/correo2" />
 
     <Button
-        android:id="@+id/buttonAceptar"
+        android:id="@+id/buttonContinuar"
         android:layout_width="190dp"
         android:layout_height="65dp"
         android:layout_marginTop="28dp"

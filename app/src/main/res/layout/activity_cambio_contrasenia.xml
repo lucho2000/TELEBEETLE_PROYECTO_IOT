@@ -8,11 +8,23 @@
 
 
     <ImageView
-        android:id="@+id/telito"
-        android:layout_width="312dp"
-        android:layout_height="138dp"
-        android:layout_marginTop="44dp"
+        android:id="@+id/fondo_logo"
+        android:layout_width="265dp"
+        android:layout_height="245dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/fondo_principal_png" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="206dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="92dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/telito" />
@@ -21,15 +33,15 @@
         android:id="@+id/textViewCambioContrasenia"
         android:layout_width="304dp"
         android:layout_height="99dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="64dp"
         android:fontFamily="@font/bree_serif"
         android:text="Cambio de contraseña"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.MyApp.DisplaySmall"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/telito" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/contrasena"
@@ -40,8 +52,10 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="16dp"
         android:hint="Contraseña"
+        app:startIconDrawable="@drawable/baseline_lock_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:boxBackgroundColor="@color/windowBackgroundColor"
         app:layout_constraintTop_toBottomOf="@+id/textViewCambioContrasenia">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -59,8 +73,10 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="16dp"
         android:hint=" Nueva Contraseña"
+        app:startIconDrawable="@drawable/baseline_lock_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:boxBackgroundColor="@color/windowBackgroundColor"
         app:layout_constraintTop_toBottomOf="@+id/contrasena">
 
         <com.google.android.material.textfield.TextInputEditText

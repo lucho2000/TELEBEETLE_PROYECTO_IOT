@@ -98,10 +98,11 @@
         app:layout_constraintTop_toBottomOf="@+id/correo">
 
         <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
-        />
+            android:layout_gravity="center_horizontal" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -164,17 +165,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nuevaContrasenia" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="10dp"
+        android:layout_height="13dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/inter"
+        android:text="O"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/buttonRegistro"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="@+id/buttonRegistro"
+        app:layout_constraintTop_toBottomOf="@+id/buttonRegistro" />
+
     <Button
-        style="?attr/materialIconButtonFilledTonalStyle"
         android:id="@+id/buttonRegistroGoogle"
+        style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/colorPrimary"
         android:text=" Registrarse con Google"
         android:textColor="@color/white"
-        android:backgroundTint="@color/colorPrimary"
         app:icon="@drawable/search"
         app:iconPadding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonRegistro" />
 
@@ -189,7 +205,7 @@
 
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/iniciarSesionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
