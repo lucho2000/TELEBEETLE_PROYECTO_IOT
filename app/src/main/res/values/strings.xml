@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TeleBeetle</string>
+    <string name="detalles">Detalles del Evento</string>
+    <string name="tituloEvento_1">Fibra Toxica vs Electroshock</string>
+    <string name="evento1">Cuartos de Final</string>
+    <string name="chip_text_1">Voley Damas</string>
+    <string name="Acerca">Acerca del Evento</string>
 </resources>

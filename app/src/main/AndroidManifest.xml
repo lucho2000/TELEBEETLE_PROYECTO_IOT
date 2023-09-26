@@ -13,21 +13,30 @@
         android:theme="@style/Theme.TeleBeetle"
         tools:targetApi="31">
         <activity
+            android:name=".Intermedio"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DetallesEvento1"
+            android:exported="false"
+            android:parentActivityName=".Intermedio"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".CambioContraseniaActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CodigoCorreoActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".IngresoCorreoActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
