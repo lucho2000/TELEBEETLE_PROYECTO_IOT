@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TeleBeetle</string>
+    <string name="title_home">Home</string>
+    <string name="title_donation">Donation</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_profile">Profile</string>
+    <string name="layout_anchor_fab">@id/bottomAppBar</string>
+    <string name="fab_content_description">fab</string>
 </resources>
