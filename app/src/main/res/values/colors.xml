@@ -11,7 +11,7 @@
     <color name="colorLigero">#5669FF</color>
 
     <!-- Colores de texto -->
-    <color name="textColorPrimary">#212121</color> <!-- Ejemplo: Texto principal -->
+    <color name="textColorPrimary">#120D26</color> <!-- Ejemplo: Texto principal -->
     <color name="textColorSecondary">#757575</color> <!-- Ejemplo: Texto secundario -->
 
     <!-- Colores de fondo -->

@@ -2,13 +2,16 @@ package com.example.telebeetle.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.telebeetle.DetallesEvento1;
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.FragmentOpcionesApoyarBinding;
 
@@ -23,13 +26,19 @@ public class OpcionesApoyar extends Fragment {
         binding = FragmentOpcionesApoyarBinding.inflate(inflater, container, false);
 
         binding.iconBarra.setOnClickListener(view -> {
-            Toast.makeText(container.getContext(), "Apoyar como barra", Toast.LENGTH_SHORT).show();
+            DialogApoyo dialogApoyo = new DialogApoyo();
+            dialogApoyo.show(getChildFragmentManager(),"DIALOGAPOYO");
         });
         binding.iconParticipante.setOnClickListener(view -> {
-            Toast.makeText(container.getContext(), "Apoyar como participante", Toast.LENGTH_SHORT).show();
+            TextView textView = binding.textView10;
+            textView.setText("Se alcanzó el máximo número de participantes");
+            textView.setTextColor(0x706E8F);
         });
         binding.close.setOnClickListener(view -> {
-            requireActivity().getSupportFragmentManager().popBackStack();
+            if (getActivity() instanceof DetallesEvento1) {
+                DetallesEvento1 activity = (DetallesEvento1) getActivity();
+                activity.deleteFragment(OpcionesApoyar.this);
+            }
         });
         return binding.getRoot();
     }

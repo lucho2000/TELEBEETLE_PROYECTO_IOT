@@ -1,6 +1,7 @@
 package com.example.telebeetle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -26,9 +27,12 @@ public class DetallesEvento1 extends AppCompatActivity {
             getSupportFragmentManager().
                     beginTransaction().
                     setReorderingAllowed(true).
-                    addToBackStack(null).
                     add(R.id.fragmentContainerView, OpcionesApoyar.class, null).commit();
         });
 
+    }
+    public void deleteFragment(Fragment fragmentToDelete) {
+        // Use FragmentManager to remove the specified fragment
+        getSupportFragmentManager().beginTransaction().remove(fragmentToDelete).commit();
     }
 }

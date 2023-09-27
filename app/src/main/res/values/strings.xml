@@ -5,6 +5,8 @@
     <string name="evento1">Cuartos de Final</string>
     <string name="chip_text_1">Voley Damas</string>
     <string name="Acerca">Acerca del Evento</string>
+    <string name="Barra">Gracias por tu apoyo al evento como BARRA.</string>
+    <string name="Participante">Gracias por tu apoyo al evento como PARTICIPANTE.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
