@@ -13,16 +13,29 @@
         android:theme="@style/Theme.TeleBeetle"
         tools:targetApi="31">
         <activity
-            android:name=".GeneralActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".CrearActivity"
+            android:exported="false" />
         <activity
-            android:name=".EventsActivity"
+            android:name=".CrearEventoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ScreenEsperaActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".KitTelecoActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ReciboDonaActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".QRDonarActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DonacionActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +43,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".GeneralActivity"
+            android:exported="true" />
+        <activity
+            android:name=".EventsActivity"
+            android:exported="true" />
         <activity
             android:name=".CambioContraseniaActivity"
             android:exported="false"
@@ -49,7 +68,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"
