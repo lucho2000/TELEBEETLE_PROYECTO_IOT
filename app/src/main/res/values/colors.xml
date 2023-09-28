@@ -37,6 +37,7 @@
 
     <!-- Colores bottom menu -->
     <color name="fab_color">#5669FF</color>
+    <color name="selected_menu_icon">#3D56F0</color>
 
     <!-- Colores dialogs -->
     <color name="dialog_bg_color">#F5F9FF</color>
