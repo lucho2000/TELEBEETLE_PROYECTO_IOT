@@ -33,21 +33,23 @@ public class EventsActivity extends AppCompatActivity {
 
         List<Evento> listaEventos = new ArrayList<>();
 
-        Evento evento1 = new Evento();
-        evento1.setActividad("Voley damas");
-        evento1.setNombre("Cuartos de final");
-        evento1.setFecha("10/10/23 6:00pm");
-        evento1.setLugar("Polideportivo: nave 1");
-
+        Evento evento1 = new Evento("Voley damas","Cuartos de Final","10/10/23 6:00pm","Polideportivo: nave 1");
         listaEventos.add(evento1);
 
-        Evento evento2 = new Evento();
-        evento2.setActividad("Futsal Varones");
-        evento2.setNombre("Fase de Grupos");
-        evento2.setFecha("09/10/23 5:00pm");
-        evento2.setLugar("Cancha de minas");
 
+        Evento evento2 = new Evento("Futsal Varones","Fase de Grupos","09/10/23 5:00pm","Cancha de minas");
         listaEventos.add(evento2);
+
+
+        Evento evento3 = new Evento("Ajedrez","Clasificatorias","11/10/23 6:00pm","Polideportivo");
+        listaEventos.add(evento3);
+
+        Evento evento4 = new Evento("Basquet Varones","Fase de Grupos","12/10/23 6:00pm","Polideportivo: nave 3");
+        listaEventos.add(evento4);
+
+        Evento evento5 = new Evento("Atletismo","Etapa inicial","14/10/23 10:00am","Circuito");
+        listaEventos.add(evento5);
+
 
         return listaEventos;
 
