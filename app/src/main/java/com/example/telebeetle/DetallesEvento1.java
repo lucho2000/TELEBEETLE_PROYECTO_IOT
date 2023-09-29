@@ -62,8 +62,6 @@ public class DetallesEvento1 extends AppCompatActivity {
             FusedLocationProviderClient providerClient = LocationServices.getFusedLocationProviderClient(this);
             providerClient.getLastLocation().addOnSuccessListener(this, location -> {
                 if(location != null){
-                    Log.d("msg-test","latitud: " + location.getLatitude());
-                    Log.d("msg-test","longitud: " + location.getLongitude());
                     Intent intent = new Intent(DetallesEvento1.this, MapsActivity.class);
                     intent.putExtra("latitud", location.getLatitude());
                     intent.putExtra("longitud", location.getLongitude());
