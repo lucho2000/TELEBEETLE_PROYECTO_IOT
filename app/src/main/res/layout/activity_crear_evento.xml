@@ -91,14 +91,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="359dp" />
+            app:layout_constraintGuide_end="52dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="51dp" />
+            app:layout_constraintGuide_end="360dp" />
 
         <TextView
             android:id="@+id/textView14"
@@ -226,6 +226,17 @@
             android:layout_height="wrap_content"
             android:text="Subir Imagen"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <Button
+            android:id="@+id/miBoton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Mi Botón"
+            app:layout_constraintTop_toBottomOf="@+id/textView16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
