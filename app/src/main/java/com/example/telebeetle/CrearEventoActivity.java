@@ -3,20 +3,30 @@ package com.example.telebeetle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.w3c.dom.Text;
+
 import java.util.Calendar;
+import java.util.Locale;
 
 public class CrearEventoActivity extends AppCompatActivity {
 
     TextInputLayout textInputLayoutDatePicker;
     EditText editTextDate;
+
+    TextView horaInicial;
+
+    int hour, minute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +36,8 @@ public class CrearEventoActivity extends AppCompatActivity {
 
         textInputLayoutDatePicker = findViewById(R.id.FechaTextField);
         editTextDate = findViewById(R.id.editTextDate);
+
+        horaInicial = findViewById(R.id.textViewHoraInicial);
 
         textInputLayoutDatePicker.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +51,11 @@ public class CrearEventoActivity extends AppCompatActivity {
 
 
         //datePicker.show(supportFragmentManager, "tag");
+
+        horaInicial.setOnClickListener(view -> {
+
+            popTimePicker();
+        });
     }
 
 
@@ -65,5 +82,20 @@ public class CrearEventoActivity extends AppCompatActivity {
         );
 
         datePickerDialog.show();
+    }
+
+    public void popTimePicker(){
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                hour = selectedHour;
+                minute = selectedMinute;
+                horaInicial.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
+            }
+        };
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, hour, minute, true);
+        timePickerDialog.setTitle("Selecciona la hora");
+        timePickerDialog.show();
     }
 }

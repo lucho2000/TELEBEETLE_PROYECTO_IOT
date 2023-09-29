@@ -81,11 +81,11 @@
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="328dp"
-        android:layout_height="218dp"
+        android:layout_width="360dp"
+        android:layout_height="219dp"
         android:layout_marginTop="76dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/pabellon" />
+        app:srcCompat="@drawable/V" />
 </androidx.constraintlayout.widget.ConstraintLayout>

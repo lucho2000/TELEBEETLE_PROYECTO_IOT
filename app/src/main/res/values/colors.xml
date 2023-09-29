@@ -27,5 +27,4 @@
     <color name="colorPressed">#FF4081</color> <!-- Ejemplo: Color cuando se presiona un botón -->
     <color name="colorDisabled">#BDBDBD</color> <!-- Ejemplo: Color cuando un elemento está deshabilitado -->
 
-
 </resources>
