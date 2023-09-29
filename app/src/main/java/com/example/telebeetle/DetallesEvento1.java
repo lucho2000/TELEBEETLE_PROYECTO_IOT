@@ -21,6 +21,9 @@ import com.google.android.gms.location.LocationServices;
 
 public class DetallesEvento1 extends AppCompatActivity {
     ActivityDetallesEvento1Binding binding;
+    private Double latitudFinal = -12.066553051720968;
+    private Double longitudFinal = -77.08034059751783;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +67,8 @@ public class DetallesEvento1 extends AppCompatActivity {
                     Intent intent = new Intent(DetallesEvento1.this, MapsActivity.class);
                     intent.putExtra("latitud", location.getLatitude());
                     intent.putExtra("longitud", location.getLongitude());
+                    intent.putExtra("latitudFinal", latitudFinal);
+                    intent.putExtra("longitudFinal", longitudFinal);
                     startActivity(intent);
                 }
             });
