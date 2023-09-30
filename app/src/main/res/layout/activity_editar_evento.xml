@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditarEventoActivity">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/NombreActividadEditTextField"
+        android:layout_width="310dp"
+        android:layout_height="63dp"
+        android:layout_marginBottom="600dp"
+
+        app:endIconMode="clear_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            tools:layout_editor_absoluteX="39dp"
+            tools:layout_editor_absoluteY="468dp"
+            android:text="Voley" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/NombreEventoEditTextField"
+        android:layout_width="310dp"
+        android:layout_height="63dp"
+        android:layout_marginBottom="600dp"
+        android:hint="Partido 1"
+        app:endIconMode="clear_text"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/NombreActividadEditTextField"
+        >
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            tools:layout_editor_absoluteX="39dp"
+            tools:layout_editor_absoluteY="468dp" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="166dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="32dp"
+        android:text="Descripcion del evento"
+        android:textSize="16sp"
+
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.208"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NombreEventoEditTextField" />
+
+    <EditText
+        android:id="@+id/editTextComentario"
+        android:layout_width="310dp"
+        android:layout_height="108dp"
+        android:layout_margin="8dp"
+        android:gravity="start|top"
+        android:hint="Este duelo se ha repetido en varias
+ocasiones de semana de ingenieria
+con un historial de 20 victorias, 11 empates
+y 15 derrotas para la fibra toxica"
+        android:inputType="textMultiLine"
+        android:lines="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+
+    <TextView
+        android:id="@+id/textViewFecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Fecha"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/FechaTextField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.141"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/FechaTextField"
+        android:layout_width="307dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="36dp"
+        android:hint="Seleccionar fecha"
+        app:endIconMode="clear_text"
+        app:layout_constraintBottom_toTopOf="@+id/textViewHoraInicial"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextDate"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:drawableEnd="@drawable/baseline_calendar_today_24"
+            tools:layout_editor_absoluteX="39dp"
+            tools:layout_editor_absoluteY="468dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textViewHoraInicial"
+        android:layout_width="112dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginBottom="32dp"
+        android:drawableRight="@drawable/baseline_access_time_24"
+        android:drawablePadding="8dp"
+        android:text="Hora inicial"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewHoraFinal"
+        android:layout_width="90dp"
+        android:layout_height="29dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="28dp"
+        android:drawableRight="@drawable/baseline_access_time_24"
+        android:drawablePadding="8dp"
+        android:text="Hora fin"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.98"
+        app:layout_constraintStart_toEndOf="@+id/textViewHoraInicial" />
+
+    <Button
+        android:id="@+id/button"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:layout_width="176dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="80dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Iniciar Sesión"
+        android:textColor="@color/white"
+        app:icon="@drawable/baseline_check_24"
+        app:iconGravity="textEnd"
+        app:iconPadding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/button5"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:layout_width="165dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="80dp"
+        android:backgroundTint="@color/colorAccent"
+        android:text="Cancelar"
+        android:textColor="@color/white"
+        app:iconGravity="textEnd"
+        app:iconPadding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

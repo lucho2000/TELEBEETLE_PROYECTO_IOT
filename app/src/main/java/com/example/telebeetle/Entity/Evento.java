@@ -10,6 +10,16 @@ public class Evento {
     private String fecha;
     private String lugar;
 
+    public Evento(){
+
+    }
+    public Evento(String actividad, String nombre, String fecha, String lugar) {
+        Actividad = actividad;
+        this.nombre = nombre;
+        this.fecha = fecha;
+        this.lugar = lugar;
+    }
+
     public String getActividad() {
         return Actividad;
     }

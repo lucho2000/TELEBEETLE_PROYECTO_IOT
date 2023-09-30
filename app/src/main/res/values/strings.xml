@@ -17,4 +17,14 @@
     <string name="Participante">Gracias por tu apoyo al evento como PARTICIPANTE.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="label">Voley Mixto</string>
+    <string name="label2">Evento</string>
+
+
+    <string-array name="opciones_categorias" translatable="false">
+        <string> Mixto</string>
+        <string> Masculino</string>
+        <string> femenino</string>
+
+    </string-array>
 </resources>

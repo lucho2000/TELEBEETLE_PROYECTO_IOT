@@ -54,7 +54,40 @@
 
         <activity
             android:name=".GeneralActivity"
-            android:exported="false" >
+            android:exported="false" />
+        <activity
+            android:name=".EditarEventoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CrearActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CrearEventoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ScreenEsperaActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".KitTelecoActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ReciboDonaActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".QRDonarActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DonacionActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".EventsActivity"
