@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,8 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder>{
 
@@ -40,6 +44,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
+
+        int drawableResourceId = R.drawable.telito;
+        Picasso picasso = Picasso.get();
+        ImageView imageView = holder.itemView.findViewById(R.id.imageView2);
+        picasso.load(drawableResourceId)
+                .resize(140,140)
+                .transform(new CropCircleTransformation())
+                .into(imageView);
 
         Evento e = listEvents.get(position);
         holder.evento = e;

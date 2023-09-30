@@ -17,6 +17,9 @@ import com.example.telebeetle.databinding.ActivityDetallesEvento1Binding;
 import com.example.telebeetle.fragments.OpcionesApoyar;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.squareup.picasso.Picasso;
+
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class DetallesEvento1 extends AppCompatActivity {
     ActivityDetallesEvento1Binding binding;
@@ -29,6 +32,13 @@ public class DetallesEvento1 extends AppCompatActivity {
         binding = ActivityDetallesEvento1Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        int drawableResourceId = R.drawable.juiocesaraliagamachuca;
+        Picasso picasso = Picasso.get();
+        ImageView imageView = binding.fotoperfil;
+        picasso.load(drawableResourceId)
+                .resize(75,75)
+                .transform(new CropCircleTransformation())
+                .into(imageView);
         ImageView arrow = findViewById(R.id.left_arrow);
         arrow.setOnClickListener(view -> {
             this.finish();

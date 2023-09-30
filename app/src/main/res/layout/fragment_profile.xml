@@ -8,16 +8,186 @@
     android:background="@color/dialog_bg_color"
     tools:context=".fragments.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView6"
+
+    <ImageView
+        android:id="@+id/fotoperfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile Fragment"
-        android:textSize="25sp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.233" />
 
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Julio Cesar Aliaga Machuca"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fotoperfil" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="julio.aliaga@pucp.edu.pe"
+        android:textAllCaps="false"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="20120384"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+    <LinearLayout
+        android:layout_width="329dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView30">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_weight="0.25"
+                android:layout_gravity="center"
+                android:src="@drawable/baseline_remove_red_eye_24" />
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_weight="1"
+                android:text="Modo Oscuro"
+                android:layout_gravity="center"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="35dp"
+                android:layout_height="36dp"
+                android:layout_weight="0.25"
+                android:layout_gravity="center"
+                android:src="@drawable/baseline_shield_24" />
+
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_weight="1"
+                android:text="Cambiar contraseña"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="35dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.25"
+                android:src="@drawable/baseline_arrow_forward_ios_24" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="39dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.25"
+                android:src="@drawable/baseline_document_scanner_24" />
+
+            <TextView
+                android:id="@+id/textView34"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Terminos y Condiciones"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView14"
+                android:layout_width="41dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.25"
+                android:src="@drawable/baseline_arrow_forward_ios_24" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView15"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.25"
+                android:src="@drawable/baseline_logout_24" />
+
+            <TextView
+                android:id="@+id/textView36"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_weight="1"
+                android:text="Cerrar Sesion"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView16"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.25"
+                android:src="@drawable/baseline_arrow_forward_ios_24" />
+        </LinearLayout>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
