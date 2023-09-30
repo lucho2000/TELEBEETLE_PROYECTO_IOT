@@ -52,25 +52,30 @@ public class DetallesEvento1 extends AppCompatActivity {
     }
     public void mostrarUbicacion() {
 
-        int selfPermissionFineLocation = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
-        int selfPermissionCoarseLocation = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION);
+        int selfPermissionFineLocation = ActivityCompat.checkSelfPermission(DetallesEvento1.this, android.Manifest.permission.ACCESS_FINE_LOCATION);
+        int selfPermissionCoarseLocation = ActivityCompat.checkSelfPermission(DetallesEvento1.this, android.Manifest.permission.ACCESS_COARSE_LOCATION);
 
         if (selfPermissionFineLocation == PackageManager.PERMISSION_GRANTED &&
                 selfPermissionCoarseLocation == PackageManager.PERMISSION_GRANTED) {
+            Log.d("msg-test", "LLEGUE AQUI DBNGFSKJBDGJDS");
             //tenemos permisos
-            FusedLocationProviderClient providerClient = LocationServices.getFusedLocationProviderClient(this);
-            providerClient.getLastLocation().addOnSuccessListener(this, location -> {
+            FusedLocationProviderClient providerClient = LocationServices.getFusedLocationProviderClient(DetallesEvento1.this);
+            providerClient.getLastLocation().addOnSuccessListener(DetallesEvento1.this, location -> {
                 if(location != null){
+                    Log.d("msg-test", "GAAAAAAAAAAAAAAAAAAA");
                     Intent intent = new Intent(DetallesEvento1.this, MapsActivity.class);
                     intent.putExtra("latitud", location.getLatitude());
                     intent.putExtra("longitud", location.getLongitude());
                     intent.putExtra("latitudFinal", latitudFinal);
                     intent.putExtra("longitudFinal", longitudFinal);
                     startActivity(intent);
+                }else {
+                    Log.d("msg-test", "IIIIIIIIIIIIIIIIIIIII");
                 }
             });
         } else {
             //no tenemos permisos, se deben solicitar
+            Log.d("msg-test", "LLEGUE nooooooooooooooooo");
             locationPermissionLauncher.launch(new String[]{
                     android.Manifest.permission.ACCESS_FINE_LOCATION,
                     android.Manifest.permission.ACCESS_COARSE_LOCATION
