@@ -1,8 +1,10 @@
-package com.example.telebeetle;
+package com.example.telebeetle.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.telebeetle.R;
 
 public class CrearActivity extends AppCompatActivity {
 

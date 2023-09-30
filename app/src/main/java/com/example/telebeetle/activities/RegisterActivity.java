@@ -1,4 +1,4 @@
-package com.example.telebeetle;
+package com.example.telebeetle.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+
+import com.example.telebeetle.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

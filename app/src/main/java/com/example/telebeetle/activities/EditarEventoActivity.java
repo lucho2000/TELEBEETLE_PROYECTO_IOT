@@ -1,17 +1,16 @@
-package com.example.telebeetle;
+package com.example.telebeetle.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.Button;
 
-public class KitTelecoActivity extends AppCompatActivity {
+import com.example.telebeetle.R;
+
+public class EditarEventoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kit_teleco);
-
-
+        setContentView(R.layout.activity_editar_evento);
     }
 }

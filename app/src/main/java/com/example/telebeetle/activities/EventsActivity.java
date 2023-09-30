@@ -1,4 +1,4 @@
-package com.example.telebeetle;
+package com.example.telebeetle.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.os.Bundle;
 
 import com.example.telebeetle.Entity.Evento;
-import com.example.telebeetle.databinding.ActivityEventsBinding;
 
 import java.util.ArrayList;
 import java.util.List;

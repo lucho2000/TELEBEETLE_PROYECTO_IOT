@@ -34,78 +34,78 @@
             android:value="${MAPS_API_KEY}" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".activities.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".Intermedio"
+            android:name=".activities.Intermedio"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DetallesEvento1"
+            android:name=".activities.DetallesEvento1"
             android:exported="false"
-            android:parentActivityName=".Intermedio"
+            android:parentActivityName=".activities.Intermedio"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".GeneralViewActivity"
+            android:name=".activities.GeneralViewActivity"
             android:exported="false"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
-            android:name=".GeneralActivity"
+            android:name=".activities.GeneralActivity"
             android:exported="false" />
         <activity
-            android:name=".EditarEventoActivity"
+            android:name=".activities.EditarEventoActivity"
             android:exported="false" />
         <activity
-            android:name=".CrearActivity"
+            android:name=".activities.CrearActivity"
             android:exported="false" />
         <activity
-            android:name=".CrearEventoActivity"
+            android:name=".activities.CrearEventoActivity"
             android:exported="false" />
         <activity
-            android:name=".ScreenEsperaActivity"
+            android:name=".activities.ScreenEsperaActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".KitTelecoActivity"
+            android:name=".activities.KitTelecoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ReciboDonaActivity"
+            android:name=".activities.ReciboDonaActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".QRDonarActivity"
+            android:name=".activities.QRDonarActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DonacionActivity"
+            android:name=".activities.DonacionActivity"
             android:exported="false">
         </activity>
         <activity
-            android:name=".EventsActivity"
+            android:name=".activities.EventsActivity"
             android:exported="false">
         </activity>
         <activity
-            android:name=".CambioContraseniaActivity"
+            android:name=".activities.CambioContraseniaActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CodigoCorreoActivity"
+            android:name=".activities.CodigoCorreoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".IngresoCorreoActivity"
+            android:name=".activities.IngresoCorreoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

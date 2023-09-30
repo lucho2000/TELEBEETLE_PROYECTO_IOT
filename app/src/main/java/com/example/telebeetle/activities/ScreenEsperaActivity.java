@@ -1,10 +1,11 @@
-package com.example.telebeetle;
+package com.example.telebeetle.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.telebeetle.R;
 
 import java.util.Timer;
 import java.util.TimerTask;

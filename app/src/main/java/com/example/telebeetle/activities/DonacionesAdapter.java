@@ -1,4 +1,4 @@
-package com.example.telebeetle;
+package com.example.telebeetle.activities;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.telebeetle.Entity.Donacion;
+import com.example.telebeetle.R;
 
 import java.util.List;
 

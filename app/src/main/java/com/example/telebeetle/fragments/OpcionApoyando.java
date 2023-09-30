@@ -8,10 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.telebeetle.DetallesEvento1;
-import com.example.telebeetle.R;
-import com.example.telebeetle.databinding.FragmentOpcionApoyandoBinding;
-import com.example.telebeetle.databinding.FragmentOpcionesApoyarBinding;
+import com.example.telebeetle.activities.DetallesEvento1;
 
 public class OpcionApoyando extends Fragment {
     FragmentOpcionApoyandoBinding binding;

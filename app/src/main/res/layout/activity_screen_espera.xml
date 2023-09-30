@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:backgroundTint="#7341CC"
-    tools:context=".ScreenEsperaActivity">
+    tools:context=".activities.ScreenEsperaActivity">
 
     <ImageView
         android:id="@+id/imageView6"

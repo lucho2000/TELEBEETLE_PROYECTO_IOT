@@ -1,4 +1,4 @@
-package com.example.telebeetle;
+package com.example.telebeetle.activities;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.example.telebeetle.BuildConfig;
+import com.example.telebeetle.R;
 import com.example.telebeetle.dto.Route;
 import com.example.telebeetle.services.RouteService;
 import com.google.android.gms.maps.CameraUpdate;
