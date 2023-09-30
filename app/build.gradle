@@ -14,7 +14,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
+        manifestPlaceholders = [file_provider: "com.example.telebeetle"]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         def properties = new Properties()
         properties.load(new FileInputStream(rootProject.file("local.properties")))
@@ -54,5 +54,6 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'androidx.navigation:navigation-fragment:2.5.3'
     implementation 'androidx.navigation:navigation-ui:2.5.3'
+    implementation 'com.cometchat:chat-uikit-android:4.0.2'
 
 }

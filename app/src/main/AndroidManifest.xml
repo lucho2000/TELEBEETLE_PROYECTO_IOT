@@ -49,6 +49,7 @@
         <activity
             android:name=".activities.GeneralViewActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden"
             android:screenOrientation="portrait">
         </activity>
 

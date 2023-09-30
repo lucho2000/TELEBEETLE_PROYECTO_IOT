@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.cometchat.chat.core.CometChat;
+import com.cometchat.chat.exceptions.CometChatException;
+import com.cometchat.chat.models.User;
+import com.cometchat.chatuikit.shared.cometchatuikit.CometChatUIKit;
+import com.cometchat.chatuikit.shared.cometchatuikit.UIKitSettings;
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.ActivityGeneralViewBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,11 +31,19 @@ import java.util.Objects;
 
 public class GeneralViewActivity extends AppCompatActivity {
     ActivityGeneralViewBinding binding;
+
+    String appID = "24272539e9e89a98"; // Replace with your App ID
+    String region = "US"; // Replace with your App Region ("eu" or "us")
+    String authKey= "1b88d312bf176863d22000e0ed856a1717bc8c06"; // Replace with your App ID
+
+    String uidSample= "72411493"; // Replace with your sample UID
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityGeneralViewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        initCometChat();
 
         BottomNavigationView bottomNavigationView =binding.bottomNavigationView;
         // Passing each menu ID as a set of Ids because each
@@ -44,11 +58,39 @@ public class GeneralViewActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
-
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                showBottomMenuFabDialog();
+            }
+        });
+    }
+
+    private void initCometChat(){
+        UIKitSettings uiKitSettings = new UIKitSettings.UIKitSettingsBuilder()
+                .setRegion(region)
+                .setAppId(appID)
+                .setAuthKey(authKey)
+                .subscribePresenceForAllUsers().build();
+
+        CometChatUIKit.init(this, uiKitSettings, new CometChat.CallbackListener<String>() {
+            @Override
+            public void onSuccess(String successString) {
+                CometChatUIKit.login(uidSample, new CometChat.CallbackListener<User>() {
+                    @Override
+                    public void onSuccess(User user) {
+                        Log.d("cometchat-test-msg", "Login Successful : " + user.toString());
+                    }
+                    @Override
+                    public void onError(CometChatException e) {
+                        Log.e("cometchat-test-msg", "Login Failed : " + e.getMessage());
+                    }
+                });
+            }
+
+            @Override
+            public void onError(CometChatException e) {
+
             }
         });
     }

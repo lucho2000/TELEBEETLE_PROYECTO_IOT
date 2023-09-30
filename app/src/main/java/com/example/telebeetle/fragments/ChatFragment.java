@@ -8,7 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cometchat.chat.core.CometChat;
+import com.cometchat.chat.exceptions.CometChatException;
+import com.cometchat.chatuikit.shared.cometchatuikit.CometChatUIKit;
+import com.cometchat.chatuikit.shared.cometchatuikit.UIKitSettings;
+import com.cometchat.chatuikit.userswithmessages.CometChatUsersWithMessages;
 import com.example.telebeetle.R;
+import com.example.telebeetle.databinding.ActivityGeneralViewBinding;
+import com.example.telebeetle.databinding.FragmentChatBinding;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +24,9 @@ import com.example.telebeetle.R;
  * create an instance of this fragment.
  */
 public class ChatFragment extends Fragment {
+
+    FragmentChatBinding binding;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,11 +67,15 @@ public class ChatFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+
+        return new CometChatUsersWithMessages(getContext());
+
+
+
+
+
     }
 }
