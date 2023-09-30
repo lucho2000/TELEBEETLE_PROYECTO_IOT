@@ -19,6 +19,14 @@
         </activity>
 
         <activity
+            android:name=".GeneralActivity"
+            android:exported="false" >
+        </activity>
+        <activity
+            android:name=".EventsActivity"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".CambioContraseniaActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
