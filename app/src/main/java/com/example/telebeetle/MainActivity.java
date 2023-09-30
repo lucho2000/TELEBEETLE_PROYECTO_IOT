@@ -40,5 +40,17 @@ public class MainActivity extends AppCompatActivity {
         });
         /* LINKEO HACIA OLVIDE MI CONTRASENA / INGRESO CORREO */
 
+
+        /* LINKEO HACIA ACTIVITY GENERAL VIEW*/
+        Button button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
+                startActivity(intent);
+            }
+        });
+        /* LINKEO HACIA ACTIVITY GENERAL VIEW*/
+
     }
 }
