@@ -21,10 +21,4 @@
     <string name="label2">Evento</string>
 
 
-    <string-array name="opciones_categorias" translatable="false">
-        <string>Mixto</string>
-        <string>Masculino</string>
-        <string>femenino</string>
-
-    </string-array>
 </resources>

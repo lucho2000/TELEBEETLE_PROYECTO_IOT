@@ -15,7 +15,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="216dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="Sigueinte"
+        android:text="Siguiente"
         android:textColor="@color/white"
         app:icon="@drawable/baseline_arrow_forward_24"
         app:iconGravity="textEnd"
@@ -89,8 +89,7 @@
         <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="none"
-            app:simpleItems="@array/opciones_categorias" />
+            android:inputType="none"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
