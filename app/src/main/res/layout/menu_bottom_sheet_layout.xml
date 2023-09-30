@@ -77,7 +77,7 @@
                 android:text="CREAR ACTIVIDAD"
                 android:textColor="@color/fab_color"
                 android:layout_marginLeft="30dp"
-                android:textSize="20sp"/>
+                android:textSize="17sp"/>
 
         </LinearLayout>
 
@@ -103,7 +103,7 @@
                 android:text="LISTAR USUARIOS"
                 android:textColor="@color/fab_color"
                 android:layout_marginLeft="30dp"
-                android:textSize="20sp"/>
+                android:textSize="17sp"/>
 
         </LinearLayout>
 
@@ -129,7 +129,7 @@
                 android:text="ESTADÍSTICAS"
                 android:textColor="@color/fab_color"
                 android:layout_marginLeft="30dp"
-                android:textSize="20sp"/>
+                android:textSize="17sp"/>
 
         </LinearLayout>
 
@@ -156,7 +156,7 @@
                 android:text="LISTAR EVENTOS"
                 android:textColor="@color/fab_color"
                 android:layout_marginStart="30dp"
-                android:textSize="20sp"/>
+                android:textSize="17sp"/>
 
         </LinearLayout>
 
