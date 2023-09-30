@@ -8,6 +8,16 @@ public class Donacion {
 
     private String hora;
 
+    public Donacion(){
+
+    }
+
+    public Donacion(String asunto, String fecha, String hora) {
+        this.asunto = asunto;
+        this.fecha = fecha;
+        this.hora = hora;
+    }
+
     public String getAsunto() {
         return asunto;
     }

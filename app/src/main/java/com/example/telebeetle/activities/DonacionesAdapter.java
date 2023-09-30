@@ -4,8 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,7 +39,11 @@ public class DonacionesAdapter extends RecyclerView.Adapter<DonacionesAdapter.Do
         textViewNombreDonacion.setText(dona.getAsunto());
 
         TextView textViewFechaYHora = holder.itemView.findViewById(R.id.fechaHora);
-        textViewFechaYHora.setText(dona.getFecha() + " " + dona.getHora());
+        String a = dona.getFecha() + " " + dona.getHora();
+        textViewFechaYHora.setText(a);
+
+        ImageView imageView = holder.itemView.findViewById(R.id.imageView8);
+        imageView.setImageResource(R.drawable.yy);
     }
 
     @Override
