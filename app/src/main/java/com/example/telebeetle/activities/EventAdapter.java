@@ -1,12 +1,16 @@
 package com.example.telebeetle.activities;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.telebeetle.Entity.Evento;
@@ -22,12 +26,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @NonNull
     @Override
     public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(context).inflate(R.layout.irv_events, parent, false);
+        CardView cardView = view.findViewById(R.id.card);
+        cardView.setOnClickListener(view1 -> {
+            Intent intent = new Intent(context, DetallesEvento1.class);
+            context.startActivity(intent);
+        });
         return new EventViewHolder(view);
-
-
-
     }
 
     @Override
