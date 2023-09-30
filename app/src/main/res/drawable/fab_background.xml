@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<!-- Outer Circle -->
+    <item>
+        <shape
+            android:shape="oval">
+            <solid android:color="@color/colorPrimary" />
+        </shape>
+    </item>
+<!-- Inner Circle (smaller) -->
+    <item
+        android:right="96dp"
+        android:left="96dp"
+        android:top="96dp"
+        android:bottom="96dp">
+        <shape
+            android:shape="oval">
+            <solid android:color="@color/colorPrimaryDark" />
+        </shape>
+    </item>
+    <!-- Icon in the Center -->
+</layer-list>

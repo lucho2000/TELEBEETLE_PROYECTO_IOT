@@ -26,9 +26,6 @@ public class MainActivity extends AppCompatActivity {
         });
         /* LINKEO HACIA REGISTRO DE USUARIO */
 
-
-
-
         /* LINKEO HACIA OLVIDE MI CONTRASENA / INGRESO CORREO */
         TextView olvideMiContraseniaTextView = findViewById(R.id.olvideMiContraseniaTextView);
         olvideMiContraseniaTextView.setOnClickListener(new View.OnClickListener() {

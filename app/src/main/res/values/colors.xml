@@ -8,10 +8,10 @@
     <color name="colorPrimary">#3F51B5</color> <!-- Ejemplo: Azul primario -->
     <color name="colorPrimaryDark">#303F9F</color> <!-- Ejemplo: Azul primario oscuro -->
     <color name="colorAccent">#FF4081</color> <!-- Ejemplo: Color de acento -->
-    <color name="colorLigero">#b0b8e4</color>
+    <color name="colorLigero">#5669FF</color>
 
     <!-- Colores de texto -->
-    <color name="textColorPrimary">#212121</color> <!-- Ejemplo: Texto principal -->
+    <color name="textColorPrimary">#120D26</color> <!-- Ejemplo: Texto principal -->
     <color name="textColorSecondary">#757575</color> <!-- Ejemplo: Texto secundario -->
 
     <!-- Colores de fondo -->
@@ -19,7 +19,7 @@
     <color name="windowBackgroundColor">#F5F5F5</color> <!-- Ejemplo: Fondo de ventana -->
 
     <!-- Colores personalizados -->
-    <color name="customColor1">#FF5722</color> <!-- Ejemplo: Color personalizado 1 -->
+    <color name="customColor1">#FF8D5D</color> <!-- Ejemplo: Color personalizado 1 -->
     <color name="customColor2">#4CAF50</color> <!-- Ejemplo: Color personalizado 2 -->
     <!-- Agrega más colores personalizados según tus necesidades -->
 

@@ -15,21 +15,19 @@
     </style>
 
 
-    <style name="Theme.TeleBeetle" parent="Base.Theme.TeleBeetle" />
 
-
-
-
-    <style name="TextAppearance.MyApp.DisplaySmall" parent="TextAppearance.Material3.DisplaySmall">
-        <item name="fontFamily">@font/bree_serif</item>
+    <style name="Theme.TeleBeetle" parent="Base.Theme.TeleBeetle">
+        <item name="fontFamily">@font/inter</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">64sp</item>
         <item name="android:letterSpacing">0</item>
         <!-- Puedes agregar más atributos personalizados aquí si es necesario -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--Status bar-->
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
 
