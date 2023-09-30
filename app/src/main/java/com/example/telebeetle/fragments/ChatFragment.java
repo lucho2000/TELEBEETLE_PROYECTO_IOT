@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.cometchat.chat.core.CometChat;
 import com.cometchat.chat.exceptions.CometChatException;
+import com.cometchat.chatuikit.conversationswithmessages.CometChatConversationsWithMessages;
 import com.cometchat.chatuikit.shared.cometchatuikit.CometChatUIKit;
 import com.cometchat.chatuikit.shared.cometchatuikit.UIKitSettings;
 import com.cometchat.chatuikit.userswithmessages.CometChatUsersWithMessages;
@@ -71,7 +72,7 @@ public class ChatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return new CometChatUsersWithMessages(getContext());
+        return new CometChatConversationsWithMessages(getContext());
 
 
 
