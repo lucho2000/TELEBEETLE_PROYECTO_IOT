@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.telebeetle.R;
+import com.example.telebeetle.databinding.ActivityGeneralViewBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;

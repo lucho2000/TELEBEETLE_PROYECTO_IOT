@@ -13,6 +13,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.example.telebeetle.R;
+import com.example.telebeetle.databinding.ActivityDetallesEvento1Binding;
 import com.example.telebeetle.fragments.OpcionesApoyar;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;

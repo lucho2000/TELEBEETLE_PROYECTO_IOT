@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.telebeetle.activities.DetallesEvento1;
+import com.example.telebeetle.databinding.FragmentOpcionApoyandoBinding;
+
 
 public class OpcionApoyando extends Fragment {
     FragmentOpcionApoyandoBinding binding;

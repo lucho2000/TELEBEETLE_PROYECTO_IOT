@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.telebeetle.activities.DetallesEvento1;
+import com.example.telebeetle.databinding.FragmentOpcionesApoyarBinding;
 
 public class OpcionesApoyar extends Fragment {
 
