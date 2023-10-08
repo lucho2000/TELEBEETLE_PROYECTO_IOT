@@ -1,5 +1,6 @@
 package com.example.telebeetle.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.telebeetle.R;
+import com.example.telebeetle.activities.CambioContraseniaActivity;
 import com.example.telebeetle.databinding.FragmentProfileBinding;
 import com.squareup.picasso.Picasso;
 
@@ -33,9 +35,14 @@ public class ProfileFragment extends Fragment {
                 .into(imageView);
 
 
+        //para ir a cambio de contraseña
 
+        binding.imageView12.setOnClickListener(view -> {
 
+            Intent intent = new Intent(getActivity(), CambioContraseniaActivity.class );
+            startActivity(intent);
 
+        });
 
         return binding.getRoot();
     }

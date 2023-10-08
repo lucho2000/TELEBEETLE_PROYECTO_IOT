@@ -6,6 +6,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -111,9 +112,12 @@ public class GeneralViewActivity extends AppCompatActivity {
         layoutCrearActividad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(GeneralViewActivity.this, CrearActivity.class);
+                startActivity(intent);
                 dialog.dismiss();
                 Toast.makeText(GeneralViewActivity.this,"Upload a Video is clicked",Toast.LENGTH_SHORT).show();
+
+
 
             }
         });
@@ -132,8 +136,13 @@ public class GeneralViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+
                 dialog.dismiss();
                 Toast.makeText(GeneralViewActivity.this,"Go live is Clicked",Toast.LENGTH_SHORT).show();
+                //Intent intent = new Intent(GeneralViewActivity.this, );
+                //startActivity(intent);
+
 
             }
         });
