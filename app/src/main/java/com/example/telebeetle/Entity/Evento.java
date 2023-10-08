@@ -5,7 +5,9 @@ public class Evento {
     private String Actividad;
 
     //por ejemplo: cuartos de final, fase de grupos, etc
-    private String nombre;
+    private String etapa;
+
+    private String hora; //se agregó el atributo hora para el evento
 
     private String fecha;
     private String lugar;
@@ -13,9 +15,9 @@ public class Evento {
     public Evento(){
 
     }
-    public Evento(String actividad, String nombre, String fecha, String lugar) {
+    public Evento(String actividad, String etapa, String fecha, String lugar) {
         Actividad = actividad;
-        this.nombre = nombre;
+        this.etapa = etapa;
         this.fecha = fecha;
         this.lugar = lugar;
     }
@@ -28,12 +30,12 @@ public class Evento {
         Actividad = actividad;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getEtapa() {
+        return etapa;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setEtapa(String etapa) {
+        this.etapa = etapa;
     }
 
     public String getFecha() {
@@ -50,5 +52,13 @@ public class Evento {
 
     public void setLugar(String lugar) {
         this.lugar = lugar;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 }

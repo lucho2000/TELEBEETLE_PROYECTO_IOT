@@ -2,6 +2,7 @@ package com.example.telebeetle.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -14,6 +15,11 @@ import com.example.telebeetle.R;
 import com.example.telebeetle.activities.EventAdapter;
 import com.example.telebeetle.activities.EventsActivity;
 import com.example.telebeetle.databinding.FragmentHomeStudentBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +28,9 @@ import java.util.List;
 public class HomeStudentFragment extends Fragment {
 
     FragmentHomeStudentBinding binding;
+
+
+    DatabaseReference databaseReference;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,12 +69,36 @@ public class HomeStudentFragment extends Fragment {
     }
 
     public void cargarListaEventos(){
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("evento"); //datos de firebase de la coleccion de "evento"
+
         List<Evento> listaEventos = listaEventosHardcoded();
+
+        List<Evento> listaEventos2 = new ArrayList<>();
+
         EventAdapter eventAdapter = new EventAdapter();
-        eventAdapter.setListEvents(listaEventos);
+        eventAdapter.setListEvents(listaEventos2);
         eventAdapter.setContext(getActivity().getApplicationContext());
         binding.rvEvents.setAdapter(eventAdapter);
         binding.rvEvents.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+
+        //codigo para extraer la data de firebase y mostrarla en el recycler view
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Evento evento = dataSnapshot.getValue(Evento.class);
+                    listaEventos2.add(evento);
+                }
+                eventAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
     }

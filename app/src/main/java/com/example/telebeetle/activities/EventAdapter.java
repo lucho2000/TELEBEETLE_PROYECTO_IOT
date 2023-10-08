@@ -60,10 +60,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         actividadEvent.setText(e.getActividad());
 
         TextView nameEvent = holder.itemView.findViewById(R.id.nameEvento);
-        nameEvent.setText(e.getNombre());
+        nameEvent.setText(e.getEtapa());
 
         TextView fechaEvent = holder.itemView.findViewById(R.id.timeEvent);
-        fechaEvent.setText(e.getFecha());
+        fechaEvent.setText(e.getFecha() + " " + e.getHora());
 
         TextView lugarEvento = holder.itemView.findViewById(R.id.lugarEvent);
         lugarEvento.setText(e.getLugar());
