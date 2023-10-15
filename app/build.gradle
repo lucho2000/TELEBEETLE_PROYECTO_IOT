@@ -60,7 +60,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.5.3'
     implementation 'androidx.navigation:navigation-ui:2.5.3'
     implementation 'com.cometchat:chat-uikit-android:4.0.2'
-
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
 
