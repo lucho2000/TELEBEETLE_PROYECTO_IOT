@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //codigo para autenticacion con google
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        /*GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }
-        };
+        };*/
 
 
 
@@ -114,23 +114,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
+    /*@Override
+    /*protected void onStart() {
         super.onStart();
 
         firebaseAuth.addAuthStateListener(firebaseAuthListener);
-    }
+    }*/
 
-    @Override
+    /*@Override
     protected void onStop() {
         super.onStop();
         if (firebaseAuthListener != null) {
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }
-    }
+    }*/
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    /*@Override
+    /*protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
@@ -166,5 +166,5 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
         }
-    }
+    }*/
 }

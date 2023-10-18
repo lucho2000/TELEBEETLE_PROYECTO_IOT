@@ -8,7 +8,7 @@
 
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/buttonSiguiente"
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_width="180dp"
         android:layout_height="53dp"
@@ -30,14 +30,13 @@
         android:layout_height="52dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="216dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/menu_background_grey"
         android:text="Cancelar"
         android:textColor="@color/white"
-        app:icon="@drawable/baseline_arrow_forward_24"
         app:iconGravity="textEnd"
         app:iconPadding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintEnd_toStartOf="@+id/buttonSiguiente"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 

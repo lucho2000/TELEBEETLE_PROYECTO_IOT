@@ -10,12 +10,15 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.telebeetle.R;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class CrearActivity extends AppCompatActivity {
+
+    Button botonSiguiente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +36,7 @@ public class CrearActivity extends AppCompatActivity {
         autoCompleteTextViewCategoria.setAdapter(adapter); //el adapter llena el text view con las opciones
 
         ImageView iconoImagen  = findViewById(R.id.imageView7);
-
+        botonSiguiente = findViewById(R.id.buttonSiguiente);
 
         iconoImagen.setOnClickListener(view -> {
 
@@ -45,6 +48,15 @@ public class CrearActivity extends AppCompatActivity {
 
             }
         });
+
+        botonSiguiente.setOnClickListener(view -> {
+            Intent intent  = new Intent(CrearActivity.this, EscogerDelegadoActivity.class);
+            startActivity(intent);
+
+        });
+
+
+
     }
 
     @Override
