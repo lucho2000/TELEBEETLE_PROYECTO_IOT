@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+/*
         //codigo para autenticacion con google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }
-        };
+        };*/
 
 
 
@@ -114,12 +114,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
     @Override
     protected void onStart() {
         super.onStart();
 
         firebaseAuth.addAuthStateListener(firebaseAuthListener);
-    }
+    }*/
 
     @Override
     protected void onStop() {

@@ -18,6 +18,12 @@
         android:theme="@style/Theme.TeleBeetle"
         tools:targetApi="31">
         <activity
+            android:name=".activities.verApoyosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.DetalleActividadGeneralActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.DetalleActividad"
             android:exported="false" />
         <!--
@@ -52,7 +58,7 @@
             android:name=".activities.GeneralViewActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".activities.GeneralActivity"
             android:exported="false" />
@@ -83,10 +89,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.DonacionActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".activities.EventsActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".activities.CambioContraseniaActivity"
             android:exported="false"

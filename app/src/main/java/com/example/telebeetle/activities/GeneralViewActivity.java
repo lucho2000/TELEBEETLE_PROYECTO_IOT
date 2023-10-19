@@ -132,11 +132,13 @@ public class GeneralViewActivity extends AppCompatActivity {
             }
         });
 
+        //Estadisticas del delegado general
         layoutEstadisticas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
+                Intent intent = new Intent(GeneralViewActivity.this, GeneralActivity.class);
+                startActivity(intent);
 
                 dialog.dismiss();
                 Toast.makeText(GeneralViewActivity.this,"Go live is Clicked",Toast.LENGTH_SHORT).show();
