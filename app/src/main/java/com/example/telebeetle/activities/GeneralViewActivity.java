@@ -115,7 +115,7 @@ public class GeneralViewActivity extends AppCompatActivity {
                 Intent intent = new Intent(GeneralViewActivity.this, CrearActivity.class);
                 startActivity(intent);
                 dialog.dismiss();
-                Toast.makeText(GeneralViewActivity.this,"Upload a Video is clicked",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(GeneralViewActivity.this,"Upload a Video is clicked",Toast.LENGTH_SHORT).show();
 
 
 

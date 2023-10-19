@@ -37,7 +37,7 @@ public class ApoyoAdapter extends RecyclerView.Adapter<ApoyoAdapter.ApoyoViewHol
 
 
         TextView nameApoyo = holder.itemView.findViewById(R.id.apoyoName);
-        nameApoyo.setText(usuario.getNombre());
+        nameApoyo.setText(usuario.getNombres());
         TextView codigoApoyo = holder.itemView.findViewById(R.id.codigoApoyo);
         codigoApoyo.setText(usuario.getCodigo());
 

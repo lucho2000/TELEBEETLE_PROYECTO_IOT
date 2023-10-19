@@ -2,19 +2,16 @@ package com.example.telebeetle.Entity;
 
 public class Usuario {
 
-    private String apellidos;
     private String codigo;
     private String correo;
     private String nombres;
+    private String apellidos;
 
+    private String contrasena;
 
-    public String getApellidos() {
-        return apellidos;
-    }
+    private String imagen;
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
+    private String rol;
 
     public String getCodigo() {
         return codigo;
@@ -32,11 +29,51 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getNombre() {
+    public String getNombres() {
         return nombres;
     }
 
-    public void setNombre(String nombre) {
-        this.nombres = nombre;
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public Usuario(String nombres, String apellidos) {
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+    }
+
+    public Usuario() {
     }
 }
