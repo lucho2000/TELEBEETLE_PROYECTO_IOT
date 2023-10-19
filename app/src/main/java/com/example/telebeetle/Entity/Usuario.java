@@ -7,6 +7,8 @@ public class Usuario {
     private String nombres;
     private String apellidos;
 
+    private String contrasena;
+
     private String imagen;
 
     private String rol;
@@ -57,5 +59,21 @@ public class Usuario {
 
     public void setRol(String rol) {
         this.rol = rol;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public Usuario(String nombres, String apellidos) {
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+    }
+
+    public Usuario() {
     }
 }

@@ -35,6 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textNombreCompleto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -56,6 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/nombreCompleto">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textCodigo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -77,6 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/codigoPUCP">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -116,12 +119,15 @@
         android:layout_marginEnd="16dp"
         android:hint="Contraseña"
         app:startIconDrawable="@drawable/baseline_lock_24"
+        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/windowBackgroundColor"
         app:layout_constraintTop_toBottomOf="@+id/condicion">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textContrasenia"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -140,9 +146,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/windowBackgroundColor"
+        app:endIconMode="password_toggle"
         app:layout_constraintTop_toBottomOf="@+id/contrasenia">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textNuevaContra"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -151,71 +160,43 @@
     <Button
         android:id="@+id/buttonRegistro"
         style="?attr/materialIconButtonFilledTonalStyle"
-        android:layout_width="147dp"
-        android:layout_height="60dp"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/colorPrimary"
+        android:layout_width="163dp"
+        android:layout_height="63dp"
         android:layout_marginTop="16dp"
+        android:backgroundTint="@color/colorPrimary"
         android:text="Registrarse"
+        android:textColor="@color/white"
         app:icon="@drawable/baseline_arrow_forward_24"
-        app:layout_constraintEnd_toEndOf="parent"
         app:iconGravity="textEnd"
         app:iconPadding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nuevaContrasenia" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="10dp"
-        android:layout_height="13dp"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/inter"
-        android:text="O"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/buttonRegistro"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="@+id/buttonRegistro"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRegistro" />
-
-    <Button
-        android:id="@+id/buttonRegistroGoogle"
-        style="?attr/materialIconButtonFilledTonalStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:text=" Registrarse con Google"
-        android:textColor="@color/white"
-        app:icon="@drawable/search"
-        app:iconPadding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRegistro" />
 
     <TextView
         android:id="@+id/textViewTieneCuenta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginBottom="58dp"
         android:text="¿Ya tiene cuenta?"
-        app:layout_constraintStart_toStartOf="@+id/buttonRegistroGoogle"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRegistroGoogle" />
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonRegistro"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/iniciarSesionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
         android:text="Iniciar Sesión"
         android:textColor="@color/blue"
         app:layout_constraintStart_toEndOf="@+id/textViewTieneCuenta"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRegistroGoogle" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/buttonRegistro" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
