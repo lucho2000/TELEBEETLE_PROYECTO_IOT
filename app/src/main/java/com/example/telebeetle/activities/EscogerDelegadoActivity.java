@@ -1,12 +1,16 @@
 package com.example.telebeetle.activities;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -61,9 +65,6 @@ public class EscogerDelegadoActivity extends AppCompatActivity {
 
         listaDelegado = new ArrayList<>();
 
-        DelegadoDto delegadoDto = new DelegadoDto();
-
-
         DelegadosAdapter delegadosAdapter1 = new DelegadosAdapter();
         delegadosAdapter1.setListaDelegados(listaDelegado);
         delegadosAdapter1.setContext(EscogerDelegadoActivity.this);
@@ -97,24 +98,43 @@ public class EscogerDelegadoActivity extends AppCompatActivity {
             if (intent != null) {
                 String nombreActRecibido = intent.getStringExtra("nombre");
                 String categoriaAct = intent.getStringExtra("categoria");
-                String urlImagenRecibida = intent.getStringExtra("imagen");
+                Uri uri = intent.getParcelableExtra("uri_extra");
 
-                Uri uriImagen = Uri.parse(urlImagenRecibida);
+                //Log.d("uri", uri.toString());
 
-                storageReference = FirebaseStorage.getInstance().getReference().child(nombreActRecibido).child(uriImagen.getLastPathSegment());
+                //storageReference = FirebaseStorage.getInstance().getReference().child(nombreActRecibido).child(uri.getLastPathSegment());
 
-                /*storageReference.putFile(uriImagen).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                /*storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                       Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                        Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
 
-                       while (!uriTask.isComplete());
-                       Uri url = uriTask.getResult();
-                       urlImagen = url.toString();
+                        while (!uriTask.isComplete());
+                        Uri url = uriTask.getResult();
+                        urlImagen = url.toString();
+
+                        databaseReference = FirebaseDatabase.getInstance().getReference("actividad");
+
+                        Actividad actividad = new Actividad();
+                        actividad.setNombreActividad(nombreActRecibido);
+                        actividad.setCategoria(categoriaAct);
+                        //actividad.setImagen(urlImagen);
+
+                        databaseReference.push().setValue(actividad).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(EscogerDelegadoActivity.this, "Actividad creada exitosamente", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(EscogerDelegadoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
                     }
                 });*/
-
 
                 databaseReference = FirebaseDatabase.getInstance().getReference("actividad");
 

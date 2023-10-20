@@ -126,6 +126,9 @@ public class GeneralViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(GeneralViewActivity.this, ListarUsuariosActivity.class);
+                startActivity(intent);
+
                 dialog.dismiss();
                 Toast.makeText(GeneralViewActivity.this,"Create a short is Clicked",Toast.LENGTH_SHORT).show();
 

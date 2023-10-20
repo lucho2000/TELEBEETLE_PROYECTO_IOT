@@ -1,8 +1,11 @@
 package com.example.telebeetle.activities;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -60,6 +63,7 @@ public class CrearActivity extends AppCompatActivity {
 
 
             if (!nombreActividad.isEmpty() && !categoria.isEmpty()) {
+
                 Intent intent  = new Intent(CrearActivity.this, EscogerDelegadoActivity.class);
                 intent.putExtra("nombre", nombreActividad);
                 intent.putExtra("categoria", categoria);
@@ -78,11 +82,9 @@ public class CrearActivity extends AppCompatActivity {
 
     }
 
-    @Override
+   @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-
 
         if (resultCode == RESULT_OK && data != null && data.getData() != null) {
             // La imagen seleccionada se encuentra en data.getData()
@@ -90,8 +92,10 @@ public class CrearActivity extends AppCompatActivity {
             Picasso.get().load(path).into(previsualizaImagen);
             previsualizaImagen.setImageURI(path);
             Intent intent  = new Intent(CrearActivity.this, EscogerDelegadoActivity.class);
-            intent.putExtra("imagen", path);
+            intent.putExtra("uri_extra", path);
+
 
         }
     }
+
 }
