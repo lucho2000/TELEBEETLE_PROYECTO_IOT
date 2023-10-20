@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@drawable/image_top_tool_bar"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/title_top_tool_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:text="Hola, Alumno"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+
+
+        <ImageView
+            android:id="@+id/icon_notification_bg"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/title_top_tool_bar"
+            android:layout_marginStart="115dp"
+            android:src="@drawable/icon_elipse_noti" />
+
+        <ImageView
+            android:id="@+id/icon_notification"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/title_top_tool_bar"
+            android:layout_marginStart="125dp"
+            android:src="@drawable/icon_notifications"
+            android:background="@drawable/icon_elipse_noti"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

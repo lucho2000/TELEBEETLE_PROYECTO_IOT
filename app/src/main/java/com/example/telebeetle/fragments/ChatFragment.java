@@ -1,5 +1,6 @@
 package com.example.telebeetle.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,8 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cometchat.chat.core.CometChat;
+import com.cometchat.chat.core.ConversationsRequest;
 import com.cometchat.chat.exceptions.CometChatException;
+import com.cometchat.chatuikit.conversations.ConversationsConfiguration;
+import com.cometchat.chatuikit.conversations.ConversationsStyle;
 import com.cometchat.chatuikit.conversationswithmessages.CometChatConversationsWithMessages;
+import com.cometchat.chatuikit.messages.MessagesConfiguration;
 import com.cometchat.chatuikit.shared.cometchatuikit.CometChatUIKit;
 import com.cometchat.chatuikit.shared.cometchatuikit.UIKitSettings;
 import com.cometchat.chatuikit.userswithmessages.CometChatUsersWithMessages;
@@ -72,7 +77,27 @@ public class ChatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return new CometChatConversationsWithMessages(getContext());
+
+
+        CometChatConversationsWithMessages cometChatConversationWithMessages = new CometChatConversationsWithMessages(getContext());
+        /*ConversationsStyle style = new ConversationsStyle();
+
+
+        style.setBorderWidth(0);
+        int whitecolor = Color.RED;
+        int res = Color.BLACK;
+        int border = 50;
+        style.setSeparatorColor(whitecolor);
+        style.setCornerRadius(1);
+        style.setBackground(whitecolor);
+        style.setBorderColor(res);
+        style.setBorderWidth(border);*/
+        ConversationsConfiguration conversationsConfiguration = new ConversationsConfiguration()
+                .hideSeparator(true)
+                ;
+        cometChatConversationWithMessages.setConversationsConfiguration(conversationsConfiguration);
+
+        return cometChatConversationWithMessages;
 
 
 

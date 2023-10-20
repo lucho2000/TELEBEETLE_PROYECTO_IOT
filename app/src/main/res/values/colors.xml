@@ -43,4 +43,14 @@
     <!-- Colores dialogs -->
     <color name="dialog_bg_color">#F5F9FF</color>
 
+    <!-- Colores botones crear y editar eventos / actividad -->
+    <color name="cancelarButtonGrey">#E7EAEE</color>
+    <color name="canelarButtonTextDarkGrey">#64748B</color>
+
+    <!-- border line input text (campos de input) -->
+    <color name="inputTextBorderLineColor">#D0D5DD</color>
+
+    <!-- Colores top menu -->
+    <color name="topAppBarColor">#4A43EC</color>
+    <color name="topAppBarColorNotiBg">#5669FF</color>
 </resources>

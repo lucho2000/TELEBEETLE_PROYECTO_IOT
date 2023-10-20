@@ -6,48 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".activities.EditarEventoActivity">
 
+    <TextView
+        android:id="@+id/textViewMiActividadEditarEvento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Mi actividad"
+        android:fontFamily="@font/inter"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/NombreActividadEditTextField"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/NombreActividadEditTextField"
         android:layout_width="310dp"
         android:layout_height="63dp"
-        android:layout_marginBottom="600dp"
-
+        android:layout_marginTop="3dp"
+        app:boxStrokeColor="@color/inputTextBorderLineColor"
         app:endIconMode="clear_text"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            tools:layout_editor_absoluteX="39dp"
-            tools:layout_editor_absoluteY="468dp"
-            android:text="Voley" />
-
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/NombreEventoEditTextField"
-        android:layout_width="310dp"
-        android:layout_height="63dp"
-        android:layout_marginBottom="600dp"
-        android:hint="Partido 1"
-        app:endIconMode="clear_text"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/NombreActividadEditTextField"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/textViewMiActividadEditarEvento">
 
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:text="Voley"
             tools:layout_editor_absoluteX="39dp"
             tools:layout_editor_absoluteY="468dp" />
 
@@ -55,65 +42,113 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
+        android:id="@+id/textViewNombreEventoEditarEvento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/inter"
+        android:text="Nombre del evento"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:counterEnabled="true"
+        app:counterMaxLength="30"
+        app:layout_constraintStart_toStartOf="@+id/NombreEventoEditTextField"
+        app:layout_constraintTop_toBottomOf="@+id/NombreActividadEditTextField" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/NombreEventoEditTextField"
+        android:layout_width="310dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="3dp"
+        android:hint="Partido 1"
+        app:boxStrokeColor="@color/inputTextBorderLineColor"
+        app:endIconMode="clear_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNombreEventoEditarEvento">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            tools:layout_editor_absoluteX="39dp"
+            tools:layout_editor_absoluteY="468dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
         android:id="@+id/textView12"
-        android:layout_width="166dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:text="Descripcion del evento"
         android:textSize="16sp"
 
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.208"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/descripcionEventoEditTextField"
         app:layout_constraintTop_toBottomOf="@+id/NombreEventoEditTextField" />
 
-    <EditText
-        android:id="@+id/editTextComentario"
-        android:layout_width="310dp"
-        android:layout_height="108dp"
-        android:layout_margin="8dp"
-        android:gravity="start|top"
-        android:hint="Este duelo se ha repetido en varias
-ocasiones de semana de ingenieria
-con un historial de 20 victorias, 11 empates
-y 15 derrotas para la fibra toxica"
-        android:inputType="textMultiLine"
-        android:lines="4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.472"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/descripcionEventoEditTextField"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        app:boxStrokeColor="@color/inputTextBorderLineColor"
+        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+       >
+
+        <EditText
+            android:id="@+id/editTextComentario"
+            android:layout_width="310dp"
+            android:layout_height="108dp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/inter"
+            android:gravity="start|top"
+            android:hint="Este duelo se ha repetido en varias
+    ocasiones de semana de ingenieria
+    con un historial de 20 victorias, 11 empates
+    y 15 derrotas para la fibra toxica"
+            android:inputType="textMultiLine"
+            android:lines="5"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/textViewFecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="25dp"
         android:text="Fecha"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/FechaTextField"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.141"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/FechaTextField"
+        app:layout_constraintTop_toBottomOf="@+id/descripcionEventoEditTextField" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/FechaTextField"
-        android:layout_width="307dp"
+        android:layout_width="310dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginTop="3dp"
         android:hint="Seleccionar fecha"
+        app:boxStrokeColor="@color/inputTextBorderLineColor"
         app:endIconMode="clear_text"
-        app:layout_constraintBottom_toTopOf="@+id/textViewHoraInicial"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFecha">
+
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextDate"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:focusable="false"
             android:drawableEnd="@drawable/baseline_calendar_today_24"
             tools:layout_editor_absoluteX="39dp"
             tools:layout_editor_absoluteY="468dp" />
@@ -122,61 +157,71 @@ y 15 derrotas para la fibra toxica"
 
     <TextView
         android:id="@+id/textViewHoraInicial"
-        android:layout_width="112dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="52dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:drawableRight="@drawable/baseline_access_time_24"
         android:drawablePadding="8dp"
         android:text="Hora inicial"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/button5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/FechaTextField"
+        app:layout_constraintTop_toBottomOf="@+id/FechaTextField"
+        app:layout_constraintVertical_bias="0.120000005" />
 
     <TextView
         android:id="@+id/textViewHoraFinal"
-        android:layout_width="90dp"
-        android:layout_height="29dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginBottom="28dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:drawableRight="@drawable/baseline_access_time_24"
         android:drawablePadding="8dp"
         android:text="Hora fin"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.98"
-        app:layout_constraintStart_toEndOf="@+id/textViewHoraInicial" />
+        app:layout_constraintEnd_toEndOf="@+id/FechaTextField"
+        app:layout_constraintTop_toBottomOf="@+id/FechaTextField"
+        app:layout_constraintVertical_bias="0.120000005" />
+
+    <!--app:icon="@drawable/baseline_check_24"
+        app:iconGravity="textEnd"
+        app:iconPadding="16dp"-->
+
 
     <Button
         android:id="@+id/button"
         style="?attr/materialIconButtonFilledTonalStyle"
-        android:layout_width="176dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="28dp"
+        android:layout_width="170dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="48dp"
         android:layout_marginBottom="80dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="Iniciar Sesión"
+        android:backgroundTint="@color/colorLigero"
+        android:fontFamily="@font/inter"
+        android:text="EDITAR EVENTO"
         android:textColor="@color/white"
-        app:icon="@drawable/baseline_check_24"
-        app:iconGravity="textEnd"
-        app:iconPadding="16dp"
+        android:textSize="15sp"
+        app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/button5"
         style="?attr/materialIconButtonFilledTonalStyle"
-        android:layout_width="165dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="28dp"
+        android:layout_width="130dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="48dp"
         android:layout_marginBottom="80dp"
-        android:backgroundTint="@color/colorAccent"
-        android:text="Cancelar"
-        android:textColor="@color/white"
-        app:iconGravity="textEnd"
-        app:iconPadding="16dp"
+        android:backgroundTint="@color/cancelarButtonGrey"
+        android:fontFamily="@font/inter"
+        android:text="CANCELAR"
+        android:textColor="@color/canelarButtonTextDarkGrey"
+        android:textSize="15sp"
+        app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+    <!--app:iconGravity="textEnd"
+    app:iconPadding="16dp"-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

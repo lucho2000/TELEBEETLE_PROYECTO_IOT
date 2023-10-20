@@ -35,7 +35,6 @@ public class DonationFragment extends Fragment {
         cargarlistaDonaciones();
 
 
-
         binding.buttonDonar.setOnClickListener(view -> {
 
             Intent intent = new Intent(container.getContext(), QRDonarActivity.class);
