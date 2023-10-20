@@ -9,10 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.telebeetle.R;
 import com.example.telebeetle.activities.CambioContraseniaActivity;
+import com.example.telebeetle.activities.MainActivity;
 import com.example.telebeetle.databinding.FragmentProfileBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -41,6 +44,16 @@ public class ProfileFragment extends Fragment {
 
             Intent intent = new Intent(getActivity(), CambioContraseniaActivity.class );
             startActivity(intent);
+
+        });
+
+        binding.imageView16.setOnClickListener(view -> {
+
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(getActivity(), "Sesión cerrada exitosamente", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+            getActivity().finish();
 
         });
 
