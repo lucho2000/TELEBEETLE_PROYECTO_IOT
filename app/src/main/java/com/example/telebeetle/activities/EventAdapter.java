@@ -33,8 +33,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         View view = LayoutInflater.from(context).inflate(R.layout.irv_events, parent, false);
         CardView cardView = view.findViewById(R.id.card);
         cardView.setOnClickListener(view1 -> {
-            // intent = new Intent(context, DetallesEvento1.class);
-            //context.startActivity(intent);
             Intent intent = new Intent(context, DetallesEvento1.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);

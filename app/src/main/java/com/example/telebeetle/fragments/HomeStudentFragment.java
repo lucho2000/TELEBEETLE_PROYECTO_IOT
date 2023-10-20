@@ -72,7 +72,7 @@ public class HomeStudentFragment extends Fragment {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("evento"); //datos de firebase de la coleccion de "evento"
 
-        List<Evento> listaEventos = listaEventosHardcoded();
+        //List<Evento> listaEventos = listaEventosHardcoded();
 
         List<Evento> listaEventos2 = new ArrayList<>();
 

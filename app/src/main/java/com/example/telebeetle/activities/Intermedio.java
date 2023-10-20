@@ -14,11 +14,5 @@ public class Intermedio extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityIntermedioBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        /* LINKEO HACIA ACTIVITY PRINCIPAL USUARIO/*/
-        binding.button3.setOnClickListener(view -> {
-            Intent intent = new Intent(Intermedio.this, DetallesEvento1.class);
-            startActivity(intent);
-        });
-        /* LINKEO HACIA ACTIVITY PRINCIPAL USUARIO/*/
     }
 }
