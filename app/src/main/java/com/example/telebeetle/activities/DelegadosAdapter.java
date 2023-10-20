@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,6 +40,19 @@ public class DelegadosAdapter extends RecyclerView.Adapter<DelegadosAdapter.Dele
         TextView textViewCodigo = holder.itemView.findViewById(R.id.textView43);
         textViewCodigo.setText(d.getCodigo());
 
+        ImageView imageViewIcono =  holder.itemView.findViewById(R.id.imageView20);
+        Boolean condicion = true;
+
+        if (condicion){
+
+            imageViewIcono.setOnClickListener(view -> {
+                imageViewIcono.setImageResource(R.drawable.baseline_check_24);
+            });
+        } else {
+            imageViewIcono.setOnClickListener(view -> {
+                imageViewIcono.setImageResource(R.drawable.baseline_add_24);
+            });
+        }
 
     }
 
