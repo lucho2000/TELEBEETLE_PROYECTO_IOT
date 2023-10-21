@@ -1,5 +1,6 @@
 package com.example.telebeetle.fragments;
 
+import android.content.ClipData;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.R;
@@ -29,55 +31,26 @@ public class HomeStudentFragment extends Fragment {
 
     FragmentHomeStudentBinding binding;
 
-
+    SearchView searchView;
+    EventAdapter eventAdapter;
     DatabaseReference databaseReference;
+    List<Evento> listaEvents;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeStudentBinding.inflate(inflater,container,false);
 
-        cargarListaEventos();
-
-        return binding.getRoot();
-    }
-    public List<Evento> listaEventosHardcoded  (){
-
-        List<Evento> listaEventos = new ArrayList<>();
-
-        Evento evento1 = new Evento("Voley damas","Cuartos de Final","10/10/23 6:00pm","Polideportivo: nave 1");
-        listaEventos.add(evento1);
-
-
-        Evento evento2 = new Evento("Futsal Varones","Fase de Grupos","09/10/23 5:00pm","Cancha de minas");
-        listaEventos.add(evento2);
-
-
-        Evento evento3 = new Evento("Ajedrez","Clasificatorias","11/10/23 6:00pm","Polideportivo");
-        listaEventos.add(evento3);
-
-        Evento evento4 = new Evento("Basquet Varones","Fase de Grupos","12/10/23 6:00pm","Polideportivo: nave 3");
-        listaEventos.add(evento4);
-
-        Evento evento5 = new Evento("Atletismo","Etapa inicial","14/10/23 10:00am","Circuito");
-        listaEventos.add(evento5);
-
-
-        return listaEventos;
-
-
-
-    }
-
-    public void cargarListaEventos(){
+        searchView = binding.searchView;
+        searchView.clearFocus();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("evento"); //datos de firebase de la coleccion de "evento"
 
-        List<Evento> listaEventos = listaEventosHardcoded();
 
-        List<Evento> listaEventos2 = new ArrayList<>();
 
-        EventAdapter eventAdapter = new EventAdapter();
-        eventAdapter.setListEvents(listaEventos2);
+        listaEvents = new ArrayList<>();
+
+        eventAdapter = new EventAdapter();
+        eventAdapter.setListEvents(listaEvents);
         eventAdapter.setContext(getActivity().getApplicationContext());
         binding.rvEvents.setAdapter(eventAdapter);
         binding.rvEvents.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
@@ -89,7 +62,7 @@ public class HomeStudentFragment extends Fragment {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Evento evento = dataSnapshot.getValue(Evento.class);
-                    listaEventos2.add(evento);
+                    listaEvents.add(evento);
                 }
                 eventAdapter.notifyDataSetChanged();
             }
@@ -100,6 +73,38 @@ public class HomeStudentFragment extends Fragment {
             }
         });
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                searchList(s);
+                return true;
+            }
+        });
+
+
+
+        return binding.getRoot();
+    }
+
+
+
+
+    public void searchList(String text){
+
+        ArrayList<Evento> searchList = new ArrayList<>();
+        for(Evento evento: listaEvents){
+            if(evento.getActividad().toLowerCase().contains(text.toLowerCase())){
+                searchList.add(evento);
+
+            }
+        }
+
+        eventAdapter.searchDataList(searchList);
 
     }
 }

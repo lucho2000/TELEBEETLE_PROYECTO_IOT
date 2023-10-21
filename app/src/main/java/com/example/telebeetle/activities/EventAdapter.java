@@ -18,6 +18,7 @@ import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -74,6 +75,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @Override
     public int getItemCount() {
         return listEvents.size();
+    }
+
+    public void searchDataList(ArrayList<Evento> searchList){
+
+        listEvents = searchList;
+        notifyDataSetChanged();
+
     }
 
     public class EventViewHolder extends RecyclerView.ViewHolder{
