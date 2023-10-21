@@ -5,9 +5,9 @@
     <item
         android:id="@+id/menu_item_option1"
         android:title="Editar"
-        app:srcCompat="@drawable/baseline_mode_edit_24"/>
+        android:icon="@drawable/baseline_mode_edit_24"/>
     <item
         android:id="@+id/menu_item_option2"
         android:title="Eliminar"
-        app:srcCompat="@drawable/round_clear_24"/>
+        android:icon="@drawable/round_clear_24"/>
 </menu>

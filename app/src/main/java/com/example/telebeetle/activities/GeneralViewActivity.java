@@ -156,7 +156,8 @@ public class GeneralViewActivity extends AppCompatActivity {
         layoutListarEventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(GeneralViewActivity.this, Intermedio.class);
+                startActivity(intent);
                 dialog.dismiss();
                 Toast.makeText(GeneralViewActivity.this,"Listar Eventos",Toast.LENGTH_SHORT).show();
 

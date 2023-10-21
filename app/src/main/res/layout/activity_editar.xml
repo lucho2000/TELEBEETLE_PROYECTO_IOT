@@ -7,17 +7,97 @@
     tools:context=".activities.EditarActivity">
 
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/topappBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/top_appbar_background">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/myToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:background="@color/topAppBarColor"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                android:paddingTop="10dp"
+                app:navigationIcon="@drawable/baseline_arrow_back_changed_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/TopAppBarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/inter"
+                android:text="Editar actividad"
+                android:textColor="#ECE8E8"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/myToolbar"
+                app:layout_constraintTop_toTopOf="@+id/myToolbar" />
+
+            <ImageView
+                android:id="@+id/icon_notification_bg"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/icon_elipse_noti"
+                app:layout_constraintEnd_toEndOf="@+id/myToolbar"
+                app:layout_constraintTop_toTopOf="@+id/myToolbar" />
+
+            <ImageView
+                android:id="@+id/icon_notification"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_elipse_noti"
+                android:src="@drawable/icon_notifications"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_notification_bg"
+                app:layout_constraintEnd_toEndOf="@+id/icon_notification_bg"
+                app:layout_constraintStart_toStartOf="@+id/icon_notification_bg"
+                app:layout_constraintTop_toTopOf="@+id/icon_notification_bg" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/textViewMiActividadEditarEvento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/inter"
+        android:text="Nombre de la actividad"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/NombreActividadTextField"
+        app:layout_constraintTop_toBottomOf="@id/topappBarLayout" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/NombreActividadTextField"
         android:layout_width="310dp"
         android:layout_height="63dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="3dp"
         android:hint="Actividad"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/textViewMiActividadEditarEvento">
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -34,13 +114,12 @@
         android:id="@+id/imageView7"
         android:layout_width="173dp"
         android:layout_height="70dp"
-        android:layout_marginBottom="440dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="48dp"
         android:background="@color/backgroundColor"
         android:backgroundTint="@color/backgroundColor"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.89"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NombreActividadTextField"
         app:srcCompat="@android:drawable/ic_menu_upload" />
 
     <TextView
@@ -51,9 +130,8 @@
         android:text="Subir Imagen"
         android:textAlignment="center"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.823"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintStart_toStartOf="@+id/imageView7"
         app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
     <ImageView
@@ -61,7 +139,7 @@
         android:layout_width="121dp"
         android:layout_height="105dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NombreActividadTextField"
         tools:srcCompat="@tools:sample/avatars" />
@@ -71,17 +149,17 @@
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_width="180dp"
         android:layout_height="53dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="284dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="Editar Actividad"
         android:fontFamily="@font/inter"
+        android:text="Editar Actividad"
         android:textColor="@color/white"
         app:icon="@drawable/baseline_check_24"
         app:iconGravity="textEnd"
         app:iconPadding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSubir" />
 
     <Button
         android:id="@+id/button4"
@@ -89,16 +167,16 @@
         android:layout_width="163dp"
         android:layout_height="52dp"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="284dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/menu_background_grey"
-        android:text="Cancelar"
         android:fontFamily="@font/inter"
+        android:text="Cancelar"
         android:textColor="@color/white"
         app:iconGravity="textEnd"
         app:iconPadding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonEditarActividad"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView19" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

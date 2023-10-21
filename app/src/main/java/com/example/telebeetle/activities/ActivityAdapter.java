@@ -1,10 +1,13 @@
 package com.example.telebeetle.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,6 +47,10 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
     @Override
     public ActivityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.irv_activities_rv_general, parent, false);
+        ImageView more = view.findViewById(R.id.more);
+        more.setOnClickListener(v -> {
+            showOverflowMenu(v);
+        });
         return new ActivityViewHolder(view);
     }
 
@@ -88,4 +95,29 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
             super((itemView));
         }
     }
+
+    private void showOverflowMenu(View v) {
+        PopupMenu popupMenu = new PopupMenu(getContext(), v);
+        popupMenu.getMenuInflater().inflate(R.menu.opciones_evento, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // Handle menu item selection
+                if(item.getItemId() == R.id.menu_item_option1){
+                    Intent intent = new Intent(context,EditarActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    return true;
+                }else if (item.getItemId() == R.id.menu_item_option2){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        });
+
+        popupMenu.show();
+    }
+
 }

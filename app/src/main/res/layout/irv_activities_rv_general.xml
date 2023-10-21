@@ -36,6 +36,13 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    app:srcCompat="@drawable/baseline_more_horiz_24" />
+
+                <ImageView
                     android:id="@+id/imageViewActivity"
                     android:layout_width="240dp"
                     android:layout_height="120dp"
