@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:text="Actividades"
         android:textColor="@color/textColorPrimary"
         android:textSize="16sp"
@@ -32,15 +32,104 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_actividades"
-        android:layout_width="412dp"
-        android:layout_height="244dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
+        android:scrollbars="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:scrollbars="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/textView39" />
+
+    <ImageView
+        android:id="@+id/imageView22"
+        android:layout_width="352dp"
+        android:layout_height="131dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/rounded_background"
+        app:layout_constraintEnd_toEndOf="@+id/rv_actividades"
+        app:layout_constraintStart_toStartOf="@+id/rv_actividades"
+        app:layout_constraintTop_toBottomOf="@+id/rv_actividades" />
+
+    <TextView
+        android:id="@+id/textView44"
+        android:layout_width="182dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Validar solicitudes de registro"
+        android:textAlignment="center"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/imageView22"
+        app:layout_constraintTop_toTopOf="@+id/imageView22" />
+
+    <Button
+        android:id="@+id/goSolicitudes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Ver más"
+        app:layout_constraintEnd_toEndOf="@+id/textView44"
+        app:layout_constraintStart_toStartOf="@+id/textView44"
+        app:layout_constraintTop_toBottomOf="@+id/textView44" />
+
+    <ImageView
+        android:id="@+id/imageView23"
+        android:layout_width="123dp"
+        android:layout_height="113dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/telito"
+        app:layout_constraintEnd_toEndOf="@+id/imageView22"
+        app:layout_constraintTop_toTopOf="@+id/imageView22" />
+
+    <ImageView
+        android:id="@+id/imageView24"
+        android:layout_width="352dp"
+        android:layout_height="131dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/rounded_background"
+        app:layout_constraintEnd_toEndOf="@+id/imageView22"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/imageView22"
+        app:layout_constraintTop_toBottomOf="@+id/imageView22" />
+
+    <TextView
+        android:id="@+id/textView45"
+        android:layout_width="182dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Validar donaciones para Aitel"
+        android:textAlignment="center"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageView24"
+        app:layout_constraintTop_toTopOf="@+id/imageView24" />
+
+    <Button
+        android:id="@+id/goDonaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Ver más"
+        app:layout_constraintEnd_toEndOf="@+id/textView45"
+        app:layout_constraintStart_toStartOf="@+id/textView45"
+        app:layout_constraintTop_toBottomOf="@+id/textView45" />
+
+    <ImageView
+        android:id="@+id/imageView27"
+        android:layout_width="123dp"
+        android:layout_height="113dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/telito"
+        app:layout_constraintStart_toStartOf="@+id/imageView24"
+        app:layout_constraintTop_toTopOf="@+id/imageView24" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

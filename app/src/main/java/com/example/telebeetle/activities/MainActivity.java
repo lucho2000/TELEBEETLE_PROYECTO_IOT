@@ -47,34 +47,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+/*
+        //codigo para autenticacion con google
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
 
-        ////codigo para autenticacion con google
-        //GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        //        .requestEmail()
-        //        .build();
-
-        ////mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        //mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
 
-        //signInRequest = BeginSignInRequest.builder()
-        //        .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-        //                .setSupported(true)
-        //                // Your server's client ID, not your Android client ID.
-        //                // Only show accounts previously used to sign in.
-        //                .setFilterByAuthorizedAccounts(true)
-        //                .build())
-        //        .build();
+        signInRequest = BeginSignInRequest.builder()
+                .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                        .setSupported(true)
+                        // Your server's client ID, not your Android client ID.
+                        // Only show accounts previously used to sign in.
+                        .setFilterByAuthorizedAccounts(true)
+                        .build())
+                .build();
 
-        //firebaseAuth = FirebaseAuth.getInstance();
-        //firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
-        //    @Override
-        //    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-        //        FirebaseUser user = firebaseAuth.getCurrentUser();
-        //        if (user != null){
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null){
 
-        //        }
-        //    }
-        //};
+                }
+            }
+        };*/
 
 
 
@@ -114,19 +114,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
     @Override
     protected void onStart() {
         super.onStart();
 
-        //firebaseAuth.addAuthStateListener(firebaseAuthListener);
-    }
+        firebaseAuth.addAuthStateListener(firebaseAuthListener);
+    }*/
 
     @Override
     protected void onStop() {
         super.onStop();
-        //if (firebaseAuthListener != null) {
-        //    firebaseAuth.removeAuthStateListener(firebaseAuthListener);
-        //}
+        if (firebaseAuthListener != null) {
+            firebaseAuth.removeAuthStateListener(firebaseAuthListener);
+        }
     }
 
     @Override

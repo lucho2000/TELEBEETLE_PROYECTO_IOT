@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.EditarActivity">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/NombreActividadTextField"
+        android:layout_width="310dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="88dp"
+        android:hint="Actividad"
+        app:endIconMode="clear_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextActividad"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            tools:layout_editor_absoluteX="39dp"
+            tools:layout_editor_absoluteY="468dp" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="173dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="440dp"
+        android:background="@color/backgroundColor"
+        android:backgroundTint="@color/backgroundColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.89"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_upload" />
+
+    <TextView
+        android:id="@+id/textViewSubir"
+        android:layout_width="127dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="2dp"
+        android:text="Subir Imagen"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.823"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="121dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="68dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NombreActividadTextField"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/buttonEditarActividad"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:layout_width="180dp"
+        android:layout_height="53dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="284dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Editar Actividad"
+        android:fontFamily="@font/inter"
+        android:textColor="@color/white"
+        app:icon="@drawable/baseline_check_24"
+        app:iconGravity="textEnd"
+        app:iconPadding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/button4"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:layout_width="163dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="284dp"
+        android:backgroundTint="@color/menu_background_grey"
+        android:text="Cancelar"
+        android:fontFamily="@font/inter"
+        android:textColor="@color/white"
+        app:iconGravity="textEnd"
+        app:iconPadding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonEditarActividad"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

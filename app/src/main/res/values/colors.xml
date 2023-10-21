@@ -21,6 +21,7 @@
     <!-- Colores personalizados -->
     <color name="customColor1">#FF8D5D</color> <!-- Ejemplo: Color personalizado 1 -->
     <color name="customColor2">#4CAF50</color> <!-- Ejemplo: Color personalizado 2 -->
+    <color name="clash">#354052</color>
     <!-- Agrega más colores personalizados según tus necesidades -->
 
     <!-- Colores de estado -->
@@ -43,4 +44,14 @@
     <!-- Colores dialogs -->
     <color name="dialog_bg_color">#F5F9FF</color>
 
+    <!-- Colores botones crear y editar eventos / actividad -->
+    <color name="cancelarButtonGrey">#E7EAEE</color>
+    <color name="canelarButtonTextDarkGrey">#64748B</color>
+
+    <!-- border line input text (campos de input) -->
+    <color name="inputTextBorderLineColor">#D0D5DD</color>
+
+    <!-- Colores top menu -->
+    <color name="topAppBarColor">#4A43EC</color>
+    <color name="topAppBarColorNotiBg">#5669FF</color>
 </resources>
