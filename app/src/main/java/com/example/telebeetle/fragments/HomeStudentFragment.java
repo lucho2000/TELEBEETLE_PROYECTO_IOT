@@ -40,6 +40,19 @@ public class HomeStudentFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentHomeStudentBinding.inflate(inflater,container,false);
 
+
+
+
+
+        return binding.getRoot();
+    }
+
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+
         searchView = binding.searchView;
         searchView.clearFocus();
 
@@ -88,11 +101,7 @@ public class HomeStudentFragment extends Fragment {
 
 
 
-        return binding.getRoot();
     }
-
-
-
 
     public void searchList(String text){
 
