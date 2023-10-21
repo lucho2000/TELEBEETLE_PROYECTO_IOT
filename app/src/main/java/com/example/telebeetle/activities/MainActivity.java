@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
                         startActivity(intent);
                     }else{
-                        Toast.makeText(MainActivity.this, "Los c",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Credenciales incorrectas",Toast.LENGTH_SHORT).show();
                     }
                 });
             }else{
