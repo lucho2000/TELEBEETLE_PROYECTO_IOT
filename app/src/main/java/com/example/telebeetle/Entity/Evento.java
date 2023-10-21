@@ -12,6 +12,50 @@ public class Evento {
     private String fecha;
     private String lugar;
 
+    private String descripcion;
+
+    private String nroMaxBarra;
+
+    private String nroMaxParticipante;
+
+    private String delegadoActividadAsignado;
+
+
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getNroMaxBarra() {
+        return nroMaxBarra;
+    }
+
+    public void setNroMaxBarra(String nroMaxBarra) {
+        this.nroMaxBarra = nroMaxBarra;
+    }
+
+    public String getNroMaxParticipante() {
+        return nroMaxParticipante;
+    }
+
+    public void setNroMaxParticipante(String nroMaxParticipante) {
+        this.nroMaxParticipante = nroMaxParticipante;
+    }
+
+    public String getDelegadoActividadAsignado() {
+        return delegadoActividadAsignado;
+    }
+
+    public void setDelegadoActividadAsignado(String delegadoActividadAsignado) {
+        this.delegadoActividadAsignado = delegadoActividadAsignado;
+    }
+
+
+
     public Evento(){
 
     }

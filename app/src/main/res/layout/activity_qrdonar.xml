@@ -6,24 +6,92 @@
     android:layout_height="match_parent"
     tools:context=".activities.QRDonarActivity">
 
-
-    <ImageView
-        android:id="@+id/imageEvent"
-        android:layout_width="262dp"
-        android:layout_height="287dp"
-        android:layout_marginTop="76dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/topappBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/top_appbar_background">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/myToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:background="@color/topAppBarColor"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                android:paddingTop="10dp"
+                app:navigationIcon="@drawable/baseline_arrow_back_changed_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/TopAppBarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/inter"
+                android:text="Donar"
+                android:textColor="#ECE8E8"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/myToolbar"
+                app:layout_constraintTop_toTopOf="@+id/myToolbar" />
+
+            <ImageView
+                android:id="@+id/icon_notification_bg"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/icon_elipse_noti"
+                app:layout_constraintEnd_toEndOf="@+id/myToolbar"
+                app:layout_constraintTop_toTopOf="@+id/myToolbar" />
+
+            <ImageView
+                android:id="@+id/icon_notification"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_elipse_noti"
+                android:src="@drawable/icon_notifications"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_notification_bg"
+                app:layout_constraintEnd_toEndOf="@+id/icon_notification_bg"
+                app:layout_constraintStart_toStartOf="@+id/icon_notification_bg"
+                app:layout_constraintTop_toTopOf="@+id/icon_notification_bg" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <ImageView
+        android:id="@+id/imageEvent"
+        android:layout_width="227dp"
+        android:layout_height="241dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topappBarLayout"
         app:srcCompat="@drawable/qr" />
 
     <Button
         android:id="@+id/buttonSubirImagen"
         style="?attr/materialIconButtonFilledTonalStyle"
-        android:layout_width="147dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/colorLigero"
         android:text="Enviar donacion"
         android:textColor="@color/white"
         android:textSize="16sp"
@@ -37,48 +105,50 @@
         android:id="@+id/textViewNombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="396dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/inter"
         android:text="Nombre del encargado: Victor Diaz"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageEvent" />
 
     <TextView
         android:id="@+id/textViewNumeroYape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:text="Yape/Plin: 963215487"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/inter"
+        app:layout_constraintStart_toStartOf="@+id/textViewNombre"
         app:layout_constraintTop_toBottomOf="@+id/textViewNombre" />
 
     <TextView
         android:id="@+id/textViewSubirImagen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="16dp"
         android:text="Subir imagen"
+        android:fontFamily="@font/inter"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="173dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="168dp"
+        android:layout_width="175dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="20dp"
         android:background="@color/backgroundColor"
         android:backgroundTint="@color/backgroundColor"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNumeroYape"
         app:srcCompat="@android:drawable/ic_menu_upload" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

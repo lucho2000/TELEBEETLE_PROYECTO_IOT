@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import com.example.telebeetle.R;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.storage.StorageReference;
+//import com.google.firebase.storage.StorageReference;
 
 public class EditarActivity extends AppCompatActivity {
 
@@ -19,7 +19,7 @@ public class EditarActivity extends AppCompatActivity {
 
     DatabaseReference databaseReference;
 
-    StorageReference storageReference;
+   // StorageReference storageReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
