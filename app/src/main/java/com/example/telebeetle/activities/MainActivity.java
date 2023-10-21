@@ -10,8 +10,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.telebeetle.R;
+import com.example.telebeetle.databinding.ActivityMainBinding;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.SignInClient;
@@ -41,12 +43,13 @@ public class MainActivity extends AppCompatActivity {
     final int REQ_ONE_TAP = 2;  // Can be any integer unique to the Activity.
     boolean showOneTapUI = true;
 
-
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 /*
         //codigo para autenticacion con google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -102,15 +105,41 @@ public class MainActivity extends AppCompatActivity {
 
 
         /* LINKEO HACIA ACTIVITY GENERAL VIEW*/
-        Button button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+       // Button button = findViewById(R.id.button);
+        /*button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Intermedio.class);
                 startActivity(intent);
             }
-        });
+        });*/
         /* LINKEO HACIA ACTIVITY GENERAL VIEW*/
+
+
+        /** Linkeo para autenticacion con firebase*/
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        binding.button.setOnClickListener(view -> {
+
+            String email = binding.emailLogin.getText().toString();
+            String password = binding.passwordLogin.getText().toString();
+
+            if(!email.isEmpty() && !password.isEmpty()){
+                firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(MainActivity.this, "Credenciales incorrectas",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }else{
+                Toast.makeText(MainActivity.this, "Los campos no pueden estar vacios", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
     }
 

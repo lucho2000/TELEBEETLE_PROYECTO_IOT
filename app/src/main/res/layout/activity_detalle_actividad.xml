@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:textAlignment="center"
+    android:background="@color/white"
     tools:context=".activities.DetalleActividad">
 
 
@@ -13,10 +14,10 @@
         layout="@layout/toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView37"
@@ -31,6 +32,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="231dp"
@@ -70,7 +72,7 @@
                 android:text="Delegado "
                 android:textSize="16sp" />
         </LinearLayout>
-    </LinearLayout>
+    </LinearLayout>-->
 
 
     <Button
@@ -79,8 +81,8 @@
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="340dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:layout_marginBottom="452dp"
+        android:backgroundTint="@color/colorLigero"
         android:text="Finalizar Evento"
         android:textColor="@color/white"
         app:icon="@drawable/baseline_check_24"
@@ -95,8 +97,8 @@
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="340dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:layout_marginBottom="452dp"
+        android:backgroundTint="@color/colorLigero"
         android:text="Crear Evento"
         android:textColor="@color/white"
         app:icon="@drawable/baseline_add_24"
@@ -108,11 +110,13 @@
         app:layout_constraintHorizontal_bias="0.457"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="319dp"
         android:layout_height="47dp"
-        android:layout_marginBottom="232dp"
+        android:background="@drawable/searchview_background"
+        android:layout_marginBottom="328dp"
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.347"
@@ -122,13 +126,12 @@
         android:id="@+id/textView38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="28dp"
         android:text="Lista de eventos"
         app:layout_constraintBottom_toTopOf="@+id/searchView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintHorizontal_bias="0.106"
         app:layout_constraintStart_toStartOf="parent" />
-
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardEvento"
@@ -143,7 +146,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView">
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintVertical_bias="0.100000024">
 
 
         <LinearLayout

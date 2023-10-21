@@ -4,19 +4,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".activities.EditarEventoActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/topappBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/top_appbar_background">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/myToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:background="@color/topAppBarColor"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                android:paddingTop="10dp"
+                app:navigationIcon="@drawable/baseline_arrow_back_changed_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/TopAppBarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/inter"
+                android:text="Editar evento"
+                android:textColor="#ECE8E8"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/myToolbar"
+                app:layout_constraintTop_toTopOf="@+id/myToolbar" />
+
+            <ImageView
+                android:id="@+id/icon_notification_bg"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/icon_elipse_noti"
+                app:layout_constraintEnd_toEndOf="@+id/myToolbar"
+                app:layout_constraintTop_toTopOf="@+id/myToolbar" />
+
+            <ImageView
+                android:id="@+id/icon_notification"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_elipse_noti"
+                android:src="@drawable/icon_notifications"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_notification_bg"
+                app:layout_constraintEnd_toEndOf="@+id/icon_notification_bg"
+                app:layout_constraintStart_toStartOf="@+id/icon_notification_bg"
+                app:layout_constraintTop_toTopOf="@+id/icon_notification_bg" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
         android:id="@+id/textViewMiActividadEditarEvento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="35dp"
         android:text="Mi actividad"
         android:fontFamily="@font/inter"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/NombreActividadEditTextField"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/topappBarLayout"  />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/NombreActividadEditTextField"
@@ -32,8 +100,9 @@
 
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nombreActividadEvento"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:text="Voley"
             tools:layout_editor_absoluteX="39dp"
             tools:layout_editor_absoluteY="468dp" />
@@ -60,7 +129,7 @@
         android:layout_width="310dp"
         android:layout_height="63dp"
         android:layout_marginTop="3dp"
-        android:hint="Partido 1"
+
         app:boxStrokeColor="@color/inputTextBorderLineColor"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,8 +138,9 @@
 
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nombreEvento"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="39dp"
             tools:layout_editor_absoluteY="468dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -102,16 +172,12 @@
        >
 
         <EditText
-            android:id="@+id/editTextComentario"
+            android:id="@+id/editTextDescripcion"
             android:layout_width="310dp"
             android:layout_height="108dp"
             android:layout_marginTop="3dp"
             android:fontFamily="@font/inter"
             android:gravity="start|top"
-            android:hint="Este duelo se ha repetido en varias
-    ocasiones de semana de ingenieria
-    con un historial de 20 victorias, 11 empates
-    y 15 derrotas para la fibra toxica"
             android:inputType="textMultiLine"
             android:lines="5"
             android:textSize="16sp"
@@ -134,11 +200,12 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/FechaTextField"
         android:layout_width="310dp"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:hint="Seleccionar fecha"
+
         app:boxStrokeColor="@color/inputTextBorderLineColor"
-        app:endIconMode="clear_text"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/baseline_calendar_today_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewFecha">
@@ -147,9 +214,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextDate"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:focusable="false"
-            android:drawableEnd="@drawable/baseline_calendar_today_24"
+            android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="39dp"
             tools:layout_editor_absoluteY="468dp" />
 
@@ -164,7 +229,7 @@
         android:drawablePadding="8dp"
         android:text="Hora inicial"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintBottom_toTopOf="@+id/botonCancelarEditarEvento"
         app:layout_constraintStart_toStartOf="@+id/FechaTextField"
         app:layout_constraintTop_toBottomOf="@+id/FechaTextField"
         app:layout_constraintVertical_bias="0.120000005" />
@@ -178,7 +243,7 @@
         android:drawablePadding="8dp"
         android:text="Hora fin"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/botonEditarEvento"
         app:layout_constraintEnd_toEndOf="@+id/FechaTextField"
         app:layout_constraintTop_toBottomOf="@+id/FechaTextField"
         app:layout_constraintVertical_bias="0.120000005" />
@@ -189,12 +254,12 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/botonEditarEvento"
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_width="170dp"
         android:layout_height="52dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/colorLigero"
         android:fontFamily="@font/inter"
         android:text="EDITAR EVENTO"
@@ -205,12 +270,12 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/botonCancelarEditarEvento"
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_width="130dp"
         android:layout_height="52dp"
         android:layout_marginStart="48dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/cancelarButtonGrey"
         android:fontFamily="@font/inter"
         android:text="CANCELAR"

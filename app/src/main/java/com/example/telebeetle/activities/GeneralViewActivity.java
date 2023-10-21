@@ -107,6 +107,7 @@ public class GeneralViewActivity extends AppCompatActivity {
         LinearLayout layoutListarUsuarios = dialog.findViewById(R.id.layoutListarUsuarios);
         LinearLayout layoutEstadisticas = dialog.findViewById(R.id.layoutEstadisticas);
         LinearLayout layoutListarEventos = dialog.findViewById(R.id.layoutListarEventos);
+        LinearLayout layoutCrearEvento = dialog.findViewById(R.id.layoutCrearEvento);
         ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
 
         layoutCrearActividad.setOnClickListener(new View.OnClickListener() {
@@ -157,7 +158,20 @@ public class GeneralViewActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.dismiss();
-                Toast.makeText(GeneralViewActivity.this,"Go live is Clicked",Toast.LENGTH_SHORT).show();
+                Toast.makeText(GeneralViewActivity.this,"Listar Eventos",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        layoutCrearEvento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(GeneralViewActivity.this, CrearEventoActivity.class);
+                startActivity(intent);
+                dialog.dismiss();
+                //Toast.makeText(GeneralViewActivity.this,"Upload a Video is clicked",Toast.LENGTH_SHORT).show();
+
 
             }
         });

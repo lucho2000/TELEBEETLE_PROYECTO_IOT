@@ -76,7 +76,7 @@ public class CrearActivity extends AppCompatActivity {
 
 
         botonCancelar.setOnClickListener(view -> {
-
+                finish();
         });
 
 

@@ -97,8 +97,10 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"  >
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <com.google.android.material.bottomappbar.BottomAppBar
 
@@ -110,8 +112,8 @@
             app:fabAlignmentMode="center"
             app:fabAnchorMode="cradle"
             app:fabCradleMargin="14dp"
-            app:fabCradleVerticalOffset="0dp"
-            app:fabCradleRoundedCornerRadius="75dp">
+            app:fabCradleRoundedCornerRadius="75dp"
+            app:fabCradleVerticalOffset="0dp">
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottomNavigationView"
@@ -119,11 +121,11 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
                 android:background="@android:color/transparent"
-                app:labelVisibilityMode="unlabeled"
-                app:menu="@menu/general_bottom_menu"
-                app:itemIconTint="@drawable/bottom_menu_selector"
                 app:itemActiveIndicatorStyle="@color/white"
-                app:itemRippleColor="@null" />
+                app:itemIconTint="@drawable/bottom_menu_selector"
+                app:itemRippleColor="@null"
+                app:labelVisibilityMode="unlabeled"
+                app:menu="@menu/general_bottom_menu" />
 
         </com.google.android.material.bottomappbar.BottomAppBar>
 
@@ -134,12 +136,12 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/fab_color"
             android:contentDescription="@string/fab_content_description"
+            app:fabCustomSize="61dp"
+            app:layout_anchor="@string/layout_anchor_fab"
+            app:maxImageSize="20dp"
             app:shapeAppearanceOverlay="@style/CustomFabShapeOverlay"
             app:srcCompat="@drawable/baseline_add_box_24"
-            app:layout_anchor="@string/layout_anchor_fab"
-            app:tint="@color/white"
-            app:maxImageSize="20dp"
-            app:fabCustomSize="61dp"/>
+            app:tint="@color/white" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
