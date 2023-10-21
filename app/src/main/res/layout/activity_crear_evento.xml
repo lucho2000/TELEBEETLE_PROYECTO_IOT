@@ -92,7 +92,7 @@
                 android:layout_width="310dp"
                 android:layout_height="63dp"
                 android:layout_marginTop="20dp"
-                android:hint="@string/label"
+                android:hint="Nombre actividad"
                 app:endIconMode="clear_text"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -101,6 +101,7 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nombreActividad"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     tools:layout_editor_absoluteX="39dp"
@@ -123,6 +124,7 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nombreEvento"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     tools:layout_editor_absoluteX="39dp"
@@ -149,7 +151,6 @@
                 android:layout_margin="8dp"
                 android:layout_marginTop="4dp"
                 android:gravity="start|top"
-                android:hint="Descripcion"
                 android:inputType="textMultiLine"
                 android:lines="4"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -294,7 +295,7 @@
 
 
             <Button
-                android:id="@+id/miBoton"
+                android:id="@+id/botonCrearEvento"
                 style="?attr/materialIconButtonFilledTonalStyle"
                 android:layout_width="170dp"
                 android:layout_height="52dp"
