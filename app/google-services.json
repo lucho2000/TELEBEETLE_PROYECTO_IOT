@@ -15,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "594022469863-8djhtlu567cnrfi1cje0oltcka7g05kv.apps.googleusercontent.com",
+          "client_id": "594022469863-h92ugpd8b390ur7u9vj0mtar06ctuv9e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.telebeetle",
+            "certificate_hash": "55c50079f3cff8d2c844f7bc601e4b9fb5bf9db1"
+          }
+        },
+        {
+          "client_id": "594022469863-44kmmlu1npmm6jj4d725eqqvtiuooth3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -28,7 +36,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "594022469863-8djhtlu567cnrfi1cje0oltcka7g05kv.apps.googleusercontent.com",
+              "client_id": "594022469863-44kmmlu1npmm6jj4d725eqqvtiuooth3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
