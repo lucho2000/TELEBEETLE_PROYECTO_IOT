@@ -1,6 +1,7 @@
 package com.example.telebeetle.fragments;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -21,7 +22,10 @@ import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.example.telebeetle.activities.ActivityAdapter;
 import com.example.telebeetle.activities.EventAdapter;
+import com.example.telebeetle.activities.MainActivity;
+import com.example.telebeetle.activities.RegisterActivity;
 import com.example.telebeetle.activities.SolicitudesRegistroAdapter;
+import com.example.telebeetle.activities.ValidarDonacionesActivity;
 import com.example.telebeetle.databinding.FragmentHomeDelegadoGeneralBinding;
 import com.example.telebeetle.databinding.FragmentHomeStudentBinding;
 import com.google.android.material.carousel.CarouselLayoutManager;
@@ -40,6 +44,11 @@ public class HomeDelegadoGeneralFragment extends Fragment {
         cargarListaActividades();
         binding.goSolicitudes.setOnClickListener(view -> {
            showSheetSolicitudes();
+        });
+        binding.goDonaciones.setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity().getApplicationContext(), ValidarDonacionesActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getActivity().getApplicationContext().startActivity(intent);
         });
         return binding.getRoot();
     }

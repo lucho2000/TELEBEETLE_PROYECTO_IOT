@@ -8,6 +8,26 @@ public class Donacion {
 
     private String hora;
 
+    public String getDonante() {
+        return donante;
+    }
+
+    public void setDonante(String donante) {
+        this.donante = donante;
+    }
+
+    private String donante;
+
+    public String getMonto() {
+        return monto;
+    }
+
+    public void setMonto(String monto) {
+        this.monto = monto;
+    }
+
+    private String monto;
+
     public Donacion(){
 
     }

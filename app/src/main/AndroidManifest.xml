@@ -18,6 +18,9 @@
         android:theme="@style/Theme.TeleBeetle"
         tools:targetApi="31">
         <activity
+            android:name=".activities.ValidarDonacionesActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.EditarActivity"
             android:exported="false" />
         <activity
