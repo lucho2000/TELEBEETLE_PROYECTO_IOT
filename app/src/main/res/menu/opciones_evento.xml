@@ -4,10 +4,10 @@
 
     <item
         android:id="@+id/menu_item_option1"
-        android:title="Editar"
-        android:icon="@drawable/baseline_mode_edit_24"/>
+        android:icon="@drawable/baseline_mode_edit_24"
+        android:title="Editar"/>
     <item
         android:id="@+id/menu_item_option2"
-        android:title="Eliminar"
-        android:icon="@drawable/round_clear_24"/>
+        android:icon="@drawable/round_clear_24"
+        android:title="Eliminar"/>
 </menu>

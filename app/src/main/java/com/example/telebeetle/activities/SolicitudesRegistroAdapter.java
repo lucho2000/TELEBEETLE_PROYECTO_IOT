@@ -1,13 +1,17 @@
 package com.example.telebeetle.activities;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.telebeetle.Entity.Usuario;
@@ -43,6 +47,14 @@ public class SolicitudesRegistroAdapter extends RecyclerView.Adapter<Solicitudes
     @Override
     public SolicitudRegistroViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.irv_solicitudes, parent, false);
+        Button accept = view.findViewById(R.id.accept);
+        accept.setOnClickListener(v -> {
+            Toast.makeText(this.getContext(), "Aceptado owo", Toast.LENGTH_SHORT).show();
+        });
+        Button deny = view.findViewById(R.id.deny);
+        deny.setOnClickListener(v -> {
+            Toast.makeText(this.getContext(), "Denegado owo", Toast.LENGTH_SHORT).show();
+        });
         return new SolicitudRegistroViewHolder(view);
     }
 
@@ -61,13 +73,10 @@ public class SolicitudesRegistroAdapter extends RecyclerView.Adapter<Solicitudes
         nombre.setText(u.getNombres() + " " + u.getApellidos());
         TextView codigo = holder.itemView.findViewById(R.id.codigo);
         codigo.setText(u.getCodigo());
-        TextInputEditText correo = holder.itemView.findViewById(R.id.correoPucp);
+        TextView correo = holder.itemView.findViewById(R.id.correoPucp);
         correo.setText(u.getCorreo());
-        correo.setEnabled(false);
-        TextInputEditText condicion = holder.itemView.findViewById(R.id.condicionEstudio);
+        TextView condicion = holder.itemView.findViewById(R.id.condicionEstudio);
         condicion.setText(u.getCondicion());
-        condicion.setEnabled(false);
-
     }
 
     @Override
