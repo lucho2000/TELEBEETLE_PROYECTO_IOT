@@ -53,6 +53,9 @@ public class EscogerDelegadoActivity extends AppCompatActivity {
 
     String urlImagen;
 
+
+    FirebaseStorage storage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

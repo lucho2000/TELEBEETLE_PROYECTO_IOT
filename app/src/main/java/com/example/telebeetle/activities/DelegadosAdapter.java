@@ -35,7 +35,12 @@ public class DelegadosAdapter extends RecyclerView.Adapter<DelegadosAdapter.Dele
         //holder.delegado.getNombre();
 
         TextView textViewNombre = holder.itemView.findViewById(R.id.textView42);
-        textViewNombre.setText(d.getNombres() + " " + d.getApellidos());
+
+        if (d.getApellidos() != null){
+            textViewNombre.setText(d.getNombres() + " " + d.getApellidos());
+        } else {
+            textViewNombre.setText(d.getNombres());
+        }
 
         TextView textViewCodigo = holder.itemView.findViewById(R.id.textView43);
         textViewCodigo.setText(d.getCodigo());

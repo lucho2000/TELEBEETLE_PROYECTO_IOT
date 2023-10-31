@@ -79,13 +79,13 @@
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_width="180dp"
         android:layout_height="53dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="216dp"
-        android:backgroundTint="@color/colorLigero"
-        android:text="Siguiente"
-        android:textColor="@color/white"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/topAppBarColor"
         android:fontFamily="@font/inter"
-        app:icon="@drawable/baseline_arrow_forward_24"
+        android:text="Crear Actividad"
+        android:textColor="@color/white"
+        app:icon="@drawable/ic_baseline_check_circle_24"
         app:iconGravity="textEnd"
         app:iconPadding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -97,11 +97,11 @@
         android:layout_width="163dp"
         android:layout_height="52dp"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="216dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="@color/cancelarButtonGrey"
+        android:fontFamily="@font/inter"
         android:text="Cancelar"
         android:textColor="@color/canelarButtonTextDarkGrey"
-        android:fontFamily="@font/inter"
         app:iconGravity="textEnd"
         app:iconPadding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -113,26 +113,24 @@
         android:id="@+id/imageView7"
         android:layout_width="173dp"
         android:layout_height="70dp"
-        android:layout_marginBottom="352dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="52dp"
         android:background="@color/backgroundColor"
         android:backgroundTint="@color/backgroundColor"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.789"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu"
         app:srcCompat="@android:drawable/ic_menu_upload" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/NombreActividadTextField"
-        android:layout_width="310dp"
-        android:layout_height="63dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="306dp"
+        android:layout_height="58dp"
         android:hint="Actividad"
         app:endIconMode="clear_text"
-        app:layout_constraintTop_toBottomOf="@id/topappBarLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topappBarLayout">
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -168,25 +166,37 @@
         android:id="@+id/textViewSubir"
         android:layout_width="127dp"
         android:layout_height="33dp"
+        android:layout_marginTop="8dp"
         android:text="Subir Imagen"
         android:textAlignment="center"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.728"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintHorizontal_bias="0.456"
+        app:layout_constraintStart_toStartOf="@+id/imageView7"
         app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
     <ImageView
         android:id="@+id/imageViewPrevisualiza"
-        android:layout_width="121dp"
-        android:layout_height="105dp"
+        android:layout_width="123dp"
+        android:layout_height="117dp"
         android:layout_marginStart="48dp"
-        android:layout_marginBottom="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonCancelar"
+        android:layout_marginBottom="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView3"
         app:layout_constraintEnd_toStartOf="@+id/imageView7"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView3"
+        android:layout_width="310dp"
+        android:layout_height="142dp"
+        android:layout_marginBottom="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSiguiente"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSubir" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
