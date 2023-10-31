@@ -15,6 +15,7 @@ import com.example.telebeetle.R;
 import com.example.telebeetle.activities.CambioContraseniaActivity;
 import com.example.telebeetle.activities.MainActivity;
 import com.example.telebeetle.databinding.FragmentProfileBinding;
+import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
@@ -49,11 +50,20 @@ public class ProfileFragment extends Fragment {
 
         binding.imageView16.setOnClickListener(view -> {
 
+
+            AuthUI.getInstance().signOut(getContext())
+                            .addOnCompleteListener(task -> {
+                                Intent intent = new Intent(getContext(), MainActivity.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                            });
+
+            /*
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(getActivity(), "Sesión cerrada exitosamente", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
-            getActivity().finish();
+            getActivity().finish();*/
 
         });
 
