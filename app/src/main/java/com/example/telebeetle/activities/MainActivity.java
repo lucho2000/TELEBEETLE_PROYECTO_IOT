@@ -33,8 +33,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -144,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(signInIntent, REQ_ONE_TAP);*/
 
             googleSignIn();
-
+            disconnectGoogleAccount();
         });
 
     }
@@ -158,45 +162,13 @@ public class MainActivity extends AppCompatActivity {
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }
     }
+    private void disconnectGoogleAccount() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, task -> {
+                    // Realiza la desconexión de la cuenta de Google
+                });
+    }
 
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case REQ_ONE_TAP:
-                try {
-                    SignInClient oneTapClient = null;
-                    SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(data);
-                    String idToken = credential.getGoogleIdToken();
-                    if (idToken != null) {
-
-                        // Got an ID token from Google. Use it to authenticate
-                        // with Firebase.
-                        AuthCredential firebaseCredential = GoogleAuthProvider.getCredential(idToken, null);
-                        firebaseAuth.signInWithCredential(firebaseCredential)
-                                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-                                            // Sign in success, update UI with the signed-in user's information
-                                            //Log.d(TAG, "signInWithCredential:success");
-                                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                                            //updateUI(user);
-                                        } else {
-                                            // If sign in fails, display a message to the user.
-                                            //Log.w(TAG, "signInWithCredential:failure", task.getException());
-                                            //updateUI(null);
-                                        }
-                                    }
-                                });
-                    }
-                } catch (ApiException e) {
-                    throw new RuntimeException(e);
-                }
-                break;
-        }
-    }*/
 
     //REQ_ONE_TAP
 
@@ -218,21 +190,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
 
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        // El inicio de sesión con Google fue exitoso.
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                        // Realiza cualquier acción adicional que necesites aquí.
-                    } else {
-
-                        Log.d("msg-test","El inicio de sesión con Firebase falló.");
-                    }
-                });
-    }
 
     private void googleSignIn() {
 
@@ -250,17 +208,19 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()){
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            /*FirebaseUser user = firebaseAuth.getCurrentUser();
                             HashMap<String, Object> map = new HashMap<>();
 
                             map.put("name",user.getDisplayName());
                             map.put("correo",user.getEmail());
                             map.put("profile",user.getPhotoUrl().toString());
+                            // todo Cambiar el nombre de usuarios y la pagina q redirige
+                            database.getReference().child("usuarios").child(user.getUid()).setValue(map);*/
 
-                            database.getReference().child("usuarios").child(user.getUid()).setValue(map);
-
-                            Intent intent = new Intent(MainActivity.this,GeneralViewActivity.class);
-                            startActivity(intent);
+                            /*Intent intent = new Intent(MainActivity.this,AfterGoogleActivity.class);
+                            startActivity(intent);*/
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            checkUserInDatabase(user.getEmail());
 
                         }else{
                             Log.d("msg-test","Algo paso.");
@@ -272,6 +232,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void checkUserInDatabase(String email) {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("usuarios");
+        usersRef.orderByChild("correo").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // El correo electrónico está en la base de datos, el usuario puede continuar
+                    // redirigiendo a la actividad que desees.
+                    Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
+                    startActivity(intent);
+                } else {
+                    // El correo electrónico no está en la base de datos, el usuario se dirige a una actividad diferente.
+                    Intent intent = new Intent(MainActivity.this, AfterGoogleActivity.class);
+                    startActivity(intent);
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Maneja errores de lectura de la base de datos si es necesario.
+                Log.d("msg-test", "Hubo un error");
+            }
+        });
 
+    }
 }
