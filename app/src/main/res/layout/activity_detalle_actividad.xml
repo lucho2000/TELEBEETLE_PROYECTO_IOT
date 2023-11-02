@@ -14,23 +14,24 @@
         layout="@layout/toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView37"
-        android:layout_width="158dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="164dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Voley Damas"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textColor="#FF9800"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
     <!--
     <LinearLayout
@@ -81,7 +82,6 @@
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="452dp"
         android:backgroundTint="@color/colorLigero"
         android:text="Finalizar Evento"
         android:textColor="@color/white"
@@ -89,148 +89,60 @@
         app:iconGravity="textStart"
         app:iconPadding="16dp"
         app:iconTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonCrearEvento"
         app:layout_constraintEnd_toEndOf="parent" />
+
 
     <Button
         android:id="@+id/buttonCrearEvento"
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="452dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/colorLigero"
         android:text="Crear Evento"
         android:textColor="@color/white"
-        app:icon="@drawable/baseline_add_24"
+        app:icon="@drawable/icon_create_activity"
         app:iconGravity="textStart"
         app:iconPadding="16dp"
         app:iconTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonFinalizarEvento"
-        app:layout_constraintHorizontal_bias="0.457"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="319dp"
-        android:layout_height="47dp"
-        android:background="@drawable/searchview_background"
-        android:layout_marginBottom="328dp"
-        app:layout_constraintBottom_toBottomOf="@+id/include"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.347"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.296"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
     <TextView
         android:id="@+id/textView38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginTop="8dp"
         android:text="Lista de eventos"
-        app:layout_constraintBottom_toTopOf="@+id/searchView"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.106"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardEvento"
-        style="?attr/materialCardViewElevatedStyle"
-        android:layout_width="303dp"
-        android:layout_height="146dp"
-        android:checkable="true"
-        android:clickable="true"
-        android:focusable="true"
-        android:theme="@style/Theme.MaterialComponents.DayNight"
-        app:cardBackgroundColor="#E7E7E7"
-        app:layout_constraintBottom_toBottomOf="@+id/include"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        app:layout_constraintVertical_bias="0.100000024">
+        app:layout_constraintTop_toBottomOf="@+id/buttonCrearEvento" />
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageViewEvento"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/voley" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-
-                <TextView
-                    android:id="@+id/actividad"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Nombre Actividad"
-                    android:textColor="#FF9800"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/descripcion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Evento"
-                    android:textColor="#3F51B5" />
-
-                <TextView
-                    android:id="@+id/fechaEvento"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Fecha"
-                    android:textColor="#3F51B5" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal">
-
-
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/baseline_place_24" />
-
-                    <TextView
-                        android:id="@+id/lugarEvent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Lugar" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <ImageView
-        android:id="@+id/imageViewPuntos"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="189dp"
-        app:layout_constraintBottom_toBottomOf="@+id/include"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="150dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvEventos2"
+        android:layout_width="358dp"
+        android:layout_height="400dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/baseline_more_horiz_24" />
+        app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

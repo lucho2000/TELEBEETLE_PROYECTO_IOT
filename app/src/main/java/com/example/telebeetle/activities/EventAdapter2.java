@@ -1,13 +1,13 @@
 package com.example.telebeetle.activities;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,28 +23,32 @@ import java.util.List;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
-public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder>{
+public class EventAdapter2 extends RecyclerView.Adapter<com.example.telebeetle.activities.EventAdapter2.EventViewHolder>{
 
     private List<Evento> listEvents;
     private Context context;
 
     @NonNull
     @Override
-    public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public EventAdapter2.EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.irv_events, parent, false);
         CardView cardView = view.findViewById(R.id.card);
         cardView.setOnClickListener(view1 -> {
-            Intent intent = new Intent(context, DetallesEvento1.class);
+            Intent intent = new Intent(context, DetalleActividadGeneralActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });
-        return new EventViewHolder(view);
+        ImageView more = view.findViewById(R.id.imageView4);
+        more.setOnClickListener(this::showOverflowMenu);
+        return new EventAdapter2.EventViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull EventAdapter2.EventViewHolder holder, int position) {
         ImageView iv= holder.itemView.findViewById(R.id.imageView3);
         iv.setImageResource(R.drawable.baseline_location_on_24);
+        ImageView iv2= holder.itemView.findViewById(R.id.imageView4);
+        iv2.setImageResource(R.drawable.baseline_more_horiz_24);
         int drawableResourceId = R.drawable.telito;
         Picasso picasso = Picasso.get();
         ImageView imageView = holder.itemView.findViewById(R.id.imageView2);
@@ -76,13 +80,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         return listEvents.size();
     }
 
-    public void searchDataList(ArrayList<Evento> searchList){
-
-        listEvents = searchList;
-        notifyDataSetChanged();
-
-    }
-
     public class EventViewHolder extends RecyclerView.ViewHolder{
 
         Evento evento;
@@ -107,5 +104,28 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     public void setContext(Context context) {
         this.context = context;
+    }
+    private void showOverflowMenu(View v) {
+        PopupMenu popupMenu = new PopupMenu(getContext(), v);
+        popupMenu.getMenuInflater().inflate(R.menu.opciones_evento, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // Handle menu item selection
+                if(item.getItemId() == R.id.menu_item_option1){
+                    Intent intent = new Intent(context, EditarEventoActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    return true;
+                }else if (item.getItemId() == R.id.menu_item_option2){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        });
+
+        popupMenu.show();
     }
 }
