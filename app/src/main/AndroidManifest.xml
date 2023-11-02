@@ -55,6 +55,7 @@
 
         <activity
             android:name=".activities.MapsActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
@@ -73,15 +74,19 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".activities.GeneralActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activities.EditarEventoActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activities.CrearActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activities.CrearEventoActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activities.ScreenEsperaActivity"
@@ -101,9 +106,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.DonacionActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activities.EventsActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".activities.CambioContraseniaActivity"
