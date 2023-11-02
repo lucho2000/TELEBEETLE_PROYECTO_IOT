@@ -17,6 +17,7 @@ import com.example.telebeetle.activities.MainActivity;
 import com.example.telebeetle.databinding.FragmentProfileBinding;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -25,7 +26,7 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 public class ProfileFragment extends Fragment {
 
    FragmentProfileBinding binding;
-
+   FirebaseAuth firebaseAuth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class ProfileFragment extends Fragment {
         int drawableResourceId = R.drawable.juiocesaraliagamachuca;
         Picasso picasso = Picasso.get();
         ImageView imageView = binding.fotoperfil;
+        FirebaseUser user = firebaseAuth.getCurrentUser();
         picasso.load(drawableResourceId)
                 .resize(400,400)
                 .transform(new CropCircleTransformation())
