@@ -48,15 +48,14 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
     public ActivityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.irv_activities_rv_general, parent, false);
         ImageView more = view.findViewById(R.id.more);
-        more.setOnClickListener(v -> {
-            showOverflowMenu(v);
-        });
+        more.setOnClickListener(this::showOverflowMenu);
         return new ActivityViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ActivityViewHolder holder, int position) {
-
+        ImageView iv= holder.itemView.findViewById(R.id.more);
+        iv.setImageResource(R.drawable.baseline_more_horiz_24);
         int drawableResourceId = R.drawable.juiocesaraliagamachuca;
         Picasso picasso = Picasso.get();
         ImageView imageViewDelegado = holder.itemView.findViewById(R.id.imageViewDelegado);

@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.GeneralViewActivity">
-    <!--
+    tools:context=".activities.ValidarDonacionesActivity">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/topappBarLayout"
         android:layout_width="match_parent"
@@ -17,7 +15,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/top_appbar_background">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,6 +26,8 @@
                 android:background="@color/topAppBarColor"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme"
+                android:paddingTop="10dp"
+                app:navigationIcon="@drawable/baseline_arrow_back_changed_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -38,10 +37,10 @@
                 android:id="@+id/TopAppBarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="25dp"
                 android:fontFamily="@font/inter"
-                android:text="Hola, Delegado General"
+                android:text="Validar Donaciones"
                 android:textColor="#ECE8E8"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -54,10 +53,9 @@
                 android:layout_height="45dp"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
                 android:src="@drawable/icon_elipse_noti"
                 app:layout_constraintEnd_toEndOf="@+id/myToolbar"
-                app:layout_constraintHorizontal_bias="0.641"
-                app:layout_constraintStart_toEndOf="@+id/TopAppBarTitle"
                 app:layout_constraintTop_toTopOf="@+id/myToolbar" />
 
             <ImageView
@@ -72,77 +70,19 @@
                 app:layout_constraintStart_toStartOf="@+id/icon_notification_bg"
                 app:layout_constraintTop_toTopOf="@+id/icon_notification_bg" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
-    -->
 
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment_activity_general_view"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_validardonaciones"
+        android:layout_width="390dp"
+        android:layout_height="575dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/nav_graph_general" />
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/CoordinatorLayoutAppBar"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-
-            android:id="@+id/bottomAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:layout_gravity="bottom"
-            android:background="@color/white"
-            app:fabAlignmentMode="center"
-            app:fabAnchorMode="cradle"
-            app:fabCradleMargin="14dp"
-            app:fabCradleRoundedCornerRadius="75dp"
-            app:fabCradleVerticalOffset="0dp">
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigationView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="16dp"
-                android:background="@android:color/transparent"
-                app:itemActiveIndicatorStyle="@color/white"
-                app:itemIconTint="@drawable/bottom_menu_selector"
-                app:itemRippleColor="@null"
-                app:labelVisibilityMode="unlabeled"
-                app:menu="@menu/general_bottom_menu" />
-
-        </com.google.android.material.bottomappbar.BottomAppBar>
-
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/fab_color"
-            android:contentDescription="@string/fab_content_description"
-            app:fabCustomSize="61dp"
-            app:layout_anchor="@string/layout_anchor_fab"
-            app:maxImageSize="20dp"
-            app:shapeAppearanceOverlay="@style/CustomFabShapeOverlay"
-            app:srcCompat="@drawable/baseline_add_box_24"
-            app:tint="@color/white" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        app:layout_constraintTop_toBottomOf="@+id/topappBarLayout"
+        app:layout_constraintVertical_bias="0.304" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

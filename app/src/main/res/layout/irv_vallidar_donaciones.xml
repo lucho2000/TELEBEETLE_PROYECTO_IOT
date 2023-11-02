@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/card"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:checkable="true"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:theme="@style/Theme.MaterialComponents.DayNight"
+    app:layout_constraintBottom_toBottomOf="parent"
+    style="?attr/materialCardViewElevatedStyle"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/fotoYape"
+                android:layout_width="120dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/donacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Donacion para la Aitel"
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="16sp"
+                    android:layout_marginTop="5dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/fechaDonacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="fecha" />
+                <TextView
+                    android:id="@+id/donante"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="donante" />
+                <TextView
+                    android:id="@+id/monto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="monto" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/validar"
+                        android:layout_alignParentStart="true"
+                        style="?attr/materialIconButtonFilledTonalStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorLigero"
+                        android:text="Validar"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/white"
+                        app:icon="@drawable/baseline_check_24"
+                        app:iconTint="@color/white"
+                        app:iconPadding="16dp"/>
+                    <Button
+                        android:id="@+id/invalidar"
+                        android:layout_alignParentEnd="true"
+                        style="?attr/materialIconButtonFilledTonalStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="#BCE9251E"
+                        android:text="Invalidar"
+                        android:textColor="@color/white"
+                        app:icon="@drawable/baseline_close_24"
+                        app:iconTint="@color/white"
+                        app:iconPadding="16dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            app:dividerThickness="1dp"
+            app:dividerColor="@color/textColorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:dividerInsetStart="16dp"
+            app:dividerInsetEnd="16dp"/>
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
