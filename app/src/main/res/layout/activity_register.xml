@@ -157,6 +157,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <Button
         android:id="@+id/buttonRegistro"
         style="?attr/materialIconButtonFilledTonalStyle"
@@ -169,34 +170,34 @@
         app:icon="@drawable/baseline_arrow_forward_24"
         app:iconGravity="textEnd"
         app:iconPadding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nuevaContrasenia" />
-
+        app:layout_constraintBottom_toTopOf="@+id/textViewTieneCuenta"
+        app:layout_constraintEnd_toEndOf="@+id/iniciarSesionTextView"
+        app:layout_constraintHorizontal_bias="0.561"
+        app:layout_constraintStart_toStartOf="@+id/textViewTieneCuenta"
+        app:layout_constraintTop_toBottomOf="@+id/nuevaContrasenia"
+        app:layout_constraintVertical_bias="0.444" />
 
     <TextView
         android:id="@+id/textViewTieneCuenta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginBottom="58dp"
+        android:layout_marginEnd="28dp"
         android:text="¿Ya tiene cuenta?"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/iniciarSesionTextView"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRegistro"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/iniciarSesionTextView" />
 
     <TextView
         android:id="@+id/iniciarSesionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginBottom="52dp"
         android:text="Iniciar Sesión"
         android:textColor="@color/blue"
-        app:layout_constraintStart_toEndOf="@+id/textViewTieneCuenta"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRegistro" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -72,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
         Regex regex =new Regex();
 
         //validaciones para los campos
-        if (!regex.inputisValid(nombreCompleto) ) {
+        /*if (!regex.inputisValid(nombreCompleto) ) {
             Toast.makeText(this, "Ingrese por lo menos un nombre y apellido", Toast.LENGTH_SHORT).show();
         }
 
@@ -86,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (!regex.contrasenaisValid(textContrasenia.getText().toString())){
             Toast.makeText(this, "Ingrese una contraseña que cumpla con las condiciones", Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
         botonRegister.setOnClickListener(view -> {
 
