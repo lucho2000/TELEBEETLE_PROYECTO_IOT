@@ -32,7 +32,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/windowBackgroundColor"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textNombreCompleto"
@@ -54,7 +55,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/windowBackgroundColor"
-        app:layout_constraintTop_toBottomOf="@+id/nombreCompleto">
+        app:layout_constraintTop_toBottomOf="@+id/nombreCompleto"
+        app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textCodigo"
@@ -76,7 +78,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/windowBackgroundColor"
-        app:layout_constraintTop_toBottomOf="@+id/codigoPUCP">
+        app:layout_constraintTop_toBottomOf="@+id/codigoPUCP"
+        app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textCorreo"
@@ -98,7 +101,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/windowBackgroundColor"
-        app:layout_constraintTop_toBottomOf="@+id/correo">
+        app:layout_constraintTop_toBottomOf="@+id/correo"
+        app:errorEnabled="false">
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
@@ -123,7 +127,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/windowBackgroundColor"
-        app:layout_constraintTop_toBottomOf="@+id/condicion">
+        app:layout_constraintTop_toBottomOf="@+id/condicion"
+        app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textContrasenia"
@@ -147,7 +152,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/windowBackgroundColor"
         app:endIconMode="password_toggle"
-        app:layout_constraintTop_toBottomOf="@+id/contrasenia">
+        app:layout_constraintTop_toBottomOf="@+id/contrasenia"
+        app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textNuevaContra"
