@@ -27,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     DatabaseReference databaseReference;
 
-    String nombreCompleto, nombres, apellidos, rol, codigo, contrasena, correo, nuevaContra;
+    String nombreCompleto, nombres, apellidos, condicion, codigo, contrasena, correo, nuevaContra;
 
     EditText textNombre, textCodigo, textContrasenia, textCorreo, textNuevaContra;
 
@@ -94,10 +94,10 @@ public class RegisterActivity extends AppCompatActivity {
             codigo = textCodigo.getText().toString();
             correo = textCorreo.getText().toString();
             contrasena = textContrasenia.getText().toString();
-            rol = autoCompleteTextView.getText().toString();
+            condicion = autoCompleteTextView.getText().toString(); //condicion: alumno o egresado
             nuevaContra = textNuevaContra.getText().toString();
 
-            if (!nombreCompleto.isEmpty() && !codigo.isEmpty() && !rol.isEmpty() && !correo.isEmpty() && !contrasena.isEmpty()
+            if (!nombreCompleto.isEmpty() && !codigo.isEmpty() && !condicion.isEmpty() && !correo.isEmpty() && !contrasena.isEmpty()
                     && !nuevaContra.isEmpty() && contrasena.equalsIgnoreCase(nuevaContra) ){
 
                 Usuario nuevoUsuario  = new Usuario();
@@ -105,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
                 nuevoUsuario.setCodigo(codigo);
                 nuevoUsuario.setCorreo(correo);
                 nuevoUsuario.setContrasena(contrasena);
-                nuevoUsuario.setRol(rol);
+                nuevoUsuario.setRol(condicion);
 
                 databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
                 databaseReference.child(codigo).setValue(nuevoUsuario).addOnCompleteListener(new OnCompleteListener<Void>() {

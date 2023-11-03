@@ -45,7 +45,7 @@ public class CrearEventoActivity extends AppCompatActivity {
 
     TextView horaInicial;
 
-    ImageView fotoEvento;
+    ImageView seleccionIconoHoraInicial, seleccionIconoFecha;
 
     int hour, minute;
 
@@ -70,25 +70,48 @@ public class CrearEventoActivity extends AppCompatActivity {
 
         horaInicial = findViewById(R.id.textViewHoraInicial);
 
+        seleccionIconoHoraInicial = findViewById(R.id.imageView17);
+
+        seleccionIconoFecha = findViewById(R.id.imageView25);
+
         crearEvento = findViewById(R.id.botonCrearEvento);
         cancelar = findViewById(R.id.botonCancelarCrearEvento);
 
         //pasarlos a string
 
 
-        textInputLayoutDatePicker.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDatePicker();
-            }
+        seleccionIconoFecha.setOnClickListener(view -> {
+            showDatePicker();
         });
         //para el date picker
         //MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker().setTitleText("Selecciona la fecha")
                // .setSelection(MaterialDatePicker.todayInUtcMilliseconds()).build();
 
 
-        //datePicker.show(supportFragmentManager, "tag");
+        //para la seleccion de hora inicial y final
 
+        seleccionIconoHoraInicial.setOnClickListener(view -> {
+            final Calendar c = Calendar.getInstance();
+
+            // on below line we are getting our hour, minute.
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            // on below line we are initializing our Time Picker Dialog
+            TimePickerDialog timePickerDialog = new TimePickerDialog(CrearEventoActivity.this,
+                    new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay,
+                                              int minute) {
+                            // on below line we are setting selected time
+                            // in our text view.
+                            horaInicial.setText(hourOfDay + ":" + minute);
+                        }
+                    }, hour, minute, false);
+            // at last we are calling show to
+            // display our time picker dialog.
+            timePickerDialog.show();
+        });
 
 
         crearEvento.setOnClickListener(view -> {
@@ -98,14 +121,16 @@ public class CrearEventoActivity extends AppCompatActivity {
             textDescripcion = descripcion.getText().toString();
             fecha = editTextDate.getText().toString();
 
-            if ( !actividad.isEmpty() && !nombreEvento1.isEmpty() && !textDescripcion.isEmpty() && !fecha.isEmpty() ) {
+
+            if ( !actividad.isEmpty() && !nombreEvento1.isEmpty() && !textDescripcion.isEmpty() && !fecha.isEmpty() && !horaInicial.getText().toString().isEmpty() ) {
 
                 Evento evento = new Evento();
                 evento.setActividad(actividad);
                 evento.setEtapa(nombreEvento1);
                 evento.setDescripcion(textDescripcion);
                 evento.setFecha(fecha);
-                evento.setLugar("Polideportivo"); //combobox: polideportivo o cancha de minas
+                evento.setLugar("Polideportivo");
+                evento.setHora(horaInicial.getText().toString());//combobox: polideportivo o cancha de minas
 
                 databaseReference = FirebaseDatabase.getInstance().getReference("evento");
                 databaseReference.push().setValue(evento).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -117,6 +142,7 @@ public class CrearEventoActivity extends AppCompatActivity {
                             editTextDate.setText("");
                             nombreEvento.setText("");
                             descripcion.setText("");
+                            horaInicial.setText("");
                             Toast.makeText(CrearEventoActivity.this, "Evento creado correctamente", Toast.LENGTH_SHORT).show();
                         }
 
@@ -137,22 +163,31 @@ public class CrearEventoActivity extends AppCompatActivity {
 
 
     public void showDatePicker() {
-        MaterialDatePicker<Long> materialDatePicker =  MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Seleccione fecha del evento")
-                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                .build();
-        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
-            @Override
-            public void onPositiveButtonClick(Long selection) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                dateFormat.setTimeZone(TimeZone.getTimeZone("UTC")); //importante para cuando seleccionas una fecha, no devuelva la fecha anterior durante el formateo
+        final Calendar c = Calendar.getInstance();
 
-                String date = dateFormat.format(new Date(selection));
-                //String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).setTimeZone(TimeZone.getDefault()).format(new Date(selection));
-                editTextDate.setText(MessageFormat.format("{0}",date));
-            }
-        });
-        materialDatePicker.show(getSupportFragmentManager(),"tag");
+        // on below line we are getting
+        // our day, month and year.
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        // on below line we are creating a variable for date picker dialog.
+        DatePickerDialog datePickerDialog = new DatePickerDialog(CrearEventoActivity.this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        // on below line we are setting date to our text view.
+                        editTextDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                    }
+                },
+                // on below line we are passing year,
+                // month and day for selected date in our date picker.
+                year, month, day);
+        // at last we are calling show to
+        // display our date picker dialog.
+        datePickerDialog.show();
+        }
+
     }
-
-}
