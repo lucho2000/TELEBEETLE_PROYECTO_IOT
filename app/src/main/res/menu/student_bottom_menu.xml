@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/homeDelegadoGeneralFragment"
+        android:id="@+id/homeStudentFragment"
         android:icon="@drawable/outline_home_24"
         android:title=""
 
@@ -23,13 +23,13 @@
         android:id="@+id/chatFragment"
         android:icon="@drawable/outline_chat_24"
         android:title=""
-       />
+        />
 
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/outline_profile_24"
         android:title=""
-       />
+        />
 
 
 </menu>

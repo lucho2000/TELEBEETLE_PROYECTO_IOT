@@ -25,4 +25,14 @@
         android:name="com.example.telebeetle.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/homeDelegadoActivitdadFragment"
+        android:name="com.example.telebeetle.fragments.HomeDelegadoActivitdadFragment"
+        android:label="fragment_home_delegado_activitdad"
+        tools:layout="@layout/fragment_home_delegado_activitdad" />
+    <fragment
+        android:id="@+id/homeDelegadoGeneralFragment"
+        android:name="com.example.telebeetle.fragments.HomeDelegadoGeneralFragment"
+        android:label="fragment_home_delegado_general"
+        tools:layout="@layout/fragment_home_delegado_general" />
 </navigation>

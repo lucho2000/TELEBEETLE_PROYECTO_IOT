@@ -1,7 +1,10 @@
 package com.example.telebeetle.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.navigation.NavController;
+import androidx.navigation.NavGraph;
+import androidx.navigation.NavInflater;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
@@ -12,6 +15,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -39,6 +44,13 @@ public class GeneralViewActivity extends AppCompatActivity {
 
     String uidSample= "72411493"; // Replace with your sample UID
 
+    String rol_delegado_general="delegado_general";
+    String rol_delegado_actividad="delegado_actividad";
+    String rol_usuario="usuario";
+
+    String rol_selected = "usuario";
+
+    private int menuToChoose = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,25 +59,90 @@ public class GeneralViewActivity extends AppCompatActivity {
         initCometChat();
 
         BottomNavigationView bottomNavigationView =binding.bottomNavigationView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        /*AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.home, R.id.donation, R.id.fab, R.id.chat,R.id.profile)
-                .build();*/
-        //NavController navController = Navigation.findNavController(binding.navHostFragmentActivityGeneralView);
-        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        if (rol_selected.equals(rol_delegado_general)) {
+            menuToChoose = R.menu.general_bottom_menu;
+            bottomNavigationView.getMenu().clear();
+            bottomNavigationView.inflateMenu(menuToChoose);
 
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_general_view);
-        NavController navController = navHostFragment.getNavController();
-        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+            NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_general_view);
+            NavController navController = navHostFragment.getNavController();
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               showBottomMenuFabDialog();
-            }
-        });
+            NavInflater inflater = navController.getNavInflater();
+            NavGraph graph = inflater.inflate(R.navigation.nav_graph_general);
+            //graph.addArgument("argument", NavArgument)
+            graph.setStartDestination(R.id.homeDelegadoGeneralFragment);
+
+            navHostFragment.getNavController().setGraph(graph);
+            //navHostFragment.getNavController().getGraph().setDefaultArguments(getIntent().getExtras());
+
+            NavigationUI.setupWithNavController(bottomNavigationView, navController);
+            binding.fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showBottomMenuFabDialog();
+                }
+            });
+        } else if (rol_selected.equals(rol_delegado_actividad)) {
+            CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) binding.fab.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            binding.fab.setLayoutParams(p);
+            binding.fab.setVisibility(View.GONE);
+            menuToChoose = R.menu.del_actividad_bottom_menu;
+            bottomNavigationView.getMenu().clear();
+            bottomNavigationView.inflateMenu(menuToChoose);
+
+            NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_general_view);
+            NavController navController = navHostFragment.getNavController();
+
+            NavInflater inflater = navController.getNavInflater();
+            NavGraph graph = inflater.inflate(R.navigation.nav_graph_general);
+            //graph.addArgument("argument", NavArgument)
+            graph.setStartDestination(R.id.homeDelegadoActivitdadFragment);
+
+            navHostFragment.getNavController().setGraph(graph);
+            //navHostFragment.getNavController().getGraph().setDefaultArguments(getIntent().getExtras());
+
+            NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+            //invalidateOptionsMenu();
+
+
+        } else { //rol_usuario fue seleccionado aqui
+            CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) binding.fab.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            binding.fab.setLayoutParams(p);
+            binding.fab.setVisibility(View.GONE);
+            menuToChoose = R.menu.student_bottom_menu;
+            bottomNavigationView.getMenu().clear();
+            bottomNavigationView.inflateMenu(menuToChoose);
+
+            NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_general_view);
+            NavController navController = navHostFragment.getNavController();
+
+            NavInflater inflater = navController.getNavInflater();
+            NavGraph graph = inflater.inflate(R.navigation.nav_graph_general);
+            //graph.addArgument("argument", NavArgument)
+            graph.setStartDestination(R.id.homeStudentFragment);
+
+            navHostFragment.getNavController().setGraph(graph);
+            //navHostFragment.getNavController().getGraph().setDefaultArguments(getIntent().getExtras());
+
+            NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+
+        }
+
     }
+
+
+    /*
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(menuToChoose, menu);
+        return true;
+    }*/
+
 
     private void initCometChat(){
         UIKitSettings uiKitSettings = new UIKitSettings.UIKitSettingsBuilder()
