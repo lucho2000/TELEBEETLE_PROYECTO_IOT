@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,8 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.telebeetle.Entity.Apoyo;
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class ApoyoAdapter extends RecyclerView.Adapter<ApoyoAdapter.ApoyoViewHolder>   {
 
@@ -36,8 +40,15 @@ public class ApoyoAdapter extends RecyclerView.Adapter<ApoyoAdapter.ApoyoViewHol
         holder.usuario = usuario;
 
 
-        TextView nameApoyo = holder.itemView.findViewById(R.id.apoyoName);
-        nameApoyo.setText(usuario.getNombres());
+        int drawableResourceId = R.drawable.juiocesaraliagamachuca;
+        Picasso picasso = Picasso.get();
+        ImageView imageViewDelegado = holder.itemView.findViewById(R.id.fotoperfil);
+        picasso.load(drawableResourceId)
+                .resize(75,75)
+                .transform(new CropCircleTransformation())
+                .into(imageViewDelegado);
+        TextView nameApoyo = holder.itemView.findViewById(R.id.nombre);
+        nameApoyo.setText(usuario.getNombres() + " " + usuario.getApellidos());
         TextView codigoApoyo = holder.itemView.findViewById(R.id.codigoApoyo);
         codigoApoyo.setText(usuario.getCodigo());
 
