@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
+import com.example.telebeetle.services.Regex;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -67,6 +68,25 @@ public class RegisterActivity extends AppCompatActivity {
         AutoCompleteTextView autoCompleteTextView =  findViewById(R.id.autoCompleteTextView);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, opcionesCondicion);
         autoCompleteTextView.setAdapter(adapter);
+
+        Regex regex =new Regex();
+
+        //validaciones para los campos
+        if (!regex.inputisValid(nombreCompleto) ) {
+            Toast.makeText(this, "Ingrese por lo menos un nombre y apellido", Toast.LENGTH_SHORT).show();
+        }
+
+        if (!regex.codigoValid(textCodigo.getText().toString())){
+            Toast.makeText(this, "Ingrese un codigo PUCP valido", Toast.LENGTH_SHORT).show();
+        }
+
+        if (!regex.emailValid(textCorreo.getText().toString())){
+            Toast.makeText(this, "Ingrese un correo valido", Toast.LENGTH_SHORT).show();
+        }
+
+        if (!regex.contrasenaisValid(textContrasenia.getText().toString())){
+            Toast.makeText(this, "Ingrese una contraseña que cumpla con las condiciones", Toast.LENGTH_SHORT).show();
+        }
 
         botonRegister.setOnClickListener(view -> {
 
