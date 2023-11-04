@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -51,7 +52,9 @@ public class EditarEventoActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         //obtener intent con id del evento.
-        String idEvento = "1";
+        Intent intent = getIntent();
+        String idEvento = intent.getStringExtra("uidEvento");
+        Log.d("Uid en editar", idEvento);
 
 
         editTextDatePicker = binding.editTextDate;
@@ -72,6 +75,7 @@ public class EditarEventoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 editarDataEventoFirebase(idEvento);
+                finish();
             }
         });
 

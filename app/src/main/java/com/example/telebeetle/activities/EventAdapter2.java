@@ -2,6 +2,7 @@ package com.example.telebeetle.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,14 +33,6 @@ public class EventAdapter2 extends RecyclerView.Adapter<com.example.telebeetle.a
     @Override
     public EventAdapter2.EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.irv_events, parent, false);
-        CardView cardView = view.findViewById(R.id.card);
-        cardView.setOnClickListener(view1 -> {
-            Intent intent = new Intent(context, DetalleActividadGeneralActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-        });
-        ImageView more = view.findViewById(R.id.imageView4);
-        more.setOnClickListener(this::showOverflowMenu);
         return new EventAdapter2.EventViewHolder(view);
     }
 
@@ -72,6 +65,16 @@ public class EventAdapter2 extends RecyclerView.Adapter<com.example.telebeetle.a
         TextView lugarEvento = holder.itemView.findViewById(R.id.lugarEvent);
         lugarEvento.setText(e.getLugar());
 
+        CardView cardView = holder.itemView.findViewById(R.id.card);
+        cardView.setOnClickListener(view1 -> {
+            Intent intent = new Intent(context, DetalleActividadGeneralActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("Evento", e);
+            context.startActivity(intent);
+        });
+        iv2.setOnClickListener(view -> {
+            showOverflowMenu(view, e);
+        });
 
     }
 
@@ -105,7 +108,7 @@ public class EventAdapter2 extends RecyclerView.Adapter<com.example.telebeetle.a
     public void setContext(Context context) {
         this.context = context;
     }
-    private void showOverflowMenu(View v) {
+    private void showOverflowMenu(View v, Evento e) {
         PopupMenu popupMenu = new PopupMenu(getContext(), v);
         popupMenu.getMenuInflater().inflate(R.menu.opciones_evento, popupMenu.getMenu());
 
@@ -116,7 +119,9 @@ public class EventAdapter2 extends RecyclerView.Adapter<com.example.telebeetle.a
                 if(item.getItemId() == R.id.menu_item_option1){
                     Intent intent = new Intent(context, EditarEventoActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("uidEvento", e.getUidEvento());
                     context.startActivity(intent);
+                    Log.d("uidAdapter", e.getUidEvento());
                     return true;
                 }else if (item.getItemId() == R.id.menu_item_option2){
                     return true;
