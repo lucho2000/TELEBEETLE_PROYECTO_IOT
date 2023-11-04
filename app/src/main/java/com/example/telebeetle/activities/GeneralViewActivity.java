@@ -240,7 +240,7 @@ public class GeneralViewActivity extends AppCompatActivity {
         LinearLayout layoutListarUsuarios = dialog.findViewById(R.id.layoutListarUsuarios);
         LinearLayout layoutEstadisticas = dialog.findViewById(R.id.layoutEstadisticas);
         LinearLayout layoutListarEventos = dialog.findViewById(R.id.layoutListarEventos);
-        LinearLayout layoutCrearEvento = dialog.findViewById(R.id.layoutCrearEvento);
+        //LinearLayout layoutCrearEvento = dialog.findViewById(R.id.layoutCrearEvento);
         ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
 
         layoutCrearActividad.setOnClickListener(new View.OnClickListener() {
@@ -297,7 +297,7 @@ public class GeneralViewActivity extends AppCompatActivity {
             }
         });
 
-        layoutCrearEvento.setOnClickListener(new View.OnClickListener() {
+        /*layoutCrearEvento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -308,7 +308,7 @@ public class GeneralViewActivity extends AppCompatActivity {
 
 
             }
-        });
+        });*/
 
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
