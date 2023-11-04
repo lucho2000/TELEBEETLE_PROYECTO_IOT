@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".activities.RegisterActivity">
 
+
+    <ImageView
+        android:id="@+id/icon_pass"
+        android:layout_width="56dp"
+        android:layout_height="49dp"
+        android:layout_centerVertical="true"
+
+        android:layout_marginStart="88dp"
+        android:layout_marginBottom="28dp"
+        android:src="@drawable/baseline_new_releases_24"
+        app:layout_constraintBottom_toTopOf="@+id/nombreCompleto"
+        app:layout_constraintStart_toEndOf="@+id/textView" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="205dp"
@@ -32,7 +45,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/windowBackgroundColor"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textNombreCompleto"
@@ -54,7 +68,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/windowBackgroundColor"
-        app:layout_constraintTop_toBottomOf="@+id/nombreCompleto">
+        app:layout_constraintTop_toBottomOf="@+id/nombreCompleto"
+        app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textCodigo"
@@ -76,7 +91,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/windowBackgroundColor"
-        app:layout_constraintTop_toBottomOf="@+id/codigoPUCP">
+        app:layout_constraintTop_toBottomOf="@+id/codigoPUCP"
+        app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textCorreo"
@@ -98,7 +114,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/windowBackgroundColor"
-        app:layout_constraintTop_toBottomOf="@+id/correo">
+        app:layout_constraintTop_toBottomOf="@+id/correo"
+        app:errorEnabled="false">
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
@@ -123,7 +140,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/windowBackgroundColor"
-        app:layout_constraintTop_toBottomOf="@+id/condicion">
+        app:layout_constraintTop_toBottomOf="@+id/condicion"
+        app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textContrasenia"
@@ -147,7 +165,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/windowBackgroundColor"
         app:endIconMode="password_toggle"
-        app:layout_constraintTop_toBottomOf="@+id/contrasenia">
+        app:layout_constraintTop_toBottomOf="@+id/contrasenia"
+        app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textNuevaContra"
