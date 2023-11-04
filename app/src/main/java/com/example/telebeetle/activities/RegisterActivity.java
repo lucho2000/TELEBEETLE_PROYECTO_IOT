@@ -3,6 +3,8 @@ package com.example.telebeetle.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,8 @@ import android.widget.Toast;
 
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
+import com.example.telebeetle.databinding.ActivityAfterGoogleBinding;
+import com.example.telebeetle.databinding.ActivityRegisterBinding;
 import com.example.telebeetle.services.Regex;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,10 +44,13 @@ public class RegisterActivity extends AppCompatActivity {
     Button botonRegister;
 
     int valido = 0;
+
+    ActivityRegisterBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        binding = ActivityRegisterBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         botonRegister = findViewById(R.id.buttonRegistro);
         textNombre = findViewById(R.id.textNombreCompleto);
@@ -51,6 +58,30 @@ public class RegisterActivity extends AppCompatActivity {
         textCorreo = findViewById(R.id.textCorreo);
         textContrasenia = findViewById(R.id.textContrasenia);
         textNuevaContra = findViewById(R.id.textNuevaContra);
+
+        /* condiciones de la contraseña*/
+         binding.iconPass.setOnClickListener(view -> {
+
+             AlertDialog.Builder builder = new AlertDialog.Builder(this);
+             builder.setTitle("Condiciones de la contraseña");
+             builder.setMessage("Requisitos para la contraseña, \n" +
+                     "Para ingresar su contraseña nueva, considere las siguientes restricciones:\n" +
+                     "• Que la contraseña contenga al menos ocho caracteres.\n" +
+                     "• Que la contraseña contenga al menos un número.\n" +
+                     "• Que la contraseña contenga al menos un carácter especial (@#$%&*).\n" +
+                     "• Que la contraseña contenga al menos una mayúscula.");
+
+             builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                 public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                 }
+             });
+
+             AlertDialog dialog = builder.create();
+             dialog.show();
+
+         });
+
 
         /* LINKEO HACIA INICIO DE SESION */
         TextView iniciarSesionTextView = findViewById(R.id.iniciarSesionTextView);

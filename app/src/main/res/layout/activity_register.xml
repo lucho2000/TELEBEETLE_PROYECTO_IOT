@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".activities.RegisterActivity">
 
+
+    <ImageView
+        android:id="@+id/icon_pass"
+        android:layout_width="56dp"
+        android:layout_height="49dp"
+        android:layout_centerVertical="true"
+
+        android:layout_marginStart="88dp"
+        android:layout_marginBottom="28dp"
+        android:src="@drawable/baseline_new_releases_24"
+        app:layout_constraintBottom_toTopOf="@+id/nombreCompleto"
+        app:layout_constraintStart_toEndOf="@+id/textView" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="205dp"
