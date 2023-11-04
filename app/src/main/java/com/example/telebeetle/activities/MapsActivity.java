@@ -43,7 +43,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
@@ -85,6 +85,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
 
         ImageView arrow = findViewById(R.id.left_arrow);
@@ -103,55 +104,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
+        googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            @Override
+            public void onMapLoaded() {
+                ArrayList<Marker> markers = new ArrayList<>();
+                LatLng position = new LatLng(latitud, longitud);
+                LatLng position2 = new LatLng(latitudFinal,longituFinal);
 
-        ArrayList<Marker> markers = new ArrayList<>();
-        this.mMap.setOnMapClickListener(this);
-        this.mMap.setOnMapLongClickListener(this);
-        LatLng position = new LatLng(latitud, longitud);
-        LatLng position2 = new LatLng(latitudFinal,longituFinal);
+                Drawable yourDrawable = ContextCompat.getDrawable(MapsActivity.this, R.drawable.telito);
+                int targetWidth = 64;  // Set your target width
+                int targetHeight = 64; // Set your target height
+                Bitmap resizedBitmap = resizeDrawable(yourDrawable, targetWidth, targetHeight);
+                BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(resizedBitmap);
+                MarkerOptions markerOptions = new MarkerOptions()
+                        .position(position)
+                        .title("Telito")
+                        .snippet("Marker Snippet")
+                        .icon(icon);
 
-        Drawable yourDrawable = ContextCompat.getDrawable(this, R.drawable.telito);
-        int targetWidth = 64;  // Set your target width
-        int targetHeight = 64; // Set your target height
-        Bitmap resizedBitmap = resizeDrawable(yourDrawable, targetWidth, targetHeight);
-        BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(resizedBitmap);
-        MarkerOptions markerOptions = new MarkerOptions()
-                .position(position)
-                .title("Telito")
-                .snippet("Marker Snippet")
-                .icon(icon);
+                Marker marker1 = mMap.addMarker(markerOptions);
+                Marker marker2 = mMap.addMarker(new MarkerOptions().position(position2).title(lugar));
+                markers.add(marker1);
+                markers.add(marker2);
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                for (Marker marker : markers) {
+                    builder.include(marker.getPosition());
+                }
+                LatLngBounds bounds = builder.build();
+                int padding = 200; // offset from edges of the map in pixels
+                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                mMap.animateCamera(cu);
+                fetchRoute();
+                // Add a marker in Sydney and move the camera
+                //LatLng sydney = new LatLng(-34, 151);
+                //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+                //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            }
+        });
 
-        Marker marker1 = mMap.addMarker(markerOptions);
-        Marker marker2 = mMap.addMarker(new MarkerOptions().position(position2).title(lugar));
-        markers.add(marker1);
-        markers.add(marker2);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        for (Marker marker : markers) {
-            builder.include(marker.getPosition());
-        }
-        LatLngBounds bounds = builder.build();
-        int padding = 200; // offset from edges of the map in pixels
-        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-        mMap.animateCamera(cu);
-        fetchRoute();
-        // Add a marker in Sydney and move the camera
-        //LatLng sydney = new LatLng(-34, 151);
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-    }
-
-    @Override
-    public void onMapClick(@NonNull LatLng latLng) {
-
-    }
-
-    @Override
-    public void onMapLongClick(@NonNull LatLng latLng) {
 
     }
+
     public boolean tieneInternet(){
         ConnectivityManager manager =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
