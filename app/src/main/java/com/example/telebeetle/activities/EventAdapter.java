@@ -32,12 +32,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @Override
     public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.irv_events, parent, false);
-        CardView cardView = view.findViewById(R.id.card);
-        cardView.setOnClickListener(view1 -> {
-            Intent intent = new Intent(context, DetallesEvento1.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-        });
         return new EventViewHolder(view);
     }
 
@@ -68,6 +62,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         TextView lugarEvento = holder.itemView.findViewById(R.id.lugarEvent);
         lugarEvento.setText(e.getLugar());
 
+        CardView cardView = holder.itemView.findViewById(R.id.card);
+        cardView.setOnClickListener(view1 -> {
+            Intent intent = new Intent(context, DetallesEvento1.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("Evento", e);
+            context.startActivity(intent);
+        });
 
     }
 

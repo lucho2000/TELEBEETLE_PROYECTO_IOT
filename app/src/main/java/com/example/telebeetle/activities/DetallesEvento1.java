@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.ActivityDetallesEvento1Binding;
 import com.example.telebeetle.fragments.OpcionesApoyar;
@@ -31,7 +32,15 @@ public class DetallesEvento1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityDetallesEvento1Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        Intent intent = getIntent();
+        Evento evento = (Evento) intent.getSerializableExtra("Evento");
+        //binding.nombre.setText(evento.getDelegadoActividadAsignado());
+        binding.chip.setText(evento.getActividad());
+        binding.hora.setText(evento.getHora());
+        binding.fecha.setText(evento.getFecha());
+        binding.textView6.setText(evento.getEtapa());
+        binding.lugar.setText(evento.getLugar());
+        binding.textView12.setText(evento.getDescripcion());
         int drawableResourceId = R.drawable.juiocesaraliagamachuca;
         Picasso picasso = Picasso.get();
         ImageView imageView = binding.fotoperfil;
@@ -52,7 +61,7 @@ public class DetallesEvento1 extends AppCompatActivity {
         });
 
         binding.goMapa.setOnClickListener(view -> {
-            mostrarUbicacion();
+            mostrarUbicacion(evento.getLatitud(), evento.getLongitud(), evento.getLugar());
         });
 
     }
@@ -60,7 +69,7 @@ public class DetallesEvento1 extends AppCompatActivity {
         // Use FragmentManager to remove the specified fragment
         getSupportFragmentManager().beginTransaction().remove(fragmentToDelete).commit();
     }
-    public void mostrarUbicacion() {
+    public void mostrarUbicacion(String latitudLugar, String longitudLugar,String lugar) {
 
         int selfPermissionFineLocation = ActivityCompat.checkSelfPermission(DetallesEvento1.this, android.Manifest.permission.ACCESS_FINE_LOCATION);
         int selfPermissionCoarseLocation = ActivityCompat.checkSelfPermission(DetallesEvento1.this, android.Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -76,8 +85,9 @@ public class DetallesEvento1 extends AppCompatActivity {
                     Intent intent = new Intent(DetallesEvento1.this, MapsActivity.class);
                     intent.putExtra("latitud", location.getLatitude());
                     intent.putExtra("longitud", location.getLongitude());
-                    intent.putExtra("latitudFinal", latitudFinal);
-                    intent.putExtra("longitudFinal", longitudFinal);
+                    intent.putExtra("latitudFinal", Double.parseDouble(latitudLugar));
+                    intent.putExtra("longitudFinal", Double.parseDouble(longitudLugar));
+                    intent.putExtra("lugar", lugar);
                     startActivity(intent);
                 }else {
                     Log.d("msg-test", "IIIIIIIIIIIIIIIIIIIII");
@@ -100,7 +110,6 @@ public class DetallesEvento1 extends AppCompatActivity {
                 Boolean coarseLocationGranted = result.get(android.Manifest.permission.ACCESS_COARSE_LOCATION);
                 if (fineLocationGranted != null && fineLocationGranted) {
                     Log.d("msg", "Permiso de ubicación precisa concedido");
-                    mostrarUbicacion();
                 } else if (coarseLocationGranted != null && coarseLocationGranted) {
                     Log.d("msg", "Permiso de ubicación aproximada concedido");
                 } else {
