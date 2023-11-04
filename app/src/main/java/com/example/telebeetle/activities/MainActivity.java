@@ -3,6 +3,7 @@ package com.example.telebeetle.activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +13,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.ActivityMainBinding;
+import com.example.telebeetle.viewmodels.GeneralViewActivityViewModel;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.SignInClient;
@@ -116,8 +119,30 @@ public class MainActivity extends AppCompatActivity {
             if(!email.isEmpty() && !password.isEmpty()){
                 firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
-                        Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
-                        startActivity(intent);
+                        DatabaseReference databaseReference = database.getReference("usuarios");
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()){
+                                    for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                                        //Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                                        if (Objects.requireNonNull(dataSnapshot.getKey()).equalsIgnoreCase(Objects.requireNonNull(task.getResult().getUser()).getUid())) {
+                                            Usuario usuarioDabase = dataSnapshot.getValue(Usuario.class);
+                                            Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
+                                            intent.putExtra("usuario",usuarioDabase);
+                                            startActivity(intent);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
                     }else{
                         Toast.makeText(MainActivity.this, "Credenciales incorrectas",Toast.LENGTH_SHORT).show();
                     }

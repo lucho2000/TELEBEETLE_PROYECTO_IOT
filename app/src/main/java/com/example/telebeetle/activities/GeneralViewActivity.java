@@ -1,7 +1,9 @@
 package com.example.telebeetle.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavGraph;
 import androidx.navigation.NavInflater;
@@ -29,9 +31,18 @@ import com.cometchat.chat.exceptions.CometChatException;
 import com.cometchat.chat.models.User;
 import com.cometchat.chatuikit.shared.cometchatuikit.CometChatUIKit;
 import com.cometchat.chatuikit.shared.cometchatuikit.UIKitSettings;
+import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.ActivityGeneralViewBinding;
+import com.example.telebeetle.viewmodels.GeneralViewActivityViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -46,17 +57,62 @@ public class GeneralViewActivity extends AppCompatActivity {
 
     String rol_delegado_general="delegado_general";
     String rol_delegado_actividad="delegado_actividad";
-    String rol_usuario="usuario";
+    String rol_alumno="Alumno";
 
-    String rol_selected = "usuario";
+    String rol_egresado="Egresado";
 
+    String rol_selected = "delegado_actividad";
+
+    FirebaseAuth firebaseAuth;
+    DatabaseReference databaseReference;
+
+    Usuario usuario;
     private int menuToChoose = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityGeneralViewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Intent intent = getIntent();
+        usuario = (Usuario) intent.getSerializableExtra("usuario");
+        rol_selected = usuario.getCondicion();
+        GeneralViewActivityViewModel generalViewActivityViewModel = new ViewModelProvider(GeneralViewActivity.this).get(GeneralViewActivityViewModel.class);
+        generalViewActivityViewModel.getUsuario().setValue(usuario);
         initCometChat();
+
+
+        /*firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        assert user != null;
+        String firebaseAuthUserUID = user.getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                        //Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                        if (Objects.requireNonNull(dataSnapshot.getKey()).equalsIgnoreCase(firebaseAuthUserUID)) {
+                            Usuario usuarioDabase = dataSnapshot.getValue(Usuario.class);
+                            rol_selected = usuarioDabase.getCondicion();
+                            Log.d("msg-test", rol_selected);
+                            Log.d("msg-test", usuarioDabase.getNombres());
+                            GeneralViewActivityViewModel generalViewActivityViewModel = new ViewModelProvider(GeneralViewActivity.this).get(GeneralViewActivityViewModel.class);
+                            generalViewActivityViewModel.getUsuario().setValue(usuarioDabase);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });*/
+        Log.d("msg-test1",rol_selected);
+
+
 
         BottomNavigationView bottomNavigationView =binding.bottomNavigationView;
         if (rol_selected.equals(rol_delegado_general)) {
