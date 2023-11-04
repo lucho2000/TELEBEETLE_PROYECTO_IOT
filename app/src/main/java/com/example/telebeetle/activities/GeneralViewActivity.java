@@ -48,7 +48,7 @@ public class GeneralViewActivity extends AppCompatActivity {
     String rol_delegado_actividad="delegado_actividad";
     String rol_usuario="usuario";
 
-    String rol_selected = "delegado_actividad";
+    String rol_selected = "delegado_general";
 
     private int menuToChoose = 0;
     @Override
