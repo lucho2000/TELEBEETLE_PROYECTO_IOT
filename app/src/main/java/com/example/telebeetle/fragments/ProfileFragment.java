@@ -53,15 +53,15 @@ public class ProfileFragment extends Fragment {
         binding.imageView16.setOnClickListener(view -> {
 
 
-            AuthUI.getInstance().signOut(getContext())
+            /*AuthUi.getInstance().signOut(getContext())
                             .addOnCompleteListener(task -> {
                                 Intent intent = new Intent(getContext(), MainActivity.class);
                                 startActivity(intent);
                                 getActivity().finish();
-                            });
+                            });*/
 
-            /*
-            FirebaseAuth.getInstance().signOut();
+
+            /*FirebaseAuth.getInstance().signOut();
             Toast.makeText(getActivity(), "Sesión cerrada exitosamente", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);

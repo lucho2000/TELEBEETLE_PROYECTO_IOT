@@ -72,7 +72,7 @@ public class HomeStudentFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                listaEvents.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Evento evento = dataSnapshot.getValue(Evento.class);
                     listaEvents.add(evento);
