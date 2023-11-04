@@ -1,10 +1,14 @@
 package com.example.telebeetle.activities;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -20,6 +24,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -45,6 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Double longitud;
     private Double latitudFinal;
     private Double longituFinal;
+    private String lugar;
     RouteService routeService = new Retrofit.Builder()
                 .baseUrl("https://api.openrouteservice.org/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -68,6 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         longitud = intent.getDoubleExtra("longitud", 1.0);
         latitudFinal = intent.getDoubleExtra("latitudFinal",1.0);
         longituFinal = intent.getDoubleExtra("longitudFinal",1.0);
+        lugar = intent.getStringExtra("lugar");
         Log.d("msg-test","latitud en maps: " + latitud);
         Log.d("msg-test","longitud en maps: " + longitud);
 
@@ -103,8 +111,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         this.mMap.setOnMapLongClickListener(this);
         LatLng position = new LatLng(latitud, longitud);
         LatLng position2 = new LatLng(latitudFinal,longituFinal);
-        Marker marker1 = mMap.addMarker(new MarkerOptions().position(position));
-        Marker marker2 = mMap.addMarker(new MarkerOptions().position(position2));
+
+        Drawable yourDrawable = ContextCompat.getDrawable(this, R.drawable.telito);
+        int targetWidth = 64;  // Set your target width
+        int targetHeight = 64; // Set your target height
+        Bitmap resizedBitmap = resizeDrawable(yourDrawable, targetWidth, targetHeight);
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(resizedBitmap);
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(position)
+                .title("Telito")
+                .snippet("Marker Snippet")
+                .icon(icon);
+
+        Marker marker1 = mMap.addMarker(markerOptions);
+        Marker marker2 = mMap.addMarker(new MarkerOptions().position(position2).title(lugar));
         markers.add(marker1);
         markers.add(marker2);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
@@ -171,5 +191,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             polylineOptions.add(ga);
         }
         mMap.addPolyline(polylineOptions);
+    }
+    public Bitmap resizeDrawable(Drawable drawable, int width, int height) {
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, width, height);
+        drawable.draw(canvas);
+        return bitmap;
     }
 }

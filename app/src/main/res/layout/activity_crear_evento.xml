@@ -78,6 +78,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
@@ -223,7 +224,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextDate"
                     android:layout_width="match_parent"
-                    android:layout_height="57dp"/>
+                    android:layout_height="57dp" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -315,18 +316,20 @@
                     tools:layout_editor_absoluteY="468dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+
+
             <fragment
                 android:id="@+id/mapaLugarActividad"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:name="com.example.telebeetle.activities.MySupportMapFragment"
                 android:layout_width="350dp"
                 android:layout_height="300dp"
                 android:layout_marginTop="24dp"
-                map:cameraZoom="10"
-                map:uiRotateGestures="true"
-                map:uiZoomControls="true"
                 app:layout_constraintEnd_toEndOf="@+id/LugarActividadTextField"
                 app:layout_constraintStart_toStartOf="@+id/LugarActividadTextField"
-                app:layout_constraintTop_toBottomOf="@+id/LugarActividadTextField"></fragment>
+                app:layout_constraintTop_toBottomOf="@+id/LugarActividadTextField"
+                map:cameraZoom="10"
+                map:uiRotateGestures="true"
+                map:uiZoomControls="true"></fragment>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

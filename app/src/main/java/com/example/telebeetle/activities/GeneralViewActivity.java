@@ -61,7 +61,7 @@ public class GeneralViewActivity extends AppCompatActivity {
 
     String rol_egresado="Egresado";
 
-    String rol_selected = "delegado_actividad";
+    String rol_selected = "usuario";
 
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;

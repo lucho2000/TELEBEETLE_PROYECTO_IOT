@@ -2,18 +2,21 @@ package com.example.telebeetle.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -71,6 +74,7 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
 
     GoogleMap mMap;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +94,7 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
         });
         nombreLugar = findViewById(R.id.LugarActividad);
         editTextDate = findViewById(R.id.editTextDate); //fecha
-        //editActividad = findViewById(R.id.nombreActividad); //actividad debe jalarse de la base de datos, y luego dentro se crea el evento
+        editActividad = findViewById(R.id.nombreActividad); //actividad debe jalarse de la base de datos, y luego dentro se crea el evento
         nombreEvento = findViewById(R.id.nombreEvento);
         descripcion = findViewById(R.id.editTextComentario);
         //textFecha = findViewById(R.id.editTextDate);
@@ -140,9 +144,18 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
             timePickerDialog.show();
         });
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapaLugarActividad);
-        assert mapFragment != null;
-        mapFragment.getMapAsync(this);
+        NestedScrollView scroll = (NestedScrollView) findViewById(R.id.scroll);
+        MySupportMapFragment mSupportMapFragment;
+        mSupportMapFragment = (MySupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapaLugarActividad);
+        if(mSupportMapFragment != null)
+            mSupportMapFragment.setListener(new MySupportMapFragment.OnTouchListener() {
+                @Override
+                public void onTouch() {
+                    scroll.requestDisallowInterceptTouchEvent(true);
+                }
+            });
+        assert mSupportMapFragment != null;
+        mSupportMapFragment.getMapAsync(this);
 
         crearEvento.setOnClickListener(view -> {
             maximoParticipantes = String.valueOf(arch);
@@ -207,13 +220,6 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
             finish();
         });
 
-        Toolbar toolbar = findViewById(R.id.myToolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
     }
 
