@@ -140,6 +140,7 @@
 
         </LinearLayout>
 
+        <!--
         <LinearLayout
             android:id="@+id/layoutCrearEvento"
             android:orientation="horizontal"
@@ -163,7 +164,7 @@
                 android:layout_marginLeft="30dp"
                 android:textSize="17sp"/>
 
-        </LinearLayout>
+        </LinearLayout>-->
 
     </LinearLayout>
 
