@@ -234,7 +234,7 @@
         app:layout_constraintTop_toBottomOf="@+id/FechaTextField"
         app:layout_constraintVertical_bias="0.120000005" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/textViewHoraFinal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -246,7 +246,7 @@
         app:layout_constraintBottom_toTopOf="@+id/botonEditarEvento"
         app:layout_constraintEnd_toEndOf="@+id/FechaTextField"
         app:layout_constraintTop_toBottomOf="@+id/FechaTextField"
-        app:layout_constraintVertical_bias="0.120000005" />
+        app:layout_constraintVertical_bias="0.120000005" />-->
 
     <!--app:icon="@drawable/baseline_check_24"
         app:iconGravity="textEnd"

@@ -2,6 +2,7 @@ package com.example.telebeetle.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -63,7 +64,7 @@ public class CrearEventoActivity extends AppCompatActivity {
 
         textInputLayoutDatePicker = findViewById(R.id.FechaTextField);
         editTextDate = findViewById(R.id.editTextDate); //fecha
-        editActividad = findViewById(R.id.nombreActividad); //actividad debe jalarse de la base de datos, y luego dentro se crea el evento
+        //editActividad = findViewById(R.id.nombreActividad); //actividad debe jalarse de la base de datos, y luego dentro se crea el evento
         nombreEvento = findViewById(R.id.nombreEvento);
         descripcion = findViewById(R.id.editTextComentario);
         //textFecha = findViewById(R.id.editTextDate);
@@ -158,6 +159,13 @@ public class CrearEventoActivity extends AppCompatActivity {
             finish();
         });
 
+        Toolbar toolbar = findViewById(R.id.myToolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
     }
 

@@ -1,9 +1,11 @@
 package com.example.telebeetle.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.telebeetle.R;
 import com.github.mikephil.charting.charts.BarChart;
@@ -99,7 +101,13 @@ public class GeneralActivity extends AppCompatActivity {
         pieChart.getDescription().setEnabled(false);
 
 
-
+        Toolbar toolbar = findViewById(R.id.myToolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
     }
