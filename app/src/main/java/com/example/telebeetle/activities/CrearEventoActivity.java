@@ -2,6 +2,7 @@ package com.example.telebeetle.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 
 import android.annotation.SuppressLint;
@@ -36,6 +37,8 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -122,26 +125,7 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
         //para la seleccion de hora inicial y final
 
         seleccionIconoHoraInicial.setOnClickListener(view -> {
-            final Calendar c = Calendar.getInstance();
-
-            // on below line we are getting our hour, minute.
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
-
-            // on below line we are initializing our Time Picker Dialog
-            TimePickerDialog timePickerDialog = new TimePickerDialog(CrearEventoActivity.this,
-                    new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker view, int hourOfDay,
-                                              int minute) {
-                            // on below line we are setting selected time
-                            // in our text view.
-                            horaInicial.setText(hourOfDay + ":" + minute);
-                        }
-                    }, hour, minute, false);
-            // at last we are calling show to
-            // display our time picker dialog.
-            timePickerDialog.show();
+            showTimePicker();
         });
 
         NestedScrollView scroll = (NestedScrollView) findViewById(R.id.scroll);
@@ -221,36 +205,56 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
         });
 
 
+        Toolbar toolbar = findViewById(R.id.myToolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
 
     public void showDatePicker() {
-        final Calendar c = Calendar.getInstance();
+        MaterialDatePicker<Long> materialDatePicker =  MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Seleccione fecha del evento")
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build();
+        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
+            @Override
+            public void onPositiveButtonClick(Long selection) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                dateFormat.setTimeZone(TimeZone.getTimeZone("UTC")); //importante para cuando seleccionas una fecha, no devuelva la fecha anterior durante el formateo
 
-        // on below line we are getting
-        // our day, month and year.
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+                String date = dateFormat.format(new Date(selection));
+                //String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).setTimeZone(TimeZone.getDefault()).format(new Date(selection));
+                editTextDate.setText(MessageFormat.format("{0}",date));
+            }
+        });
+        materialDatePicker.show(getSupportFragmentManager(),"tag");
+    }
+    public void showTimePicker(){
+        MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_12H)
+                .setHour(0) // Initial hour value
+                .setMinute(0) // Initial minute value
+                .setTitleText("Select Time")
+                .build();
+        materialTimePicker.addOnPositiveButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int hour = materialTimePicker.getHour();
+                int minute = materialTimePicker.getMinute();
 
-        // on below line we are creating a variable for date picker dialog.
-        DatePickerDialog datePickerDialog = new DatePickerDialog(CrearEventoActivity.this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-                        // on below line we are setting date to our text view.
-                        editTextDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                // Handle the selected time
+                String selectedTime = String.format("%02d:%02d", hour, minute);
+                horaInicial.setText(selectedTime);
+            }
+        });
 
-                    }
-                },
-                // on below line we are passing year,
-                // month and day for selected date in our date picker.
-                year, month, day);
-        // at last we are calling show to
-        // display our date picker dialog.
-        datePickerDialog.show();
-        }
+        materialTimePicker.show(getSupportFragmentManager(), "tag");
+
+    }
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {

@@ -8,7 +8,7 @@ public class Actividad {
 
     private String imagen;
 
-    private Usuario delegado;
+    private String delegado;
 
     public String getNombreActividad() {
         return nombreActividad;
@@ -34,11 +34,11 @@ public class Actividad {
         this.imagen = imagen;
     }
 
-    public Usuario getDelegado() {
+    public String getDelegado() {
         return delegado;
     }
 
-    public void setDelegado(Usuario delegado) {
+    public void setDelegado(String delegado) {
         this.delegado = delegado;
     }
 }

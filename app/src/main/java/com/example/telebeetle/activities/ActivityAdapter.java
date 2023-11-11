@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.telebeetle.Entity.Activity;
+import com.example.telebeetle.Entity.Actividad;
 import com.example.telebeetle.R;
 import com.squareup.picasso.Picasso;
 
@@ -24,11 +24,11 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ActivityViewHolder> {
 
-    public List<Activity> getListActivities() {
+    public List<Actividad> getListActivities() {
         return listActivities;
     }
 
-    public void setListActivities(List<Activity> listActivities) {
+    public void setListActivities(List<Actividad> listActivities) {
         this.listActivities = listActivities;
     }
 
@@ -40,7 +40,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
         this.context = context;
     }
 
-    private List<Activity> listActivities;
+    private List<Actividad> listActivities;
     private Context context;
 
     @NonNull
@@ -73,11 +73,11 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
                         0
                 ))
                 .into(imageViewActivity);
-        Activity a = listActivities.get(position);
+        Actividad a = listActivities.get(position);
         holder.activity = a;
 
         TextView nombre = holder.itemView.findViewById(R.id.nameActividad);
-        nombre.setText(a.getNombre());
+        nombre.setText(a.getNombreActividad());
         TextView delegado = holder.itemView.findViewById(R.id.nameDelegado);
         delegado.setText(a.getDelegado());
 
@@ -89,7 +89,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
     }
 
     public class ActivityViewHolder extends RecyclerView.ViewHolder{
-        Activity activity;
+        Actividad activity;
         public ActivityViewHolder(@NonNull View itemView){
             super((itemView));
         }

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,18 +18,18 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 
-import com.example.telebeetle.Entity.Activity;
+import com.example.telebeetle.Entity.Actividad;
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.example.telebeetle.activities.ActivityAdapter;
-import com.example.telebeetle.activities.EventAdapter;
-import com.example.telebeetle.activities.MainActivity;
-import com.example.telebeetle.activities.RegisterActivity;
 import com.example.telebeetle.activities.SolicitudesRegistroAdapter;
 import com.example.telebeetle.activities.ValidarDonacionesActivity;
 import com.example.telebeetle.databinding.FragmentHomeDelegadoGeneralBinding;
-import com.example.telebeetle.databinding.FragmentHomeStudentBinding;
-import com.google.android.material.carousel.CarouselLayoutManager;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +38,14 @@ import java.util.Objects;
 public class HomeDelegadoGeneralFragment extends Fragment {
 
     FragmentHomeDelegadoGeneralBinding binding;
+    ActivityAdapter activityAdapter;
+    List<Actividad> activityList;
+    DatabaseReference databaseReference;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeDelegadoGeneralBinding.inflate(inflater,container,false);
-        cargarListaActividades();
         binding.goSolicitudes.setOnClickListener(view -> {
            showSheetSolicitudes();
         });
@@ -53,16 +57,36 @@ public class HomeDelegadoGeneralFragment extends Fragment {
         return binding.getRoot();
     }
 
-    public List<Activity> listaActividadesHarcoede(){
-       List<Activity>  activityList = new ArrayList<>();
-       Activity activity1 = new Activity("Voley mixto", "Willy Huallpa");
-       activityList.add(activity1);
-       Activity activity2 = new Activity("Futsal varones", "Rommel Garay");
-       activityList.add(activity2);
-       Activity activity3 = new Activity("Barras teleenchufe", "Leonardo Abanto");
-       activityList.add(activity3);
-       return activityList;
+    @Override
+    public void onResume(){
+        super.onResume();
+        databaseReference = FirebaseDatabase.getInstance().getReference("actividad"); //datos de firebase de la coleccion de "evento"
+        activityList = new ArrayList<>();
+        activityAdapter = new ActivityAdapter();
+        activityAdapter.setListActivities(activityList);
+        activityAdapter.setContext(getActivity().getApplicationContext());
+        binding.rvActividades.setAdapter(activityAdapter);
+        binding.rvActividades.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), RecyclerView.HORIZONTAL, false));
+
+        //codigo para extraer la data de firebase y mostrarla en el recycler view
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                activityList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Actividad activity = dataSnapshot.getValue(Actividad.class);
+                    activityList.add(activity);
+                }
+                activityAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
+
     public List<Usuario> listaUsuariosHarcodeado(){
         List<Usuario> usuarioList = new ArrayList<>();
         Usuario usuario1 = new Usuario("Rodrigo", "Barrios", "20202073", "a20202073@pucp.edu.pe", "Estudiante");
@@ -73,17 +97,6 @@ public class HomeDelegadoGeneralFragment extends Fragment {
         usuarioList.add(usuario2);
         usuarioList.add(usuario2);
         return usuarioList;
-    }
-
-    public void cargarListaActividades(){
-        List<Activity> listaActivity = listaActividadesHarcoede();
-
-        ActivityAdapter activityAdapter = new ActivityAdapter();
-        activityAdapter.setListActivities(listaActivity);
-        activityAdapter.setContext(getActivity().getApplicationContext());
-
-        binding.rvActividades.setAdapter(activityAdapter);
-        binding.rvActividades.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), RecyclerView.HORIZONTAL, false));
     }
 
     private void showSheetSolicitudes(){

@@ -21,6 +21,8 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,6 +45,7 @@ public class EditarEventoActivity extends AppCompatActivity {
     ActivityEditarEventoBinding binding;
 
     FirebaseDatabase database;
+    TextView horaInicial;
     Evento eventoObjEditar;
 
     @Override
@@ -58,6 +61,7 @@ public class EditarEventoActivity extends AppCompatActivity {
 
 
         editTextDatePicker = binding.editTextDate;
+        horaInicial = findViewById(R.id.textViewHoraInicial);
 
 
         database = FirebaseDatabase.getInstance();
@@ -69,6 +73,9 @@ public class EditarEventoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 showMaterialDesignDatePicker();
             }
+        });
+        binding.imageView17.setOnClickListener(v -> {
+            showTimePicker();
         });
 
         binding.botonEditarEvento.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +100,28 @@ public class EditarEventoActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+    }
+    public void showTimePicker(){
+        MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_12H)
+                .setHour(0) // Initial hour value
+                .setMinute(0) // Initial minute value
+                .setTitleText("Select Time")
+                .build();
+        materialTimePicker.addOnPositiveButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int hour = materialTimePicker.getHour();
+                int minute = materialTimePicker.getMinute();
+
+                // Handle the selected time
+                String selectedTime = String.format("%02d:%02d", hour, minute);
+                horaInicial.setText(selectedTime);
+            }
+        });
+
+        materialTimePicker.show(getSupportFragmentManager(), "tag");
 
     }
 
@@ -121,6 +150,7 @@ public class EditarEventoActivity extends AppCompatActivity {
         TextInputEditText nombreEvento = binding.nombreEvento;
         EditText descripcionEvento = binding.editTextDescripcion;
         DatabaseReference eventosData = database.getReference("evento");
+        TextView hora = binding.textViewHoraInicial;
         eventosData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -133,7 +163,8 @@ public class EditarEventoActivity extends AppCompatActivity {
                             miActividadEditarEvento.setText(eventoObjEditar.getActividad());
                             nombreEvento.setText(eventoObjEditar.getEtapa()); //revisar atributos objeto evento
                             //descripcionEvento.setText(eventoObjEditar.getDescripcion());
-                            descripcionEvento.setText("no hay descripcion aun como campo en firebase");
+                            descripcionEvento.setText(eventoObjEditar.getDescripcion());
+                            hora.setText(eventoObjEditar.getHora());
                         } else {
                             //objeto nulo
                             Log.d("msg-test-firebase","objeto evento nulo. no match with ID");
@@ -155,11 +186,14 @@ public class EditarEventoActivity extends AppCompatActivity {
         String miActividadEditarEvento = binding.nombreActividadEvento.getText().toString();
         String nombreEvento = binding.nombreEvento.getText().toString();
         String descripcionEvento = binding.editTextDescripcion.getText().toString();
+        String horaEvento = binding.textViewHoraInicial.getText().toString();
         DatabaseReference eventosData = database.getReference("evento");
         HashMap<String, Object> eventoUpdate = new HashMap<>();
         eventoUpdate.put("actividad",miActividadEditarEvento);
         eventoUpdate.put("etapa",nombreEvento);
         eventoUpdate.put("fecha",editTextDatePicker.getText().toString());
+        eventoUpdate.put("descripcion", descripcionEvento);
+        eventoUpdate.put("hora", horaEvento);
         //eventoUpdate.put("lugar",);
 
         eventosData.child(idEvento).updateChildren(eventoUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
