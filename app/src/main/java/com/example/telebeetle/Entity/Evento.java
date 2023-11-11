@@ -41,6 +41,16 @@ public class Evento implements Serializable {
     private String latitud;
     private String longitud;
 
+    public String getUidEvento() {
+        return uidEvento;
+    }
+
+    public void setUidEvento(String uidEvento) {
+        this.uidEvento = uidEvento;
+    }
+
+    private String uidEvento;
+
 
 
     public String getDescripcion() {
