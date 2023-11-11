@@ -117,10 +117,35 @@ public class MainActivity extends AppCompatActivity {
             String password = binding.passwordLogin.getText().toString();
 
             if(!email.isEmpty() && !password.isEmpty()){
-                firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
-                    if(task.isSuccessful()){
+                firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(taskAuth -> {
+                    if(taskAuth.isSuccessful()){
                         DatabaseReference databaseReference = database.getReference("usuarios");
-                        databaseReference.addValueEventListener(new ValueEventListener() {
+
+                        databaseReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                if (!task.isSuccessful()) {
+                                    Log.e("firebase", "Error getting data", task.getException());
+                                }
+                                else {
+                                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                                    DataSnapshot snapshot = task.getResult();
+                                    if (snapshot.exists()){
+                                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                                            //Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                                            if (Objects.requireNonNull(dataSnapshot.getKey()).equalsIgnoreCase(Objects.requireNonNull(taskAuth.getResult().getUser()).getUid())) {
+                                                Usuario usuarioDabase = dataSnapshot.getValue(Usuario.class);
+                                                Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
+                                                intent.putExtra("usuario",usuarioDabase);
+                                                startActivity(intent);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                       /* databaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (snapshot.exists()){
@@ -141,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onCancelled(@NonNull DatabaseError error) {
 
                             }
-                        });
+                        });*/
 
                     }else{
                         Toast.makeText(MainActivity.this, "Credenciales incorrectas",Toast.LENGTH_SHORT).show();
