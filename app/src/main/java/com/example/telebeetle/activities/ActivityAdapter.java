@@ -52,6 +52,8 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
 
     @Override
     public void onBindViewHolder(@NonNull ActivityViewHolder holder, int position) {
+        Actividad a = listActivities.get(position);
+        holder.activity = a;
         ImageView iv= holder.itemView.findViewById(R.id.more);
         iv.setImageResource(R.drawable.baseline_more_horiz_24);
         int drawableResourceId = R.drawable.juiocesaraliagamachuca;
@@ -61,18 +63,11 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
                 .resize(75,75)
                 .transform(new CropCircleTransformation())
                 .into(imageViewDelegado);
-        int drawableResourceId2 = R.drawable.voley;
-        Picasso picasso2 = Picasso.get();
         ImageView imageViewActivity = holder.itemView.findViewById(R.id.imageViewActivity);
-        picasso2.load(drawableResourceId2)
-                .resize(240,120)
-                .transform(new RoundedCornersTransformation(
-                        8,
-                        0
-                ))
+        Picasso.get().load(a.getImagen())
+                //.resize(240,120)
+                //.transform(new RoundedCornersTransformation(8,0))
                 .into(imageViewActivity);
-        Actividad a = listActivities.get(position);
-        holder.activity = a;
 
         TextView nombre = holder.itemView.findViewById(R.id.nameActividad);
         nombre.setText(a.getNombreActividad());

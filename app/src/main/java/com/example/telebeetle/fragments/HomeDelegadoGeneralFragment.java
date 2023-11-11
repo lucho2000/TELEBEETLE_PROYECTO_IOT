@@ -39,8 +39,11 @@ public class HomeDelegadoGeneralFragment extends Fragment {
 
     FragmentHomeDelegadoGeneralBinding binding;
     ActivityAdapter activityAdapter;
+    SolicitudesRegistroAdapter solicitudesRegistroAdapter;
+    List<Usuario> solicitudesRegistro;
     List<Actividad> activityList;
     DatabaseReference databaseReference;
+    DatabaseReference databaseReference2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,18 +92,6 @@ public class HomeDelegadoGeneralFragment extends Fragment {
         });
     }
 
-    public List<Usuario> listaUsuariosHarcodeado(){
-        List<Usuario> usuarioList = new ArrayList<>();
-        Usuario usuario1 = new Usuario("Rodrigo", "Barrios", "20202073", "a20202073@pucp.edu.pe", "Estudiante");
-        usuarioList.add(usuario1);
-        Usuario usuario2 = new Usuario("Julio", "Carrion", "20161234", "elmionks2pucp.edu.pe", "Egresado");
-        usuarioList.add(usuario2);
-        usuarioList.add(usuario2);
-        usuarioList.add(usuario2);
-        usuarioList.add(usuario2);
-        return usuarioList;
-    }
-
     private void showSheetSolicitudes(){
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -113,16 +104,34 @@ public class HomeDelegadoGeneralFragment extends Fragment {
             }
         });
 
-        List<Usuario> usuarioList = listaUsuariosHarcodeado();
-
-        SolicitudesRegistroAdapter solicitudesRegistroAdapter = new SolicitudesRegistroAdapter();
-        solicitudesRegistroAdapter.setUsuarioList(usuarioList);
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("usuarios_por_admitir"); //datos de firebase de la coleccion de "evento"
+        solicitudesRegistro = new ArrayList<>();
+        solicitudesRegistroAdapter = new SolicitudesRegistroAdapter();
+        solicitudesRegistroAdapter.setUsuarioList(solicitudesRegistro);
         solicitudesRegistroAdapter.setContext(getActivity().getApplicationContext());
 
         RecyclerView recyclerView = dialog.findViewById(R.id.rv_solicitudesRegistro);
         recyclerView.setAdapter(solicitudesRegistroAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
+        databaseReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                solicitudesRegistro.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    String uidUsuario = dataSnapshot.getKey();
+                    Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                    usuario.setUidUsuario(uidUsuario);
+                    solicitudesRegistro.add(usuario);
+                }
+                solicitudesRegistroAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         dialog.show();
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

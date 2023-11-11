@@ -11,7 +11,17 @@ public class Usuario implements Serializable {
 
     private String contrasena;
 
-    private String imagen;
+    public String getUidUsuario() {
+        return uidUsuario;
+    }
+
+    public void setUidUsuario(String uidUsuario) {
+        this.uidUsuario = uidUsuario;
+    }
+
+    private String uidUsuario;
+
+    private String profile;
 
     private String rol;
 
@@ -57,12 +67,12 @@ public class Usuario implements Serializable {
         this.apellidos = apellidos;
     }
 
-    public String getImagen() {
-        return imagen;
+    public String getProfile() {
+        return profile;
     }
 
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
     public String getRol() {

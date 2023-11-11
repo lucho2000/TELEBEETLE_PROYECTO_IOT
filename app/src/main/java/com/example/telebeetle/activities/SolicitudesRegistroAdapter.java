@@ -47,28 +47,18 @@ public class SolicitudesRegistroAdapter extends RecyclerView.Adapter<Solicitudes
     @Override
     public SolicitudRegistroViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.irv_solicitudes, parent, false);
-        Button accept = view.findViewById(R.id.accept);
-        accept.setOnClickListener(v -> {
-            Toast.makeText(this.getContext(), "Aceptado owo", Toast.LENGTH_SHORT).show();
-        });
-        Button deny = view.findViewById(R.id.deny);
-        deny.setOnClickListener(v -> {
-            Toast.makeText(this.getContext(), "Denegado owo", Toast.LENGTH_SHORT).show();
-        });
         return new SolicitudRegistroViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SolicitudRegistroViewHolder holder, int position) {
-        int drawableResourceId = R.drawable.juiocesaraliagamachuca;
-        Picasso picasso = Picasso.get();
+        Usuario u = usuarioList.get(position);
+        holder.usuario = u;
         ImageView imageViewDelegado = holder.itemView.findViewById(R.id.perfilUsuario);
-        picasso.load(drawableResourceId)
+        Picasso.get().load(u.getProfile())
                 .resize(55,55)
                 .transform(new CropCircleTransformation())
                 .into(imageViewDelegado);
-        Usuario u = usuarioList.get(position);
-        holder.usuario = u;
         TextView nombre = holder.itemView.findViewById(R.id.nombreUsuario);
         nombre.setText(u.getNombres() + " " + u.getApellidos());
         TextView codigo = holder.itemView.findViewById(R.id.codigo);
@@ -88,6 +78,23 @@ public class SolicitudesRegistroAdapter extends RecyclerView.Adapter<Solicitudes
         Usuario usuario;
         public SolicitudRegistroViewHolder(@NonNull View itemView){
             super(itemView);
+            Button accept = itemView.findViewById(R.id.accept);
+            accept.setOnClickListener(v -> {
+                Toast.makeText(context, "Aceptado owo", Toast.LENGTH_SHORT).show();
+            });
+            Button deny = itemView.findViewById(R.id.deny);
+            deny.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    // Remove the item from the dataset and update the RecyclerView
+                    removeItem(position);
+                }
+            });
+
         }
+    }
+    public void removeItem(int position) {
+        usuarioList.remove(position);
+        notifyItemRemoved(position);
     }
 }
