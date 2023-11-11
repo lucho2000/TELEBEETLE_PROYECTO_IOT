@@ -121,7 +121,6 @@ public class EventAdapter2 extends RecyclerView.Adapter<com.example.telebeetle.a
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("uidEvento", e.getUidEvento());
                     context.startActivity(intent);
-                    Log.d("uidAdapter", e.getUidEvento());
                     return true;
                 }else if (item.getItemId() == R.id.menu_item_option2){
                     return true;

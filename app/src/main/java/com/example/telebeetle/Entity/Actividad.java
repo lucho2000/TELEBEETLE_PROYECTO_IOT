@@ -14,6 +14,16 @@ public class Actividad {
         return nombreActividad;
     }
 
+    public String getUidActividad() {
+        return uidActividad;
+    }
+
+    public void setUidActividad(String uidActividad) {
+        this.uidActividad = uidActividad;
+    }
+
+    private String uidActividad;
+
     public void setNombreActividad(String nombreActividad) {
         this.nombreActividad = nombreActividad;
     }

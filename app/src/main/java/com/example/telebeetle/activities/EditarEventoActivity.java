@@ -57,7 +57,6 @@ public class EditarEventoActivity extends AppCompatActivity {
         //obtener intent con id del evento.
         Intent intent = getIntent();
         String idEvento = intent.getStringExtra("uidEvento");
-        Log.d("Uid en editar", idEvento);
 
 
         editTextDatePicker = binding.editTextDate;

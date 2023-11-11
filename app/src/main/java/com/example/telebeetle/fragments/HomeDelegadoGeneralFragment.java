@@ -74,7 +74,9 @@ public class HomeDelegadoGeneralFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 activityList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    String uidActividad = dataSnapshot.getKey();
                     Actividad activity = dataSnapshot.getValue(Actividad.class);
+                    activity.setUidActividad(uidActividad);
                     activityList.add(activity);
                 }
                 activityAdapter.notifyDataSetChanged();

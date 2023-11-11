@@ -47,8 +47,6 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
     @Override
     public ActivityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.irv_activities_rv_general, parent, false);
-        ImageView more = view.findViewById(R.id.more);
-        more.setOnClickListener(this::showOverflowMenu);
         return new ActivityViewHolder(view);
     }
 
@@ -81,6 +79,9 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
         TextView delegado = holder.itemView.findViewById(R.id.nameDelegado);
         delegado.setText(a.getDelegado());
 
+        iv.setOnClickListener(v -> {
+            showOverflowMenu(v, a);
+        });
     }
 
     @Override
@@ -95,7 +96,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
         }
     }
 
-    private void showOverflowMenu(View v) {
+    private void showOverflowMenu(View v, Actividad a) {
         PopupMenu popupMenu = new PopupMenu(getContext(), v);
         popupMenu.getMenuInflater().inflate(R.menu.opciones_evento, popupMenu.getMenu());
 
@@ -106,6 +107,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
                 if(item.getItemId() == R.id.menu_item_option1){
                     Intent intent = new Intent(context,EditarActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("uidActividad", a.getUidActividad());
                     context.startActivity(intent);
                     return true;
                 }else if (item.getItemId() == R.id.menu_item_option2){

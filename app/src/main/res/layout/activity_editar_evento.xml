@@ -262,18 +262,20 @@
     <Button
         android:id="@+id/botonEditarEvento"
         style="?attr/materialIconButtonFilledTonalStyle"
-        android:layout_width="170dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="180dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="48dp"
-        android:backgroundTint="@color/colorLigero"
+        android:backgroundTint="@color/colorPrimary"
         android:fontFamily="@font/inter"
-        android:text="EDITAR EVENTO"
+        android:text="Editar Evento"
         android:textColor="@color/white"
-        android:textSize="15sp"
-        app:cornerRadius="10dp"
+        app:icon="@drawable/baseline_check_24"
+        app:iconGravity="textEnd"
+        app:iconPadding="16dp"
+        app:iconTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FechaTextField" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView17" />
 
     <Button
         android:id="@+id/botonCancelarEditarEvento"
