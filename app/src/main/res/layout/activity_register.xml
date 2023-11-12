@@ -14,7 +14,7 @@
         android:layout_centerVertical="true"
 
         android:layout_marginStart="88dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="16dp"
         android:src="@drawable/baseline_new_releases_24"
         app:layout_constraintBottom_toTopOf="@+id/nombreCompleto"
         app:layout_constraintStart_toEndOf="@+id/textView" />
@@ -23,8 +23,8 @@
         android:id="@+id/textView"
         android:layout_width="205dp"
         android:layout_height="51dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="44dp"
         android:fontFamily="@font/bree_serif"
         android:text="Registro"
         android:textAppearance="@style/TextAppearance.MyApp.DisplaySmall"
@@ -40,7 +40,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Nombre completo"
+        android:hint="Nombres"
         app:startIconDrawable="@drawable/baseline_person_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,6 +55,31 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/apellidos"
+        style="?attr/textInputFilledStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Apellidos"
+        app:startIconDrawable="@drawable/baseline_person_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:boxBackgroundColor="@color/windowBackgroundColor"
+        app:layout_constraintTop_toBottomOf="@+id/nombreCompleto"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textApellidos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/codigoPUCP"
         style="?attr/textInputFilledStyle"
@@ -68,7 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/windowBackgroundColor"
-        app:layout_constraintTop_toBottomOf="@+id/nombreCompleto"
+        app:layout_constraintTop_toBottomOf="@+id/apellidos"
         app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -191,10 +216,10 @@
         app:iconPadding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textViewTieneCuenta"
         app:layout_constraintEnd_toEndOf="@+id/iniciarSesionTextView"
-        app:layout_constraintHorizontal_bias="0.561"
+        app:layout_constraintHorizontal_bias="0.609"
         app:layout_constraintStart_toStartOf="@+id/textViewTieneCuenta"
         app:layout_constraintTop_toBottomOf="@+id/nuevaContrasenia"
-        app:layout_constraintVertical_bias="0.444" />
+        app:layout_constraintVertical_bias="0.703" />
 
     <TextView
         android:id="@+id/textViewTieneCuenta"
@@ -202,17 +227,17 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
         android:text="¿Ya tiene cuenta?"
+        app:layout_constraintBottom_toBottomOf="@+id/iniciarSesionTextView"
         app:layout_constraintEnd_toStartOf="@+id/iniciarSesionTextView"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/iniciarSesionTextView" />
+        app:layout_constraintHorizontal_bias="0.821"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/iniciarSesionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="92dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="24dp"
         android:text="Iniciar Sesión"
         android:textColor="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"

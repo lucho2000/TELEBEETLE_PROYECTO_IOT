@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     DatabaseReference databaseReference;
 
-    String nombreCompleto, nombres, apellidos, condicion, codigo, contrasena, correo, nuevaContra;
+    String nombreCompleto, apellidos, condicion, codigo, contrasena, correo, nuevaContra;
 
     EditText textNombre, textCodigo, textContrasenia, textCorreo, textNuevaContra;
 
@@ -108,17 +108,23 @@ public class RegisterActivity extends AppCompatActivity {
             valido = 0;
 
             nombreCompleto = textNombre.getText().toString();
+            apellidos = binding.textApellidos.getText().toString();
             codigo = textCodigo.getText().toString();
             correo = textCorreo.getText().toString();
             contrasena = textContrasenia.getText().toString();
             condicion = autoCompleteTextView.getText().toString(); //condicion: alumno o egresado
             nuevaContra = textNuevaContra.getText().toString();
 
-            if (!nombreCompleto.isEmpty() && !codigo.isEmpty() && !condicion.isEmpty() && !correo.isEmpty() && !contrasena.isEmpty()
+            if (!nombreCompleto.isEmpty() && !apellidos.isEmpty() && !codigo.isEmpty() && !condicion.isEmpty() && !correo.isEmpty() && !contrasena.isEmpty()
                     && !nuevaContra.isEmpty()  ){
 
                 if (!regex.inputisValid(nombreCompleto) ) {
-                    textNombre.setError("Ingrese por lo menos un nombre y apellido");
+                    textNombre.setError("Ingrese por lo menos un nombre");
+                    valido++;
+                }
+
+                if (!regex.inputisValid(apellidos) ) {
+                    textNombre.setError("Ingrese por lo menos un apellido");
                     valido++;
                 }
 
@@ -144,6 +150,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if(valido==0){
                     Usuario nuevoUsuario  = new Usuario();
                     nuevoUsuario.setNombres(nombreCompleto);
+                    nuevoUsuario.setApellidos(apellidos);
                     nuevoUsuario.setCodigo(codigo);
                     nuevoUsuario.setCorreo(correo);
                     nuevoUsuario.setContrasena(contrasena);
@@ -155,6 +162,7 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
 
                             textNombre.setText("");
+                            binding.textApellidos.setText("");
                             textCodigo.setText("");
                             textCorreo.setText("");
                             textRol.setText("");
