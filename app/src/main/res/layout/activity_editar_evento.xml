@@ -78,19 +78,19 @@
         android:id="@+id/textViewMiActividadEditarEvento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:text="Mi actividad"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/inter"
+        android:text="Mi actividad"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/NombreActividadEditTextField"
-        app:layout_constraintTop_toBottomOf="@id/topappBarLayout"  />
+        app:layout_constraintTop_toBottomOf="@id/topappBarLayout" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/NombreActividadEditTextField"
         android:layout_width="310dp"
         android:layout_height="63dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="8dp"
         app:boxStrokeColor="@color/inputTextBorderLineColor"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,7 +114,7 @@
         android:id="@+id/textViewNombreEventoEditarEvento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/inter"
         android:text="Nombre del evento"
         android:textSize="16sp"
@@ -128,7 +128,7 @@
         android:id="@+id/NombreEventoEditTextField"
         android:layout_width="310dp"
         android:layout_height="63dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="8dp"
 
         app:boxStrokeColor="@color/inputTextBorderLineColor"
         app:endIconMode="clear_text"
@@ -150,7 +150,7 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:text="Descripcion del evento"
         android:textSize="16sp"
 
@@ -159,17 +159,15 @@
         app:layout_constraintTop_toBottomOf="@+id/NombreEventoEditTextField" />
 
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/descripcionEventoEditTextField"
         android:layout_width="310dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="8dp"
         app:boxStrokeColor="@color/inputTextBorderLineColor"
-        app:layout_constraintTop_toBottomOf="@+id/textView12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-       >
+        app:layout_constraintTop_toBottomOf="@+id/textView12">
 
         <EditText
             android:id="@+id/editTextDescripcion"
@@ -190,7 +188,7 @@
         android:id="@+id/textViewFecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="8dp"
         android:text="Fecha"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -224,15 +222,23 @@
         android:id="@+id/textViewHoraInicial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:drawableRight="@drawable/baseline_access_time_24"
+        android:layout_marginTop="16dp"
         android:drawablePadding="8dp"
-        android:text="Hora inicial"
+        android:text="Hora inicio"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/botonCancelarEditarEvento"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/FechaTextField"
-        app:layout_constraintTop_toBottomOf="@+id/FechaTextField"
-        app:layout_constraintVertical_bias="0.120000005" />
+        app:layout_constraintTop_toBottomOf="@+id/FechaTextField" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewHoraInicial"
+        app:layout_constraintStart_toEndOf="@+id/textViewHoraInicial"
+        app:layout_constraintTop_toTopOf="@+id/textViewHoraInicial"
+        app:srcCompat="@drawable/baseline_access_time_24" />
 
     <!--<TextView
         android:id="@+id/textViewHoraFinal"
@@ -256,18 +262,20 @@
     <Button
         android:id="@+id/botonEditarEvento"
         style="?attr/materialIconButtonFilledTonalStyle"
-        android:layout_width="170dp"
-        android:layout_height="52dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="32dp"
-        android:backgroundTint="@color/colorLigero"
+        android:layout_width="180dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="48dp"
+        android:backgroundTint="@color/colorPrimary"
         android:fontFamily="@font/inter"
-        android:text="EDITAR EVENTO"
+        android:text="Editar Evento"
         android:textColor="@color/white"
-        android:textSize="15sp"
-        app:cornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:icon="@drawable/baseline_check_24"
+        app:iconGravity="textEnd"
+        app:iconPadding="16dp"
+        app:iconTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView17" />
 
     <Button
         android:id="@+id/botonCancelarEditarEvento"
@@ -275,14 +283,13 @@
         android:layout_width="130dp"
         android:layout_height="52dp"
         android:layout_marginStart="48dp"
-        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/cancelarButtonGrey"
         android:fontFamily="@font/inter"
         android:text="CANCELAR"
         android:textColor="@color/canelarButtonTextDarkGrey"
         android:textSize="15sp"
         app:cornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/botonEditarEvento"
         app:layout_constraintStart_toStartOf="parent" />
 
 

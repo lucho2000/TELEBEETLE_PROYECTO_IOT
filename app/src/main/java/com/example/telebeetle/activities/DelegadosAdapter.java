@@ -8,12 +8,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
+import com.example.telebeetle.viewmodels.CrearActivityViewModel;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DelegadosAdapter extends RecyclerView.Adapter<DelegadosAdapter.DelegadoViewHolder>{
 
@@ -46,19 +50,19 @@ public class DelegadosAdapter extends RecyclerView.Adapter<DelegadosAdapter.Dele
         textViewCodigo.setText(d.getCodigo());
 
         ImageView imageViewIcono =  holder.itemView.findViewById(R.id.imageView20);
-        Boolean condicion = true;
+        CrearActivityViewModel crearActivityViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(CrearActivityViewModel.class);
 
-        if (condicion){
-
-            imageViewIcono.setOnClickListener(view -> {
+        AtomicBoolean condicion = new AtomicBoolean(true);
+        imageViewIcono.setOnClickListener(view -> {
+            if(condicion.get()){
                 imageViewIcono.setImageResource(R.drawable.baseline_check_24);
-            });
-        } else {
-            imageViewIcono.setOnClickListener(view -> {
+                crearActivityViewModel.getCodigo().postValue(d.getCodigo());
+                condicion.set(false);
+            }else{
                 imageViewIcono.setImageResource(R.drawable.baseline_add_24);
-            });
-        }
-
+                condicion.set(true);
+            }
+        });
     }
 
     @Override

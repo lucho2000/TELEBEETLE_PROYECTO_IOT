@@ -6,17 +6,13 @@ public class Donacion {
 
     private String fecha;
 
-    private String hora;
+    private String monto;
 
-    public String getDonante() {
-        return donante;
-    }
+    private Boolean accepted;
 
-    public void setDonante(String donante) {
-        this.donante = donante;
-    }
+    private String imagenCaptura;
 
-    private String donante;
+
 
     public String getMonto() {
         return monto;
@@ -26,16 +22,13 @@ public class Donacion {
         this.monto = monto;
     }
 
-    private String monto;
-
     public Donacion(){
 
     }
 
-    public Donacion(String asunto, String fecha, String hora) {
+    public Donacion(String asunto, String fecha) {
         this.asunto = asunto;
         this.fecha = fecha;
-        this.hora = hora;
     }
 
     public String getAsunto() {
@@ -54,11 +47,19 @@ public class Donacion {
         this.fecha = fecha;
     }
 
-    public String getHora() {
-        return hora;
+    public Boolean getAccepted() {
+        return accepted;
     }
 
-    public void setHora(String hora) {
-        this.hora = hora;
+    public void setAccepted(Boolean accepted) {
+        this.accepted = accepted;
+    }
+
+    public String getImagenCaptura() {
+        return imagenCaptura;
+    }
+
+    public void setImagenCaptura(String imagenCaptura) {
+        this.imagenCaptura = imagenCaptura;
     }
 }

@@ -70,7 +70,6 @@ public class DetalleActividad extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     String uidEvento = dataSnapshot.getKey();
                     Evento evento = dataSnapshot.getValue(Evento.class);
-                    Log.d("uid", uidEvento);
                     evento.setUidEvento(uidEvento);
                     listaEvents.add(evento);
                 }

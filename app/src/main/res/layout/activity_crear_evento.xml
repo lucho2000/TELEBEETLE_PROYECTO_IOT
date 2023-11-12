@@ -96,7 +96,7 @@
                 android:id="@+id/NombreActividadTextField"
                 android:layout_width="310dp"
                 android:layout_height="63dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:hint="Nombre actividad"
                 app:endIconMode="clear_text"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -108,7 +108,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/nombreActividad"
                     android:layout_width="match_parent"
-                    android:layout_height="63dp"
+                    android:layout_height="wrap_content"
                     tools:layout_editor_absoluteX="39dp"
                     tools:layout_editor_absoluteY="468dp" />
 
@@ -120,18 +120,18 @@
                 android:id="@+id/EventoTextField"
                 android:layout_width="307dp"
                 android:layout_height="56dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/label2"
                 app:endIconMode="clear_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/NombreActividadTextField"
+                app:layout_constraintStart_toStartOf="@+id/NombreActividadTextField"
                 app:layout_constraintTop_toBottomOf="@id/NombreActividadTextField">
 
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/nombreEvento"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="wrap_content"
                     tools:layout_editor_absoluteX="39dp"
                     tools:layout_editor_absoluteY="468dp" />
 
@@ -142,26 +142,36 @@
                 android:id="@+id/textView12"
                 android:layout_width="196dp"
                 android:layout_height="22dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:text="Descripcion del evento"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/EventoTextField"
                 app:layout_constraintTop_toBottomOf="@id/EventoTextField" />
 
-            <EditText
-                android:id="@+id/editTextComentario"
-                android:layout_width="297dp"
-                android:layout_height="67dp"
-                android:layout_margin="8dp"
-                android:layout_marginTop="4dp"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:lines="4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.472"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView12" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/descripcionEventoEditTextField"
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:boxStrokeColor="@color/inputTextBorderLineColor"
+                app:layout_constraintStart_toStartOf="@+id/textView12"
+                app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+                <EditText
+                    android:id="@+id/editTextComentario"
+                    android:layout_width="310dp"
+                    android:layout_height="108dp"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/inter"
+                    android:gravity="start|top"
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView12" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline3"
@@ -181,11 +191,11 @@
                 android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="34dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:text="Max. participantes equipo"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/editTextComentario"
-                app:layout_constraintTop_toBottomOf="@+id/editTextComentario" />
+                app:layout_constraintStart_toStartOf="@+id/descripcionEventoEditTextField"
+                app:layout_constraintTop_toBottomOf="@+id/descripcionEventoEditTextField" />
 
 
             <NumberPicker
@@ -206,18 +216,17 @@
                 android:text="Fecha"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/FechaTextField"
+                app:layout_constraintStart_toStartOf="@+id/textView15"
                 app:layout_constraintTop_toBottomOf="@+id/numberPicker2" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/FechaTextField"
                 android:layout_width="177dp"
-                android:layout_height="57dp"
-                android:layout_marginStart="52dp"
-                android:layout_marginTop="16dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:hint="Seleccionar fecha"
                 app:endIconMode="clear_text"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textViewFecha"
                 app:layout_constraintTop_toBottomOf="@+id/textViewFecha">
 
 
@@ -234,20 +243,21 @@
                 android:id="@+id/textViewHoraInicial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:drawablePadding="8dp"
                 android:text="Hora inicio"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/FechaTextField"
-                app:layout_constraintTop_toTopOf="@+id/imageView17" />
+                app:layout_constraintTop_toBottomOf="@+id/FechaTextField" />
 
             <Button
                 android:id="@+id/botonCrearEvento"
                 style="?attr/materialIconButtonFilledTonalStyle"
                 android:layout_width="170dp"
                 android:layout_height="52dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="44dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="48dp"
                 android:backgroundTint="@color/colorLigero"
                 android:fontFamily="@font/inter"
                 android:text="CREAR EVENTO"
@@ -278,10 +288,10 @@
                 android:id="@+id/imageView17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewHoraInicial"
                 app:layout_constraintStart_toEndOf="@+id/textViewHoraInicial"
-                app:layout_constraintTop_toBottomOf="@+id/FechaTextField"
+                app:layout_constraintTop_toTopOf="@+id/textViewHoraInicial"
                 app:srcCompat="@drawable/baseline_access_time_24" />
 
             <ImageView
@@ -302,16 +312,14 @@
                 android:layout_marginTop="16dp"
                 android:hint="Lugar"
                 app:endIconMode="clear_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.534"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textViewHoraInicial"
                 app:layout_constraintTop_toBottomOf="@+id/textViewHoraInicial">
 
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/LugarActividad"
                     android:layout_width="match_parent"
-                    android:layout_height="63dp"
+                    android:layout_height="wrap_content"
                     tools:layout_editor_absoluteX="39dp"
                     tools:layout_editor_absoluteY="468dp" />
             </com.google.android.material.textfield.TextInputLayout>

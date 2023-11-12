@@ -3,6 +3,7 @@ package com.example.telebeetle.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,14 +15,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.telebeetle.Entity.Activity;
 import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.R;
 import com.example.telebeetle.activities.DetalleActividad;
-import com.example.telebeetle.activities.DetalleActividadGeneralActivity;
 import com.example.telebeetle.activities.EventHorizontalAdapter;
 import com.example.telebeetle.databinding.FragmentHomeDelegadoActivitdadBinding;
-import com.example.telebeetle.databinding.FragmentHomeDelegadoGeneralBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -33,6 +36,9 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class HomeDelegadoActivitdadFragment extends Fragment {
     FragmentHomeDelegadoActivitdadBinding binding;
+    EventHorizontalAdapter eventHorizontalAdapter;
+    DatabaseReference databaseReference;
+    List<Evento> listaEvents;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,26 +73,36 @@ public class HomeDelegadoActivitdadFragment extends Fragment {
         nombre.setText("Voley Damas");
         TextView delegado = binding.nameDelegado2;
         delegado.setText("Julio Aliaga");
-        cargarListaEventos();
         return binding.getRoot();
     }
-    public List<Evento> listaEventHardcodeado(){
-        List<Evento> eventoList = new ArrayList<>();
-        for(int i=0; i<10; i++){
-            Evento event = new Evento("Voley Damas", "Curatos de Final", "01/11/23", "Polideportivo");
-            event.setHora(i+":00 pm");
-            eventoList.add(event);
-        }
-        return eventoList;
-    }
-    public void cargarListaEventos(){
-        List<Evento> eventoList = listaEventHardcodeado();
-        EventHorizontalAdapter eventHorizontalAdapter = new EventHorizontalAdapter();
-        eventHorizontalAdapter.setEventoList(eventoList);
-        eventHorizontalAdapter.setContext(getActivity().getApplicationContext());
+    @Override
 
+    public void onResume() {
+        super.onResume();
+        databaseReference = FirebaseDatabase.getInstance().getReference("evento"); //datos de firebase de la coleccion de "evento"
+        listaEvents = new ArrayList<>();
+        eventHorizontalAdapter = new EventHorizontalAdapter();
+        eventHorizontalAdapter.setEventoList(listaEvents);
+        eventHorizontalAdapter.setContext(getActivity().getApplicationContext());
         binding.rvEventos.setAdapter(eventHorizontalAdapter);
         binding.rvEventos.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), RecyclerView.HORIZONTAL, false));
-    }
 
+        //codigo para extraer la data de firebase y mostrarla en el recycler view
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listaEvents.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Evento evento = dataSnapshot.getValue(Evento.class);
+                    listaEvents.add(evento);
+                }
+                eventHorizontalAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }

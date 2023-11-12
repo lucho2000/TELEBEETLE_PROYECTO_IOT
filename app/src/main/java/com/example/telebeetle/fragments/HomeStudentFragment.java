@@ -39,29 +39,17 @@ public class HomeStudentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeStudentBinding.inflate(inflater,container,false);
-
-
-
-
-
         return binding.getRoot();
     }
 
 
     @Override
     public void onResume() {
-
         super.onResume();
-
         searchView = binding.searchView;
         searchView.clearFocus();
-
         databaseReference = FirebaseDatabase.getInstance().getReference("evento"); //datos de firebase de la coleccion de "evento"
-
-
-
         listaEvents = new ArrayList<>();
-
         eventAdapter = new EventAdapter();
         eventAdapter.setListEvents(listaEvents);
         eventAdapter.setContext(getActivity().getApplicationContext());
@@ -79,10 +67,8 @@ public class HomeStudentFragment extends Fragment {
                 }
                 eventAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
@@ -91,29 +77,21 @@ public class HomeStudentFragment extends Fragment {
             public boolean onQueryTextSubmit(String s) {
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String s) {
                 searchList(s);
                 return true;
             }
         });
-
-
-
     }
 
     public void searchList(String text){
-
         ArrayList<Evento> searchList = new ArrayList<>();
         for(Evento evento: listaEvents){
-            if(evento.getActividad().toLowerCase().contains(text.toLowerCase())){
+            if(evento.getActividad().toLowerCase().contains(text.toLowerCase()) || evento.getEtapa().toLowerCase().contains(text.toLowerCase())){
                 searchList.add(evento);
-
             }
         }
-
         eventAdapter.searchDataList(searchList);
-
     }
 }

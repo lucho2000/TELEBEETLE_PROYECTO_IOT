@@ -1,10 +1,12 @@
 package com.example.telebeetle.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.telebeetle.Entity.Donacion;
 import com.example.telebeetle.R;
@@ -17,6 +19,13 @@ public class ValidarDonacionesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validar_donaciones);
+        Toolbar toolbar = findViewById(R.id.myToolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         cargarListaDonaciones();
     }
 
@@ -26,7 +35,7 @@ public class ValidarDonacionesActivity extends AppCompatActivity {
             Donacion donacion = new Donacion();
             donacion.setMonto("10"+i);
             donacion.setFecha("23/10/23");
-            donacion.setDonante("Julio Aliaga");
+            //donacion.setDonante("Julio Aliaga");
             donacions.add(donacion);
         }
         return donacions;

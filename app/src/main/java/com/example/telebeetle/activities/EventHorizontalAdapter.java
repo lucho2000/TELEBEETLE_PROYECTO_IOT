@@ -1,6 +1,7 @@
 package com.example.telebeetle.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.telebeetle.Entity.Evento;
@@ -67,9 +69,16 @@ public class EventHorizontalAdapter extends RecyclerView.Adapter<EventHorizontal
         TextView nombreEvento = holder.itemView.findViewById(R.id.nombreEvent);
         nombreEvento.setText(e.getEtapa());
         TextView fechaHora = holder.itemView.findViewById(R.id.fechaHora);
-        fechaHora.setText(e.getFecha() + " " + e.getHora());
+        fechaHora.setText(e.getFecha());
         TextView lugar = holder.itemView.findViewById(R.id.lugarEvent);
         lugar.setText(e.getLugar());
+        CardView cardView = holder.itemView.findViewById(R.id.card);
+        cardView.setOnClickListener(view1 -> {
+            Intent intent = new Intent(context, DetallesEvento1.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("Evento", e);
+            context.startActivity(intent);
+        });
     }
 
     @Override

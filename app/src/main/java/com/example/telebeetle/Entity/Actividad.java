@@ -1,5 +1,7 @@
 package com.example.telebeetle.Entity;
 
+import java.util.List;
+
 public class Actividad {
 
     private String nombreActividad;
@@ -8,11 +10,28 @@ public class Actividad {
 
     private String imagen;
 
-    private Usuario delegado;
+    private String delegado;
+
+    private Boolean estado;
+
+    private List<String> eventos;
+
+
+    private String uidActividad;
+
 
     public String getNombreActividad() {
         return nombreActividad;
     }
+
+    public String getUidActividad() {
+        return uidActividad;
+    }
+
+    public void setUidActividad(String uidActividad) {
+        this.uidActividad = uidActividad;
+    }
+
 
     public void setNombreActividad(String nombreActividad) {
         this.nombreActividad = nombreActividad;
@@ -34,11 +53,27 @@ public class Actividad {
         this.imagen = imagen;
     }
 
-    public Usuario getDelegado() {
+    public String getDelegado() {
         return delegado;
     }
 
-    public void setDelegado(Usuario delegado) {
+    public void setDelegado(String delegado) {
         this.delegado = delegado;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+
+    public List<String> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(List<String> eventos) {
+        this.eventos = eventos;
     }
 }

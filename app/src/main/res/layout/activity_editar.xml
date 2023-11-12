@@ -91,7 +91,7 @@
         android:id="@+id/NombreActividadTextField"
         android:layout_width="310dp"
         android:layout_height="63dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="16dp"
         android:hint="Actividad"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,7 +103,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextActividad"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="39dp"
             tools:layout_editor_absoluteY="468dp" />
 
@@ -149,8 +149,8 @@
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_width="180dp"
         android:layout_height="53dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="48dp"
         android:backgroundTint="@color/colorPrimary"
         android:fontFamily="@font/inter"
         android:text="Editar Actividad"
@@ -158,25 +158,23 @@
         app:icon="@drawable/baseline_check_24"
         app:iconGravity="textEnd"
         app:iconPadding="16dp"
+        app:iconTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewSubir" />
 
     <Button
         android:id="@+id/button4"
         style="?attr/materialIconButtonFilledTonalStyle"
-        android:layout_width="163dp"
+        android:layout_width="130dp"
         android:layout_height="52dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/menu_background_grey"
+        android:layout_marginStart="48dp"
+        android:backgroundTint="@color/cancelarButtonGrey"
         android:fontFamily="@font/inter"
-        android:text="Cancelar"
-        android:textColor="@color/white"
-        app:iconGravity="textEnd"
-        app:iconPadding="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/buttonEditarActividad"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView19" />
+        android:text="CANCELAR"
+        android:textColor="@color/canelarButtonTextDarkGrey"
+        android:textSize="15sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonEditarActividad"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

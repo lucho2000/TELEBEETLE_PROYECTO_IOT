@@ -41,6 +41,8 @@
                 <ImageView
                     android:id="@+id/imageViewActivity"
                     android:layout_width="240dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_height="120dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="5dp" />
@@ -72,8 +74,14 @@
                 </RelativeLayout>
 
 
+                <com.google.android.material.divider.MaterialDivider
+                    app:dividerColor="@color/primaryTextColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dividerInsetStart="16dp"
+                    app:dividerInsetEnd="16dp"/>
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_marginBottom="5dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
@@ -91,7 +99,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="13dp"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
@@ -110,7 +118,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="nombre"
-                            android:textColor="@color/textColorPrimary"
+                            android:textColor="@color/colorLigero"
                             android:textSize="16sp" />
 
                     </LinearLayout>

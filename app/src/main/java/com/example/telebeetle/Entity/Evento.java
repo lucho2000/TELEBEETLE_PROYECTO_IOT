@@ -1,6 +1,7 @@
 package com.example.telebeetle.Entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Evento implements Serializable {
 
@@ -22,6 +23,20 @@ public class Evento implements Serializable {
 
     private String delegadoActividadAsignado;
 
+    private String latitud;
+    private String longitud;
+
+    private Boolean estadoEvento; //(boolean)
+
+
+    private List<String> rutasFotosEventos; //lista de rutas URL
+
+    private String uidEvento;
+
+    private List<String> listaApoyosBarras;  //(lista de KEY de usuarios)
+
+    private List<String> listaApoyosParticipantes;  //(lista de KEY de usuarios)
+
     public String getLatitud() {
         return latitud;
     }
@@ -38,9 +53,6 @@ public class Evento implements Serializable {
         this.longitud = longitud;
     }
 
-    private String latitud;
-    private String longitud;
-
     public String getUidEvento() {
         return uidEvento;
     }
@@ -48,10 +60,6 @@ public class Evento implements Serializable {
     public void setUidEvento(String uidEvento) {
         this.uidEvento = uidEvento;
     }
-
-    private String uidEvento;
-
-
 
     public String getDescripcion() {
         return descripcion;
@@ -135,5 +143,37 @@ public class Evento implements Serializable {
 
     public void setHora(String hora) {
         this.hora = hora;
+    }
+
+    public Boolean getEstadoEvento() {
+        return estadoEvento;
+    }
+
+    public void setEstadoEvento(Boolean estadoEvento) {
+        this.estadoEvento = estadoEvento;
+    }
+
+    public List<String> getRutasFotosEventos() {
+        return rutasFotosEventos;
+    }
+
+    public void setRutasFotosEventos(List<String> rutasFotosEventos) {
+        this.rutasFotosEventos = rutasFotosEventos;
+    }
+
+    public List<String> getListaApoyosBarras() {
+        return listaApoyosBarras;
+    }
+
+    public void setListaApoyosBarras(List<String> listaApoyosBarras) {
+        this.listaApoyosBarras = listaApoyosBarras;
+    }
+
+    public List<String> getListaApoyosParticipantes() {
+        return listaApoyosParticipantes;
+    }
+
+    public void setListaApoyosParticipantes(List<String> listaApoyosParticipantes) {
+        this.listaApoyosParticipantes = listaApoyosParticipantes;
     }
 }

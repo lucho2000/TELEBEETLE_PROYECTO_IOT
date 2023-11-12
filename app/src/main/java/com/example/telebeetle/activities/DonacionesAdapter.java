@@ -36,10 +36,10 @@ public class DonacionesAdapter extends RecyclerView.Adapter<DonacionesAdapter.Do
         holder.donacion = dona;
 
         TextView textViewNombreDonacion = holder.itemView.findViewById(R.id.donacionAsunto);
-        textViewNombreDonacion.setText(dona.getAsunto());
+        //textViewNombreDonacion.setText(dona.getAsunto());
 
         TextView textViewFechaYHora = holder.itemView.findViewById(R.id.fechaHora);
-        String a = dona.getFecha() + " " + dona.getHora();
+        String a = dona.getFecha() ;
         textViewFechaYHora.setText(a);
 
         ImageView imageView = holder.itemView.findViewById(R.id.imageView8);

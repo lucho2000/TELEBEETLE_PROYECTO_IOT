@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -27,6 +28,7 @@ import com.example.telebeetle.Entity.Actividad;
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.ActivityCrearBinding;
+import com.example.telebeetle.viewmodels.CrearActivityViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -75,7 +77,7 @@ public class CrearActivity extends AppCompatActivity {
         binding = ActivityCrearBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
+        CrearActivityViewModel crearActivityViewModel = new ViewModelProvider(CrearActivity.this).get(CrearActivityViewModel.class);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
@@ -165,12 +167,14 @@ public class CrearActivity extends AppCompatActivity {
                         actividad.setNombreActividad(nombreActividad);
                         actividad.setCategoria(categoria);
                         actividad.setImagen(uriDownload.toString());
-
-                        //actividad.setDelegado(delegadoAdd);
+                        crearActivityViewModel.getCodigo().observe(CrearActivity.this, codigo -> {
+                            actividad.setDelegado(codigo);
+                        });
                         databaseReference.push().setValue(actividad).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 Toast.makeText(CrearActivity.this, "Actividad creada exitosamente", Toast.LENGTH_SHORT).show();
+                                finish();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
