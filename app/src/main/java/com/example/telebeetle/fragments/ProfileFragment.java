@@ -82,11 +82,11 @@ public class ProfileFragment extends Fragment {
                             });*/
 
 
-            /*FirebaseAuth.getInstance().signOut();
+            FirebaseAuth.getInstance().signOut();
             Toast.makeText(getActivity(), "Sesión cerrada exitosamente", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
-            getActivity().finish();*/
+            getActivity().finish();
 
         });
 

@@ -53,7 +53,7 @@ public class AfterGoogleActivity extends AppCompatActivity {
                     map.put("correo", user.getEmail());
                     map.put("profile", user.getPhotoUrl().toString());
                     map.put("codigo", code);
-                    map.put("rol", role);
+                    map.put("condicion", role);
 
                     // Almacena la información en la base de datos
                     databaseReference.child(user.getUid()).setValue(map)

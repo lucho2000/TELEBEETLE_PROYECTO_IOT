@@ -265,7 +265,12 @@ public class MainActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     // El correo electrónico está en la base de datos, el usuario puede continuar
                     // redirigiendo a la actividad que desees.
+
                     Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
+                    //intent.putExtra("usuario",dataSnapshot.getValue(Usuario.class));
+                    //Log.d("msg-test",dataSnapshot.getValue(Usuario.class).getCondicion());
+                    Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                    intent.putExtra("usuario",usuario);
                     startActivity(intent);
                 } else {
                     // El correo electrónico no está en la base de datos, el usuario se dirige a una actividad diferente.

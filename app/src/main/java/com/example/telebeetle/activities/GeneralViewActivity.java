@@ -239,7 +239,7 @@ public class GeneralViewActivity extends AppCompatActivity {
         LinearLayout layoutCrearActividad = dialog.findViewById(R.id.layoutCrearActividad);
         LinearLayout layoutListarUsuarios = dialog.findViewById(R.id.layoutListarUsuarios);
         LinearLayout layoutEstadisticas = dialog.findViewById(R.id.layoutEstadisticas);
-        LinearLayout layoutListarEventos = dialog.findViewById(R.id.layoutListarEventos);
+        //LinearLayout layoutListarEventos = dialog.findViewById(R.id.layoutListarEventos);
         //LinearLayout layoutCrearEvento = dialog.findViewById(R.id.layoutCrearEvento);
         ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
 
@@ -286,7 +286,7 @@ public class GeneralViewActivity extends AppCompatActivity {
             }
         });
 
-        layoutListarEventos.setOnClickListener(new View.OnClickListener() {
+        /*layoutListarEventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GeneralViewActivity.this, Intermedio.class);
@@ -295,7 +295,7 @@ public class GeneralViewActivity extends AppCompatActivity {
                 Toast.makeText(GeneralViewActivity.this,"Listar Eventos",Toast.LENGTH_SHORT).show();
 
             }
-        });
+        });*/
 
         /*layoutCrearEvento.setOnClickListener(new View.OnClickListener() {
             @Override
