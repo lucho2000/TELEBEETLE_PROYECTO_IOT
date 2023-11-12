@@ -106,6 +106,18 @@ public class Usuario implements Serializable {
         this.condicion = condicion;
     }
 
+
+    public Usuario(String codigo, String correo, String nombres, String apellidos, String contrasena, String condicion, Boolean enable, Boolean recibidoKitTeleco) {
+        this.codigo = codigo;
+        this.correo = correo;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.contrasena = contrasena;
+        this.condicion = condicion;
+        this.enable = enable;
+        this.recibidoKitTeleco = recibidoKitTeleco;
+    }
+
     public Usuario() {
     }
 
