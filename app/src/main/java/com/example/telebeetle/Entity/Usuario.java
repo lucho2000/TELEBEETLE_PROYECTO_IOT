@@ -1,6 +1,7 @@
 package com.example.telebeetle.Entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Usuario implements Serializable {
 
@@ -9,7 +10,21 @@ public class Usuario implements Serializable {
     private String nombres;
     private String apellidos;
 
-    private String contrasena;
+    private String contrasena; //hasheada
+
+    private String uidUsuario; //del autentication de firebase
+
+    private String profile; //foto (url)
+
+    private String rol; //Del.General , Del. Actividad , Usuario
+
+    private String condicion; //Alumno , Egresado
+
+    private Boolean enable; //true=activo, false=baneado
+
+    private Boolean recibidoKitTeleco; //true=recibido, false=no_recibido
+
+    private List<String> donaciones; //[keys de donaciones]
 
     public String getUidUsuario() {
         return uidUsuario;
@@ -19,12 +34,6 @@ public class Usuario implements Serializable {
         this.uidUsuario = uidUsuario;
     }
 
-    private String uidUsuario;
-
-    private String profile;
-
-    private String rol;
-
     public String getCondicion() {
         return condicion;
     }
@@ -32,8 +41,6 @@ public class Usuario implements Serializable {
     public void setCondicion(String condicion) {
         this.condicion = condicion;
     }
-
-    private String condicion;
 
     public String getCodigo() {
         return codigo;
@@ -100,5 +107,29 @@ public class Usuario implements Serializable {
     }
 
     public Usuario() {
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
+    }
+
+    public Boolean getRecibidoKitTeleco() {
+        return recibidoKitTeleco;
+    }
+
+    public void setRecibidoKitTeleco(Boolean recibidoKitTeleco) {
+        this.recibidoKitTeleco = recibidoKitTeleco;
+    }
+
+    public List<String> getDonaciones() {
+        return donaciones;
+    }
+
+    public void setDonaciones(List<String> donaciones) {
+        this.donaciones = donaciones;
     }
 }

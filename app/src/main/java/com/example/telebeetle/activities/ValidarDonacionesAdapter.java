@@ -68,7 +68,7 @@ public class ValidarDonacionesAdapter extends RecyclerView.Adapter<ValidarDonaci
         TextView donante = holder.itemView.findViewById(R.id.donante);
         TextView monto = holder.itemView.findViewById(R.id.monto);
         fecha.setText("Fecha: " + d.getFecha());
-        donante.setText("Donante: " + d.getDonante());
+        //donante.setText("Donante: " + d.getDonante());
         monto.setText("Monto: " + d.getMonto());
     }
 

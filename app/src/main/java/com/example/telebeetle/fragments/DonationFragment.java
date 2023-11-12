@@ -51,10 +51,10 @@ public class DonationFragment extends Fragment {
 
         List<Donacion> listDona  = new ArrayList<>();
 
-        Donacion dona1 = new Donacion("Donacion para la AITEL","10 de Octubre, 2023","15:00");
-        Donacion dona2 = new Donacion("Donacion para la AITEL","11 de Octubre, 2023","14:00");
-        Donacion dona3 = new Donacion("Donacion para la AITEL","12 de Octubre, 2023","16:00");
-        Donacion dona4 = new Donacion("Donacion para la AITEL","13 de Octubre, 2023","18:00");
+        Donacion dona1 = new Donacion("Donacion para la AITEL","10 de Octubre, 2023");
+        Donacion dona2 = new Donacion("Donacion para la AITEL","11 de Octubre, 2023");
+        Donacion dona3 = new Donacion("Donacion para la AITEL","12 de Octubre, 2023");
+        Donacion dona4 = new Donacion("Donacion para la AITEL","13 de Octubre, 2023");
 
         listDona.add(dona1);
         listDona.add(dona2);

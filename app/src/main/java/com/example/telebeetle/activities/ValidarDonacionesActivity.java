@@ -35,7 +35,7 @@ public class ValidarDonacionesActivity extends AppCompatActivity {
             Donacion donacion = new Donacion();
             donacion.setMonto("10"+i);
             donacion.setFecha("23/10/23");
-            donacion.setDonante("Julio Aliaga");
+            //donacion.setDonante("Julio Aliaga");
             donacions.add(donacion);
         }
         return donacions;

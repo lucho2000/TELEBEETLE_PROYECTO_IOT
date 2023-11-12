@@ -60,7 +60,7 @@ public class EventAdapter2 extends RecyclerView.Adapter<com.example.telebeetle.a
         nameEvent.setText(e.getEtapa());
 
         TextView fechaEvent = holder.itemView.findViewById(R.id.timeEvent);
-        fechaEvent.setText(e.getFecha() + " " + e.getHora());
+        fechaEvent.setText(e.getFecha());
 
         TextView lugarEvento = holder.itemView.findViewById(R.id.lugarEvent);
         lugarEvento.setText(e.getLugar());

@@ -69,7 +69,7 @@ public class EventHorizontalAdapter extends RecyclerView.Adapter<EventHorizontal
         TextView nombreEvento = holder.itemView.findViewById(R.id.nombreEvent);
         nombreEvento.setText(e.getEtapa());
         TextView fechaHora = holder.itemView.findViewById(R.id.fechaHora);
-        fechaHora.setText(e.getFecha() + " " + e.getHora());
+        fechaHora.setText(e.getFecha());
         TextView lugar = holder.itemView.findViewById(R.id.lugarEvent);
         lugar.setText(e.getLugar());
         CardView cardView = holder.itemView.findViewById(R.id.card);
