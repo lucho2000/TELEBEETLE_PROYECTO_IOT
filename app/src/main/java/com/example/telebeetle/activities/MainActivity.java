@@ -288,14 +288,40 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+
+                    /*FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    Log.d("msg-test", String.valueOf(user));
+                    System.out.println(dataSnapshot);*/
+
+
                     // El correo electrónico está en la base de datos, el usuario puede continuar
                     // redirigiendo a la actividad que desees.
+                    Usuario usu = new Usuario();
+                    for(DataSnapshot childSnapshot1 : dataSnapshot.getChildren()){
+                        String codigo = childSnapshot1.child("codigo").getValue(String.class);
+                        String correo = childSnapshot1.child("correo").getValue(String.class);
+                        String nombres = childSnapshot1.child("nombres").getValue(String.class);
+                        String apellidos = childSnapshot1.child("apellidos").getValue(String.class);
+                        String contrasena = childSnapshot1.child("contrasena").getValue(String.class);
+                        String  condicion = childSnapshot1.child("condicion").getValue(String.class);
+                        Boolean enable = childSnapshot1.child("enable").getValue(Boolean.class);
+                        Boolean kitTele = childSnapshot1.child("kit_teleco").getValue(Boolean.class);
+
+
+
+
+                        usu = new Usuario(nombres, apellidos, codigo, correo, condicion);
+                        usu.setEnable(enable);
+                        usu.setRecibidoKitTeleco(kitTele);
+                        usu.setContrasena(contrasena);
+                    }
+
+
 
                     Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
                     //intent.putExtra("usuario",dataSnapshot.getValue(Usuario.class));
                     //Log.d("msg-test",dataSnapshot.getValue(Usuario.class).getCondicion());
-                    Usuario usuario = dataSnapshot.getValue(Usuario.class);
-                    intent.putExtra("usuario",usuario);
+                    intent.putExtra("usuario",usu);
                     startActivity(intent);
                 } else {
                     // El correo electrónico no está en la base de datos, el usuario se dirige a una actividad diferente.
