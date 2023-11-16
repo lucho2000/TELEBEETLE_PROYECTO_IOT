@@ -33,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     String nombreCompleto, apellidos, condicion, codigo, contrasena, correo, nuevaContra;
 
-    EditText textNombre, textCodigo, textContrasenia, textCorreo, textNuevaContra;
+    EditText textNombre, textCodigo, textContrasenia, textCorreo, textNuevaContra, textApellidos;
 
     AutoCompleteTextView textRol;
     String[] opcionesCondicion = new String[]{
@@ -54,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         botonRegister = findViewById(R.id.buttonRegistro);
         textNombre = findViewById(R.id.textNombreCompleto);
+        textApellidos = findViewById(R.id.textApellidos);
         textCodigo = findViewById(R.id.textCodigo);
         textCorreo = findViewById(R.id.textCorreo);
         textContrasenia = findViewById(R.id.textContrasenia);
@@ -124,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 if (!regex.inputisValid(apellidos) ) {
-                    textNombre.setError("Ingrese por lo menos un apellido");
+                    textApellidos.setError("Ingrese por lo menos un apellido");
                     valido++;
                 }
 
@@ -134,7 +135,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 if (!regex.emailValid(textCorreo.getText().toString())){
-                    textCorreo.setError("Ingrese un correo valido");
+                    textCorreo.setError("Ingrese un correo pucp valido");
                     valido++;
                 }
 
