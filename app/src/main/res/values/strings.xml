@@ -20,6 +20,7 @@
     <string name="label">Voley Mixto</string>
     <string name="label2">Evento</string>
     <string name="web_client_id">594022469863-44kmmlu1npmm6jj4d725eqqvtiuooth3.apps.googleusercontent.com</string>
-
+    <string name="cancel">Cancelar</string>
+    <string name="accept">Aceptar</string>
 
 </resources>

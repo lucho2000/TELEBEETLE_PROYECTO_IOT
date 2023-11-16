@@ -1,5 +1,7 @@
 package com.example.telebeetle.activities;
 
+import static android.app.PendingIntent.getActivity;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -22,8 +25,13 @@ import com.example.telebeetle.databinding.ActivityRegisterBinding;
 import com.example.telebeetle.services.Regex;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -33,9 +41,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     String nombreCompleto, apellidos, condicion, codigo, contrasena, correo, nuevaContra;
 
-    EditText textNombre, textCodigo, textContrasenia, textCorreo, textNuevaContra;
+    EditText textNombre, textCodigo, textContrasenia, textCorreo, textNuevaContra, textApellido;
 
-    AutoCompleteTextView textRol;
     String[] opcionesCondicion = new String[]{
             "Alumno",
             "Egresado",
@@ -46,6 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
     int valido = 0;
 
     ActivityRegisterBinding binding;
+    FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +62,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         botonRegister = findViewById(R.id.buttonRegistro);
         textNombre = findViewById(R.id.textNombreCompleto);
+        textApellido = findViewById(R.id.textApellidos);
         textCodigo = findViewById(R.id.textCodigo);
         textCorreo = findViewById(R.id.textCorreo);
         textContrasenia = findViewById(R.id.textContrasenia);
         textNuevaContra = findViewById(R.id.textNuevaContra);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         /* condiciones de la contraseña*/
          binding.iconPass.setOnClickListener(view -> {
@@ -90,6 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         /* LINKEO HACIA INICIO DE SESION  */
@@ -108,7 +120,7 @@ public class RegisterActivity extends AppCompatActivity {
             valido = 0;
 
             nombreCompleto = textNombre.getText().toString();
-            apellidos = binding.textApellidos.getText().toString();
+            apellidos = textApellido.getText().toString();
             codigo = textCodigo.getText().toString();
             correo = textCorreo.getText().toString();
             contrasena = textContrasenia.getText().toString();
@@ -124,7 +136,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 if (!regex.inputisValid(apellidos) ) {
-                    textNombre.setError("Ingrese por lo menos un apellido");
+                    textApellido.setError("Ingrese por lo menos un apellido");
                     valido++;
                 }
 
@@ -153,29 +165,57 @@ public class RegisterActivity extends AppCompatActivity {
                     nuevoUsuario.setApellidos(apellidos);
                     nuevoUsuario.setCodigo(codigo);
                     nuevoUsuario.setCorreo(correo);
-                    nuevoUsuario.setContrasena(contrasena);
-                    nuevoUsuario.setRol(condicion);
-
-                    databaseReference = FirebaseDatabase.getInstance().getReference("usuarios_por_admitir");
-                    databaseReference.child(codigo).setValue(nuevoUsuario).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-
-                            textNombre.setText("");
-                            binding.textApellidos.setText("");
-                            textCodigo.setText("");
-                            textCorreo.setText("");
-                            textRol.setText("");
-                            textContrasenia.setText("");
-                            textNuevaContra.setText("");
-                            Toast.makeText(RegisterActivity.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
-
-                        }
+                    nuevoUsuario.setRol("usuario");
+                    nuevoUsuario.setCondicion(condicion);
+                    nuevoUsuario.setEnable(true);
+                    nuevoUsuario.setRecibidoKitTeleco(false);
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    // Create a storage reference from our app
+                    StorageReference storageRef = storage.getReference();
+                    // Get reference to the file
+                    StorageReference forestRef = storageRef.child("usuario.png");
+                    forestRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                        String downloadUrl = uri.toString();
+                        nuevoUsuario.setProfile(downloadUrl);
+                        // Use the download URL
+                    }).addOnFailureListener(exception -> {
+                        // Handle any errors
+                        nuevoUsuario.setProfile("falta imagen");
                     });
+                    databaseReference = FirebaseDatabase.getInstance().getReference("usuarios_por_admitir");
+                    firebaseAuth.createUserWithEmailAndPassword(correo, contrasena)
+                            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d("msg-test", "createUserWithEmail:success");
+                                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                                        String uid = user.getUid();
+                                        databaseReference.child(uid).setValue(nuevoUsuario).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                textNombre.setText("");
+                                                textApellido.setText("");
+                                                textCodigo.setText("");
+                                                textCorreo.setText("");
+                                                textContrasenia.setText("");
+                                                textNuevaContra.setText("");
+                                                Toast.makeText(RegisterActivity.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(RegisterActivity.this, WaitActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        });
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Log.w("msg-test", "createUserWithEmail:failure", task.getException());
+                                        Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                 }
-
-
-
             }else{
                 Toast.makeText(RegisterActivity.this, "Se deben rellenar todos los campos", Toast.LENGTH_SHORT).show();
             }

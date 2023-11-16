@@ -6,59 +6,159 @@
     android:layout_height="match_parent"
     tools:context=".activities.AfterGoogleActivity">
 
+    <ImageView
+        android:id="@+id/icon_pass"
+        android:layout_width="56dp"
+        android:layout_height="49dp"
+        android:layout_centerVertical="true"
+
+        android:layout_marginStart="88dp"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/baseline_new_releases_24"
+        app:layout_constraintBottom_toTopOf="@+id/textView40"
+        app:layout_constraintStart_toEndOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="205dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/bree_serif"
+        android:text="Registro"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView40"
         android:layout_width="358dp"
         android:layout_height="68dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="24dp"
         android:text="Para continuar con su registro debe completar los siguientes campos: "
+        android:textColor="@color/primaryTextColor"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="234dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="56dp"
-        android:ems="10"
-        android:hint="Codigo"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView40" />
-
-    <Spinner
-        android:id="@+id/spinner3"
-        android:layout_width="339dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
-
-    <TextView
-        android:id="@+id/textView41"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nombreCompleto"
+        style="?attr/textInputFilledStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="ROL:"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/spinner3"
-        app:layout_constraintStart_toStartOf="@+id/spinner3" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Nombres"
+        app:startIconDrawable="@drawable/baseline_person_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:boxBackgroundColor="@color/windowBackgroundColor"
+        app:layout_constraintTop_toBottomOf="@+id/textView40"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textNombreCompleto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/apellidos"
+        style="?attr/textInputFilledStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Apellidos"
+        app:startIconDrawable="@drawable/baseline_person_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:boxBackgroundColor="@color/windowBackgroundColor"
+        app:layout_constraintTop_toBottomOf="@+id/nombreCompleto"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textApellidos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/codigoPUCP"
+        style="?attr/textInputFilledStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Código PUCP"
+        app:startIconDrawable="@drawable/baseline_numbers_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:boxBackgroundColor="@color/windowBackgroundColor"
+        app:layout_constraintTop_toBottomOf="@+id/apellidos"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textCodigo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/condicion"
+        style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Condición de estudio"
+        app:startIconDrawable="@drawable/baseline_person_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:boxBackgroundColor="@color/windowBackgroundColor"
+        app:layout_constraintTop_toBottomOf="@+id/codigoPUCP"
+        app:errorEnabled="false">
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
-        android:text="Guardar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner3" />
+        android:id="@+id/buttonRegistro"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:layout_width="163dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/colorLigero"
+        android:text="Registrarse"
+        android:textColor="@color/white"
+        app:iconTint="@color/white"
+        android:textSize="16sp"
+        app:icon="@drawable/baseline_arrow_forward_24"
+        app:iconGravity="textEnd"
+        app:iconPadding="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/condicion"
+        app:layout_constraintStart_toStartOf="@+id/condicion"
+        app:layout_constraintTop_toBottomOf="@+id/condicion" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

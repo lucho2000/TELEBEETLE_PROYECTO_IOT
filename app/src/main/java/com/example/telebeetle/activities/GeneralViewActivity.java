@@ -75,7 +75,7 @@ public class GeneralViewActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         Intent intent = getIntent();
         usuario = (Usuario) intent.getSerializableExtra("usuario");
-        rol_selected = usuario.getCondicion();
+        rol_selected = usuario.getRol();
         GeneralViewActivityViewModel generalViewActivityViewModel = new ViewModelProvider(GeneralViewActivity.this).get(GeneralViewActivityViewModel.class);
         generalViewActivityViewModel.getUsuario().setValue(usuario);
         initCometChat();
@@ -110,7 +110,7 @@ public class GeneralViewActivity extends AppCompatActivity {
 
             }
         });*/
-        Log.d("msg-test1",rol_selected);
+        //Log.d("msg-test1",rol_selected);
 
 
 

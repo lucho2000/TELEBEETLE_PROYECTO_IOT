@@ -167,6 +167,9 @@ public class CrearActivity extends AppCompatActivity {
                         actividad.setNombreActividad(nombreActividad);
                         actividad.setCategoria(categoria);
                         actividad.setImagen(uriDownload.toString());
+                        actividad.setEstado(true);
+                        HashMap<String, String> eventos = new HashMap<String, String>();
+                        actividad.setEventos(eventos);
                         crearActivityViewModel.getCodigo().observe(CrearActivity.this, codigo -> {
                             actividad.setDelegado(codigo);
                         });

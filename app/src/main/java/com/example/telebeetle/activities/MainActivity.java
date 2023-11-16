@@ -49,7 +49,7 @@ import java.io.CharArrayReader;
 import java.util.HashMap;
 import java.util.Objects;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
+//import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
 
     FirebaseDatabase database;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,86 +118,90 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
-
-
         //verificacion credenciales para loguearse
         binding.button.setOnClickListener(view -> {
             //final Boolean found = false;
             String email = binding.emailLogin.getText().toString();
             String password = binding.passwordLogin.getText().toString();
+            //String hash = BCrypt.withDefaults().hashToString(12,password.toCharArray());
 
-            String hash = BCrypt.withDefaults().hashToString(12,password.toCharArray());
+            //Log.d("msg-test", hash);
 
-            Log.d("msg-test", hash);
+            //BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hash);
 
-            BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hash);
-
-            Log.d("msg-test", String.valueOf(result));
-
-
-
-
+            //Log.d("msg-test", String.valueOf(result));
             if(!email.isEmpty() && !password.isEmpty()){
-                DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("usuarios");
-                Query emailQuery = usersRef.orderByChild("correo").equalTo(email);
-
-                emailQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            Boolean found = false;
-                            char[] hashEnter = password.toCharArray();
-
-                            for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                                 String passDB = userSnapshot.child("contrasena").getValue(String.class);
-
-
-                                Log.d("msg-test","User: "+userSnapshot.child("correo").getValue(String.class));
-                                Log.d("msg-test","pass db:"+ userSnapshot.child("contrasena").getValue(String.class));
-                                Log.d("msg-test","Lo que obtuve de la db to charArray: "+passDB);
-                                Log.d("msg-test","Lo que ingrese: "+hashEnter);
-
-
-
-                                if(userSnapshot.child("correo").getValue(String.class).equalsIgnoreCase(email) &&
-                                        BCrypt.verifyer().verify(hashEnter,passDB).verified){
-                                    Log.d("msg-test","Lo que obtuve de la db: "+passDB);
-                                    Log.d("msg-test","Lo que ingrese: "+hashEnter);
-
-                                        String codigo = userSnapshot.child("codigo").getValue(String.class);
-                                        String correo = userSnapshot.child("correo").getValue(String.class);
-                                        String nombres = userSnapshot.child("nombres").getValue(String.class);
-                                        String apellidos = userSnapshot.child("apellidos").getValue(String.class);
-                                        //String contrasena = userSnapshot.child("contrasena").getValue(String.class);
-                                        String  condicion = userSnapshot.child("condicion").getValue(String.class);
-                                        Boolean enable = userSnapshot.child("enable").getValue(Boolean.class);
-                                        Boolean kitTele = userSnapshot.child("kit_teleco").getValue(Boolean.class);
-
-
-                                        Usuario user = new Usuario(codigo,correo,nombres,apellidos,hash,condicion,enable,kitTele);
-                                        Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
-                                        intent.putExtra("usuario",user);
-                                        startActivity(intent);
-                                        found = true;
-                                        break;
+                firebaseAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d("msg-test", "signInWithEmail:success");
+                                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                                    DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("usuarios");
+                                    Query emailQuery = usersRef.orderByChild("correo").equalTo(user.getEmail());
+                                    emailQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            if (dataSnapshot.exists()) {
+                                                //char[] hashEnter = password.toCharArray();
+                                                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                                                    if(userSnapshot.child("correo").getValue(String.class).equalsIgnoreCase(user.getEmail())){
+                                                        //&& BCrypt.verifyer().verify(hashEnter,passDB).verified){
+                                                        //Log.d("msg-test","Lo que obtuve de la db: "+passDB);
+                                                        //Log.d("msg-test","Lo que ingrese: "+hashEnter);
+                                                        String codigo = userSnapshot.child("codigo").getValue(String.class);
+                                                        String correo = userSnapshot.child("correo").getValue(String.class);
+                                                        String nombres = userSnapshot.child("nombres").getValue(String.class);
+                                                        String apellidos = userSnapshot.child("apellidos").getValue(String.class);
+                                                        //String contrasena = userSnapshot.child("contrasena").getValue(String.class);
+                                                        String  condicion = userSnapshot.child("condicion").getValue(String.class);
+                                                        String rol = userSnapshot.child("rol").getValue(String.class);
+                                                        Boolean enable = userSnapshot.child("enable").getValue(Boolean.class);
+                                                        Boolean kitTele = userSnapshot.child("kit_teleco").getValue(Boolean.class);
+                                                        String profile = userSnapshot.child("profile").getValue(String.class);
+                                                        Usuario user = new Usuario(codigo,correo,nombres,apellidos,condicion,enable,kitTele, rol, profile);
+                                                        Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
+                                                        intent.putExtra("usuario",user);
+                                                        startActivity(intent);
+                                                        break;
+                                                    }
+                                                }
+                                            } else {
+                                                DatabaseReference usersRef2 = FirebaseDatabase.getInstance().getReference().child("usuarios_por_admitir");
+                                                Query emailQuery2 = usersRef2.orderByChild("correo").equalTo(user.getEmail());
+                                                emailQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                       if(snapshot.exists()) {
+                                                           for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                                                               if(userSnapshot.child("correo").getValue(String.class).equalsIgnoreCase(user.getEmail())){
+                                                                   Intent intent = new Intent(MainActivity.this, WaitActivity.class);
+                                                                   startActivity(intent);
+                                                                   break;
+                                                               }
+                                                           }
+                                                       }
+                                                    }
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
+                                                    }
+                                                });
+                                            }
+                                        }
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            // Handle any errors
+                                        }
+                                    });
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w("msg-test", "signInWithEmail:failure", task.getException());
+                                    Toast.makeText(MainActivity.this, "Credenciales incorrectas",Toast.LENGTH_SHORT).show();
                                 }
-
                             }
-
-                            if(!found){
-                                Toast.makeText(MainActivity.this, "Credenciales incorrectas",Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            // Email doesn't exist in the database
-                            Log.d("msg-test", "Error con la base de datos, DataSnapshot doesn't exist");
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        // Handle any errors
-                    }
-                });
+                        });
 
 
                /* firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(taskAuth -> {
@@ -334,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
                             /*Intent intent = new Intent(MainActivity.this,AfterGoogleActivity.class);
                             startActivity(intent);*/
                             FirebaseUser user = firebaseAuth.getCurrentUser();
-                            checkUserInDatabase(user.getEmail());
+                            checkUserInDatabase(user);
 
                         }else{
                             Log.d("msg-test","Algo paso.");
@@ -346,9 +351,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void checkUserInDatabase(String email) {
+    private void checkUserInDatabase(FirebaseUser user) {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("usuarios");
-        usersRef.orderByChild("correo").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
+        usersRef.orderByChild("correo").equalTo(user.getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -366,18 +371,20 @@ public class MainActivity extends AppCompatActivity {
                         String correo = childSnapshot1.child("correo").getValue(String.class);
                         String nombres = childSnapshot1.child("nombres").getValue(String.class);
                         String apellidos = childSnapshot1.child("apellidos").getValue(String.class);
-                        String contrasena = childSnapshot1.child("contrasena").getValue(String.class);
+                        //String contrasena = childSnapshot1.child("contrasena").getValue(String.class);
                         String  condicion = childSnapshot1.child("condicion").getValue(String.class);
                         Boolean enable = childSnapshot1.child("enable").getValue(Boolean.class);
                         Boolean kitTele = childSnapshot1.child("kit_teleco").getValue(Boolean.class);
-
+                        String profile = childSnapshot1.child("profile").getValue(String.class);
+                        String rol = childSnapshot1.child("rol").getValue(String.class);
 
 
 
                         usu = new Usuario(nombres, apellidos, codigo, correo, condicion);
                         usu.setEnable(enable);
                         usu.setRecibidoKitTeleco(kitTele);
-                        usu.setContrasena(contrasena);
+                        usu.setProfile(profile);
+                        usu.setRol(rol);
                     }
 
 
@@ -388,9 +395,29 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("usuario",usu);
                     startActivity(intent);
                 } else {
-                    // El correo electrónico no está en la base de datos, el usuario se dirige a una actividad diferente.
-                    Intent intent = new Intent(MainActivity.this, AfterGoogleActivity.class);
-                    startActivity(intent);
+                    DatabaseReference usersRef2 = FirebaseDatabase.getInstance().getReference().child("usuarios_por_admitir");
+                    Query emailQuery2 = usersRef2.orderByChild("correo").equalTo(user.getEmail());
+                    emailQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()) {
+                                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                                    if(userSnapshot.child("correo").getValue(String.class).equalsIgnoreCase(user.getEmail())){
+                                        Intent intent = new Intent(MainActivity.this, WaitActivity.class);
+                                        startActivity(intent);
+                                        break;
+                                    }
+                                }
+                            }else{
+                                // El correo electrónico no está en la base de datos, el usuario se dirige a una actividad diferente.
+                                Intent intent = new Intent(MainActivity.this, AfterGoogleActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
                 }
             }
 

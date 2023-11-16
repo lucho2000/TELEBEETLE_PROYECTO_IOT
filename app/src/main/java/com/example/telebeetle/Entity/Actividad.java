@@ -1,8 +1,10 @@
 package com.example.telebeetle.Entity;
 
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
-public class Actividad {
+public class Actividad implements Serializable {
 
     private String nombreActividad;
 
@@ -14,7 +16,15 @@ public class Actividad {
 
     private Boolean estado;
 
-    private List<String> eventos;
+    public HashMap<String, String> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(HashMap<String, String> eventos) {
+        this.eventos = eventos;
+    }
+
+    private HashMap<String,String> eventos;
 
 
     private String uidActividad;
@@ -69,11 +79,4 @@ public class Actividad {
         this.estado = estado;
     }
 
-    public List<String> getEventos() {
-        return eventos;
-    }
-
-    public void setEventos(List<String> eventos) {
-        this.eventos = eventos;
-    }
 }

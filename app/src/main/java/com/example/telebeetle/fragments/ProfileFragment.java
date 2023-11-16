@@ -38,8 +38,6 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater,container,false);
-        int drawableResourceId = R.drawable.juiocesaraliagamachuca;
-        Picasso picasso = Picasso.get();
         ImageView imageView = binding.fotoperfil;
         //firebaseAuth = FirebaseAuth.getInstance();
        // FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -53,13 +51,14 @@ public class ProfileFragment extends Fragment {
             binding.textView28.setText(nombreApellido);
             binding.textView29.setText(usuario.getCorreo());
             binding.textView30.setText(usuario.getCodigo());
+            //Log.d("msg-test", usuario.getProfile());
+            Picasso.get().load(usuario.getProfile())
+                    .resize(400,400)
+                    .transform(new CropCircleTransformation())
+                    .into(imageView);
         });
 
 
-        picasso.load(drawableResourceId)
-                .resize(400,400)
-                .transform(new CropCircleTransformation())
-                .into(imageView);
 
 
         //para ir a cambio de contraseña

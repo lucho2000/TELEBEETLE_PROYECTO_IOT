@@ -13,7 +13,6 @@ public class Donacion {
     private String imagenCaptura;
 
 
-
     public String getMonto() {
         return monto;
     }

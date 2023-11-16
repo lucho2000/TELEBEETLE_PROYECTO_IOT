@@ -16,7 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -42,6 +46,8 @@ public class SolicitudesRegistroAdapter extends RecyclerView.Adapter<Solicitudes
 
     private List<Usuario> usuarioList;
     private Context context;
+    DatabaseReference databaseReference;
+    DatabaseReference databaseReference2;
 
     @NonNull
     @Override
@@ -79,18 +85,48 @@ public class SolicitudesRegistroAdapter extends RecyclerView.Adapter<Solicitudes
         public SolicitudRegistroViewHolder(@NonNull View itemView){
             super(itemView);
             Button accept = itemView.findViewById(R.id.accept);
+            databaseReference2 = FirebaseDatabase.getInstance().getReference("usuarios_por_admitir"); //datos de firebase de la coleccion de "evento"
             accept.setOnClickListener(v -> {
-                Toast.makeText(context, "Aceptado owo", Toast.LENGTH_SHORT).show();
+                databaseReference = FirebaseDatabase.getInstance().getReference("usuarios"); //datos de firebase de la coleccion de "evento"
+                databaseReference.child(usuario.getUidUsuario()).setValue(usuario).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        databaseReference2.child(usuario.getUidUsuario()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(context, "Exito al aceptar solicitud de usuario", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context, "Fallo al aceptar solicitud de usuario", Toast.LENGTH_SHORT).show();
+                    }
+                });
             });
             Button deny = itemView.findViewById(R.id.deny);
             deny.setOnClickListener(v -> {
-                int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-                    // Remove the item from the dataset and update the RecyclerView
-                    removeItem(position);
-                }
+                databaseReference2.child(usuario.getUidUsuario()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(context, "Exito al denegar solicitud de usuario", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context, "Fallo al denegar solicitud de usuario", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                //int position = getBindingAdapterPosition();
+                //if (position != RecyclerView.NO_POSITION) {
+                //    removeItem(position);
+                //}
             });
-
         }
     }
     public void removeItem(int position) {
