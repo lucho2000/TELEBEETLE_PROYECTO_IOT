@@ -46,6 +46,8 @@ public class QRDonarActivity extends AppCompatActivity {
 
     Uri urlImagen;
 
+    String fecha;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,12 +110,14 @@ public class QRDonarActivity extends AppCompatActivity {
                         donacion = new Donacion();
                         donacion.setMonto(montoInt.toString()); //poner monto a donar
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            donacion.setFecha(LocalDate.now().toString());
+                            fecha = LocalDate.now().toString();
+                            donacion.setFecha(fecha);
                         }
                         donacion.setImagenCaptura(uriDownload.toString());
                         donacion.setAccepted(false);
                         Intent intent = new Intent(QRDonarActivity.this, ScreenEsperaActivity.class);
                         startActivity(intent);
+                        //intent.putExtra("fecha",fecha);
                         database.getReference("donaciones").push().setValue(donacion).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
