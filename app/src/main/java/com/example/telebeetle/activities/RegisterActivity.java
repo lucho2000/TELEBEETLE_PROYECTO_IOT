@@ -1,7 +1,5 @@
 package com.example.telebeetle.activities;
 
-import static android.app.PendingIntent.getActivity;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +18,6 @@ import android.widget.Toast;
 
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
-import com.example.telebeetle.databinding.ActivityAfterGoogleBinding;
 import com.example.telebeetle.databinding.ActivityRegisterBinding;
 import com.example.telebeetle.services.Regex;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -146,7 +143,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 if (!regex.emailValid(textCorreo.getText().toString())){
-                    textCorreo.setError("Ingrese un correo valido");
+                    textCorreo.setError("Ingrese un correo pucp valido");
                     valido++;
                 }
 

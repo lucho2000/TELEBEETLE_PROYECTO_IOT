@@ -41,7 +41,7 @@ public class Regex {
     }
 
     public boolean emailValid(String input) {
-        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        String regex = "^[a-zA-Z0-9_.-]+@pucp\\.edu\\.pe$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         return matcher.find();
