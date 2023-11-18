@@ -25,10 +25,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -51,6 +57,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     ActivityRegisterBinding binding;
     FirebaseAuth firebaseAuth;
+    List<String> correos = new ArrayList<>();
+    List<String> codigos = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +99,13 @@ public class RegisterActivity extends AppCompatActivity {
          });
 
 
+
+
+
+
+
+
+
         /* LINKEO HACIA INICIO DE SESION */
         TextView iniciarSesionTextView = findViewById(R.id.iniciarSesionTextView);
         iniciarSesionTextView.setOnClickListener(new View.OnClickListener() {
@@ -112,8 +127,56 @@ public class RegisterActivity extends AppCompatActivity {
 
         Regex regex =new Regex();
 
+        //Recoger correos y codigos de la base de datos
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("usuarios");
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String correo = userSnapshot.child("correo").getValue(String.class);
+
+                    if (correo != null) {
+                        correos.add(correo);
+                    }
+                }
+
+
+
+                for (DataSnapshot userSnapShot : dataSnapshot.getChildren()){
+                    String codigo = userSnapShot.child("codigo").getValue(String.class);
+
+                    if (codigo != null) {
+                        codigos.add(codigo);
+                    }
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("Error", "Error al leer datos", databaseError.toException());
+            }
+        });
+
+
 
         botonRegister.setOnClickListener(view -> {
+
+            // it works xd
+           /* for (String correo : correos) {
+                Log.d("msg-test", correo);
+            }
+            for (String codigo : codigos) {
+                Log.d("msg-test", codigo);
+            }*/
+
+            firebaseAuth = FirebaseAuth.getInstance();
+
             valido = 0;
 
             nombreCompleto = textNombre.getText().toString();
@@ -126,6 +189,19 @@ public class RegisterActivity extends AppCompatActivity {
 
             if (!nombreCompleto.isEmpty() && !apellidos.isEmpty() && !codigo.isEmpty() && !condicion.isEmpty() && !correo.isEmpty() && !contrasena.isEmpty()
                     && !nuevaContra.isEmpty()  ){
+
+
+                if(codigos.contains(textCodigo.getText().toString())){
+                    Log.d("msg-test", textCodigo.getText().toString());
+                    textCodigo.setError("El codigo ingresado ya esta registrado");
+                    valido++;
+                }
+
+                if(correos.contains(textCorreo.getText().toString())){
+                    Log.d("msg-test", textCorreo.getText().toString());
+                    textCorreo.setError("El correo ingresado ya esta registrado");
+                    valido++;
+                }
 
                 if (!regex.inputisValid(nombreCompleto) ) {
                     textNombre.setError("Ingrese por lo menos un nombre");
@@ -146,6 +222,8 @@ public class RegisterActivity extends AppCompatActivity {
                     textCorreo.setError("Ingrese un correo pucp valido");
                     valido++;
                 }
+
+
 
                 if (!regex.contrasenaisValid(textContrasenia.getText().toString())){
                     textContrasenia.setError("Ingrese una contraseña que cumpla con las condiciones");

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.example.telebeetle.activities.CambioContraseniaActivity;
+import com.example.telebeetle.activities.CondicionesActivity;
 import com.example.telebeetle.activities.GeneralViewActivity;
 import com.example.telebeetle.activities.MainActivity;
 import com.example.telebeetle.databinding.FragmentProfileBinding;
@@ -88,6 +89,15 @@ public class ProfileFragment extends Fragment {
             getActivity().finish();
 
         });
+
+        binding.imageView14.setOnClickListener(view -> {
+
+            Intent intent = new Intent(getActivity(), CondicionesActivity.class);
+            startActivity(intent);
+
+
+        });
+
 
         return binding.getRoot();
     }
