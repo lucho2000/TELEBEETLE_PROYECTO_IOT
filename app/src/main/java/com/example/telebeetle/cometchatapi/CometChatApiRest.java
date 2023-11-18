@@ -96,6 +96,7 @@ public class CometChatApiRest {
             public void onResponse(Call call, Response response)
                     throws IOException {
                 String res = response.body().string();
+                Log.d("msg-test",res);
             }
 
             public void onFailure(Call call, IOException e) {

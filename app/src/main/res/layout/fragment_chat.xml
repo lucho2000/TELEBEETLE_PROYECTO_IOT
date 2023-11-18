@@ -20,9 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />  -->
 
-    <com.cometchat.chatuikit.conversationswithmessages.CometChatConversationsWithMessages
-        android:id="@+id/conversation"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
