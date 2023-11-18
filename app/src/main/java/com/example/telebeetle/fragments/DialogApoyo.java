@@ -15,6 +15,16 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.telebeetle.R;
 
 public class DialogApoyo extends DialogFragment {
+
+
+    public void setEvento_uid(String evento_uid) {
+        this.evento_uid = evento_uid;
+    }
+
+    private String evento_uid;
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -23,8 +33,13 @@ public class DialogApoyo extends DialogFragment {
         button.setOnClickListener(v -> {
             dismiss();
             // Proceed to change the current fragment
+            OpcionApoyando opcionApoyando = new OpcionApoyando();
+            Bundle bundle = new Bundle();
+            bundle.putString("evento_uid", evento_uid);
+            opcionApoyando.setArguments(bundle);
+
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragmentContainerView, new OpcionApoyando());
+            transaction.replace(R.id.fragmentContainerView, opcionApoyando);
             transaction.commit();
         });
         return view;

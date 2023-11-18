@@ -63,6 +63,7 @@ public class HomeStudentFragment extends Fragment {
                 listaEvents.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Evento evento = dataSnapshot.getValue(Evento.class);
+                    evento.setUidEvento(dataSnapshot.getKey());
                     listaEvents.add(evento);
                 }
                 eventAdapter.notifyDataSetChanged();

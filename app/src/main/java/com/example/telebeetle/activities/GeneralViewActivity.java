@@ -63,7 +63,6 @@ public class GeneralViewActivity extends AppCompatActivity {
 
     String rol_selected = "usuario";
 
-    FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
 
     Usuario usuario;
@@ -78,7 +77,9 @@ public class GeneralViewActivity extends AppCompatActivity {
         rol_selected = usuario.getRol();
         GeneralViewActivityViewModel generalViewActivityViewModel = new ViewModelProvider(GeneralViewActivity.this).get(GeneralViewActivityViewModel.class);
         generalViewActivityViewModel.getUsuario().setValue(usuario);
-        initCometChat();
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        initCometChat(firebaseAuth.getCurrentUser().getUid());
 
 
         /*firebaseAuth = FirebaseAuth.getInstance();
@@ -200,7 +201,11 @@ public class GeneralViewActivity extends AppCompatActivity {
     }*/
 
 
-    private void initCometChat(){
+    private void initCometChat(String uidUser){
+
+        String uidUserLowerCase = uidUser.toLowerCase();
+        Log.d("msg-test",uidUserLowerCase);
+
         UIKitSettings uiKitSettings = new UIKitSettings.UIKitSettingsBuilder()
                 .setRegion(region)
                 .setAppId(appID)
@@ -210,7 +215,7 @@ public class GeneralViewActivity extends AppCompatActivity {
         CometChatUIKit.init(this, uiKitSettings, new CometChat.CallbackListener<String>() {
             @Override
             public void onSuccess(String successString) {
-                CometChatUIKit.login(uidSample, new CometChat.CallbackListener<User>() {
+                CometChatUIKit.login(uidUserLowerCase, new CometChat.CallbackListener<User>() {
                     @Override
                     public void onSuccess(User user) {
                         Log.d("cometchat-test-msg", "Login Successful : " + user.toString());

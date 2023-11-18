@@ -15,6 +15,8 @@ import com.cometchat.chat.exceptions.CometChatException;
 import com.cometchat.chatuikit.conversations.ConversationsConfiguration;
 import com.cometchat.chatuikit.conversations.ConversationsStyle;
 import com.cometchat.chatuikit.conversationswithmessages.CometChatConversationsWithMessages;
+import com.cometchat.chatuikit.groups.GroupsConfiguration;
+import com.cometchat.chatuikit.groupswithmessages.CometChatGroupsWithMessages;
 import com.cometchat.chatuikit.messages.MessagesConfiguration;
 import com.cometchat.chatuikit.shared.cometchatuikit.CometChatUIKit;
 import com.cometchat.chatuikit.shared.cometchatuikit.UIKitSettings;
@@ -79,7 +81,7 @@ public class ChatFragment extends Fragment {
 
 
 
-        CometChatConversationsWithMessages cometChatConversationWithMessages = new CometChatConversationsWithMessages(getContext());
+        CometChatGroupsWithMessages cometChatGroupsWithMessages = new CometChatGroupsWithMessages(getContext());
         /*ConversationsStyle style = new ConversationsStyle();
 
 
@@ -92,12 +94,12 @@ public class ChatFragment extends Fragment {
         style.setBackground(whitecolor);
         style.setBorderColor(res);
         style.setBorderWidth(border);*/
-        ConversationsConfiguration conversationsConfiguration = new ConversationsConfiguration()
-                .hideSeparator(true)
+        GroupsConfiguration groupsConfiguration= new GroupsConfiguration()
+                .setHideSeparator(true)
                 ;
-        cometChatConversationWithMessages.setConversationsConfiguration(conversationsConfiguration);
+        cometChatGroupsWithMessages.setGroupsConfiguration(groupsConfiguration);
 
-        return cometChatConversationWithMessages;
+        return cometChatGroupsWithMessages;
 
 
 

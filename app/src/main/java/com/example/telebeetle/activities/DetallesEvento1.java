@@ -54,10 +54,17 @@ public class DetallesEvento1 extends AppCompatActivity {
         });
 
         binding.Apoyar.setOnClickListener(view -> {
+            Bundle bundleConEventoUid = new Bundle();
+            bundleConEventoUid.putString("evento_uid", evento.getUidEvento());
+            Log.d("msg_test","que mrd ");
             getSupportFragmentManager().
                     beginTransaction().
                     setReorderingAllowed(true).
-                    add(R.id.fragmentContainerView, OpcionesApoyar.class, null).commit();
+                    add(R.id.fragmentContainerView, OpcionesApoyar.class, bundleConEventoUid).commit();
+            /*getSupportFragmentManager().
+                    beginTransaction().
+                    setReorderingAllowed(true).
+                    add(R.id.fragmentContainerView, OpcionesApoyar.class, null).commit();*/
         });
 
         binding.goMapa.setOnClickListener(view -> {

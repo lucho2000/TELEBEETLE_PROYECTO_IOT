@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.R;
+import com.example.telebeetle.cometchatapi.CometChatApiRest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -39,11 +40,13 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -76,6 +79,8 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
     String longitud = "-77.0781371431298";
 
     GoogleMap mMap;
+
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -163,8 +168,12 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
                     evento.setLatitud(latitud);
                     evento.setLongitud(longitud);
 
+
                     databaseReference = FirebaseDatabase.getInstance().getReference("evento");
-                    databaseReference.push().setValue(evento).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    DatabaseReference newRef = databaseReference.push();
+                    String event_key = newRef.getKey();
+                    Log.d("msg-test-event-key", event_key);
+                    newRef.setValue(evento).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 
@@ -175,6 +184,9 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
                                 descripcion.setText("");
                                 horaInicial.setText("");
                                 nombreLugar.setText("");
+                                CometChatApiRest cometChatApiRest = new CometChatApiRest();
+                                cometChatApiRest.crearGrupoEventoCometChat(event_key,nombreEvento1,firebaseAuth.getCurrentUser().getUid(),textDescripcion);
+
                                 Toast.makeText(CrearEventoActivity.this, "Evento creado correctamente", Toast.LENGTH_SHORT).show();
                                 finish();
                             }
