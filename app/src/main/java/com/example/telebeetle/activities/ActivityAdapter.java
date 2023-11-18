@@ -72,7 +72,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
         TextView nombre = holder.itemView.findViewById(R.id.nameActividad);
         nombre.setText(a.getNombreActividad());
         TextView delegado = holder.itemView.findViewById(R.id.nameDelegado);
-        databaseReference = FirebaseDatabase.getInstance().getReference("usuarios"); //datos de firebase de la coleccion de "evento"
+        databaseReference = FirebaseDatabase.getInstance().getReference("usuarios"); //datos de firebase de la coleccion de "usuarios"
         databaseReference.child(a.getDelegado()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
