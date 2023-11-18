@@ -18,6 +18,9 @@
         android:theme="@style/Theme.TeleBeetle"
         tools:targetApi="31">
         <activity
+            android:name=".activities.CondicionesActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.WaitActivity"
             android:exported="false" />
         <activity
@@ -58,6 +61,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
+
         <activity
             android:name=".activities.MapsActivity"
             android:exported="false"
