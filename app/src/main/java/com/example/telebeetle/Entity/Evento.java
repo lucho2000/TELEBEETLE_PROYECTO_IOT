@@ -26,7 +26,7 @@ public class Evento implements Serializable {
     private String latitud;
     private String longitud;
 
-    private Boolean estadoEvento; //(boolean)
+    private String estado; //(boolean)
 
 
     private List<String> rutasFotosEventos; //lista de rutas URL
@@ -145,12 +145,12 @@ public class Evento implements Serializable {
         this.hora = hora;
     }
 
-    public Boolean getEstadoEvento() {
-        return estadoEvento;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setEstadoEvento(Boolean estadoEvento) {
-        this.estadoEvento = estadoEvento;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public List<String> getRutasFotosEventos() {

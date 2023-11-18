@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.telebeetle.Entity.Actividad;
 import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.R;
 import com.example.telebeetle.cometchatapi.CometChatApiRest;
@@ -41,14 +44,18 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -80,7 +87,10 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
 
     GoogleMap mMap;
 
+    ArrayList<String> actividades = new ArrayList<>();
+    ArrayList<String> uidActividades = new ArrayList<>();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    DatabaseReference databaseReference2;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -89,6 +99,25 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
         setContentView(R.layout.activity_crear_evento);
 
 
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("actividad");
+        actividades.clear();
+        uidActividades.clear();
+        databaseReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Actividad actividad1 = dataSnapshot.getValue(Actividad.class);
+                    actividades.add(actividad1.getNombreActividad());
+                    uidActividades.add(dataSnapshot.getKey());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        AutoCompleteTextView autoCompleteTextView =  findViewById(R.id.NombreActividadTextField);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, actividades);
+        autoCompleteTextView.setAdapter(adapter);
         textInputLayoutDatePicker = findViewById(R.id.FechaTextField);
         participantes = findViewById(R.id.numberPicker2);
         participantes.setMinValue(1);
@@ -102,7 +131,6 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
         });
         nombreLugar = findViewById(R.id.LugarActividad);
         editTextDate = findViewById(R.id.editTextDate); //fecha
-        editActividad = findViewById(R.id.nombreActividad); //actividad debe jalarse de la base de datos, y luego dentro se crea el evento
         nombreEvento = findViewById(R.id.nombreEvento);
         descripcion = findViewById(R.id.editTextComentario);
         //textFecha = findViewById(R.id.editTextDate);
@@ -148,7 +176,7 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
 
         crearEvento.setOnClickListener(view -> {
             maximoParticipantes = String.valueOf(arch);
-            actividad = editActividad.getText().toString();
+            actividad = autoCompleteTextView.getText().toString();
             lugar = nombreLugar.getText().toString();
             nombreEvento1 = nombreEvento.getText().toString();
             textDescripcion = descripcion.getText().toString();
@@ -160,7 +188,12 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
 
                     Evento evento = new Evento();
                     evento.setLugar(lugar);
-                    evento.setActividad(actividad);
+                    for(int i=0; i<actividades.size(); i++){
+                        if(actividad.equalsIgnoreCase(actividades.get(i))){
+                            evento.setActividad(uidActividades.get(i));
+                            break;
+                        }
+                    }
                     evento.setEtapa(nombreEvento1);
                     evento.setDescripcion(textDescripcion);
                     evento.setFecha(fecha);
@@ -178,7 +211,6 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
                         public void onComplete(@NonNull Task<Void> task) {
 
                             if (task.isSuccessful()){
-                                editActividad.setText("");
                                 editTextDate.setText("");
                                 nombreEvento.setText("");
                                 descripcion.setText("");

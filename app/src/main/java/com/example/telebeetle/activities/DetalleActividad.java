@@ -2,12 +2,14 @@ package com.example.telebeetle.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -41,9 +43,12 @@ public class DetalleActividad extends AppCompatActivity {
         finalizarEvento.setOnClickListener(v -> {
             Toast.makeText(DetalleActividad.this,"Falta activity finalizar evento",Toast.LENGTH_SHORT).show();
         });
-        ImageView arrow = findViewById(R.id.left_arrow);
-        arrow.setOnClickListener(view -> {
-            this.finish();
+        Toolbar toolbar = findViewById(R.id.myToolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
         });
     }
     @Override
