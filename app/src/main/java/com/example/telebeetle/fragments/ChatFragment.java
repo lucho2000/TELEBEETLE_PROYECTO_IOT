@@ -20,6 +20,9 @@ import com.cometchat.chatuikit.groupswithmessages.CometChatGroupsWithMessages;
 import com.cometchat.chatuikit.messages.MessagesConfiguration;
 import com.cometchat.chatuikit.shared.cometchatuikit.CometChatUIKit;
 import com.cometchat.chatuikit.shared.cometchatuikit.UIKitSettings;
+import com.cometchat.chatuikit.shared.resources.theme.CometChatTheme;
+import com.cometchat.chatuikit.shared.resources.theme.Palette;
+import com.cometchat.chatuikit.shared.views.CometChatListBase.CometChatListBase;
 import com.cometchat.chatuikit.userswithmessages.CometChatUsersWithMessages;
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.ActivityGeneralViewBinding;
@@ -94,11 +97,14 @@ public class ChatFragment extends Fragment {
         style.setBackground(whitecolor);
         style.setBorderColor(res);
         style.setBorderWidth(border);*/
+        //View view = null;
+
+        cometChatGroupsWithMessages.hideMenuIcon(true);
+        cometChatGroupsWithMessages.hideSeparator(true);
         GroupsConfiguration groupsConfiguration= new GroupsConfiguration()
                 .setHideSeparator(true)
                 ;
         cometChatGroupsWithMessages.setGroupsConfiguration(groupsConfiguration);
-
         return cometChatGroupsWithMessages;
 
 

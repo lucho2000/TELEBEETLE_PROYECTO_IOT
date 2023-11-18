@@ -22,8 +22,10 @@ import com.example.telebeetle.activities.MainActivity;
 import com.example.telebeetle.databinding.FragmentProfileBinding;
 import com.example.telebeetle.viewmodels.GeneralViewActivityViewModel;
 //import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
@@ -66,8 +68,27 @@ public class ProfileFragment extends Fragment {
 
         binding.imageView12.setOnClickListener(view -> {
 
-            Intent intent = new Intent(getActivity(), CambioContraseniaActivity.class );
-            startActivity(intent);
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            FirebaseUser user = auth.getCurrentUser();
+
+            Log.d("msg-test", String.valueOf(user.getProviderData()));
+
+            String provideID = user.getProviderData().get(user.getProviderData().size() - 1).getProviderId();
+
+            Log.d("msg-test", "Provider: " + user.getProviderData().get(user.getProviderData().size() - 1).getProviderId());
+
+
+            if (provideID.equals("password")) {
+                Intent intent = new Intent(getActivity(), CambioContraseniaActivity.class );
+                startActivity(intent);
+            } else if (provideID.equals("google.com")) {
+                Toast.makeText(getActivity(),"Usted esta usando su cuenta google",Toast.LENGTH_SHORT).show();
+                Log.d("msg-test","Google");
+            } else{
+                Log.d("msg-test","providern't");
+            }
+
+
 
         });
 

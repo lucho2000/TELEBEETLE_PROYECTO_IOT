@@ -22,7 +22,7 @@ import java.util.Arrays;
 public class OpcionApoyando extends Fragment {
     FragmentOpcionApoyandoBinding binding;
 
-    FirebaseAuth firebaseAuth;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     CometChatApiRest cometChatApiRest = new CometChatApiRest();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,9 +42,10 @@ public class OpcionApoyando extends Fragment {
         binding.cancelarApoyo.setOnClickListener(view -> {
             if (getActivity() instanceof DetallesEvento1) {
                 DetallesEvento1 activity = (DetallesEvento1) getActivity();
+                Log.d("msg-test-evento-uid",evento_uid);
+                removeUserFromEventGroupCometChat(evento_uid);
                 activity.deleteFragment(OpcionApoyando.this);
 
-                removeUserFromEventGroupCometChat(evento_uid);
             }
         });
         return binding.getRoot();
@@ -53,6 +54,7 @@ public class OpcionApoyando extends Fragment {
 
     public void removeUserFromEventGroupCometChat(String evento_uid) {
         String user_uid = firebaseAuth.getCurrentUser().getUid().toLowerCase();
+        Log.d("msg-test-user-uid",user_uid);
         cometChatApiRest.removeMemberFromGroupEventCometChat(evento_uid,user_uid);
 
     }
