@@ -4,6 +4,7 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.telebeetle.Entity.Actividad;
 import com.example.telebeetle.Entity.Evento;
+import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,6 +35,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     private List<Evento> listEvents;
     private Context context;
+    DatabaseReference databaseReference;
 
     @NonNull
     @Override
@@ -39,19 +48,32 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         ImageView iv= holder.itemView.findViewById(R.id.imageView3);
         iv.setImageResource(R.drawable.baseline_location_on_24);
-        int drawableResourceId = R.drawable.telito;
-        Picasso picasso = Picasso.get();
         ImageView imageView = holder.itemView.findViewById(R.id.imageView2);
-        picasso.load(drawableResourceId)
-                .resize(140,140)
-                .transform(new CropCircleTransformation())
-                .into(imageView);
-
         Evento e = listEvents.get(position);
         holder.evento = e;
-
         TextView actividadEvent = holder.itemView.findViewById(R.id.actividadOfEvent);
-        actividadEvent.setText(e.getActividad());
+        databaseReference = FirebaseDatabase.getInstance().getReference("actividad"); //datos de firebase de la coleccion de "usuarios"
+        databaseReference.child(e.getActividad()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Actividad actividad = snapshot.getValue(Actividad.class);
+                    Picasso.get().load(actividad.getImagen())
+                            .resize(140,140)
+                            .transform(new CropCircleTransformation())
+                            .into(imageView);
+                    actividadEvent.setText(actividad.getNombreActividad());
+                } else {
+                    Log.d("User", "User not found");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("User", "Failed to read value.", error.toException());
+            }
+        });
+
+
 
         TextView nameEvent = holder.itemView.findViewById(R.id.nameEvento);
         nameEvent.setText(e.getEtapa());

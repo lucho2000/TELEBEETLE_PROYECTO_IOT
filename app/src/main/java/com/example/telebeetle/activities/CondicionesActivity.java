@@ -1,8 +1,11 @@
 package com.example.telebeetle.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.ActivityCondicionesBinding;
@@ -11,6 +14,7 @@ import com.example.telebeetle.databinding.ActivityRegisterBinding;
 public class CondicionesActivity extends AppCompatActivity {
 
     ActivityCondicionesBinding binding;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,13 @@ public class CondicionesActivity extends AppCompatActivity {
                 "\n" );
 
 
+        Toolbar toolbar = findViewById(R.id.myToolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
     }

@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -76,12 +77,15 @@ public class DetalleActividadGeneralActivity extends AppCompatActivity {
         verSolicitudes.setOnClickListener(view -> {
             showSheetSolicitudes();
         });
-        ImageView arrow = findViewById(R.id.left_arrow);
-        arrow.setOnClickListener(view -> {
-            this.finish();
-        });
         binding.goMapa.setOnClickListener(view -> {
             mostrarUbicacion(evento.getLatitud(), evento.getLongitud(), evento.getLugar());
+        });
+        Toolbar toolbar = findViewById(R.id.myToolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
         });
 
     }

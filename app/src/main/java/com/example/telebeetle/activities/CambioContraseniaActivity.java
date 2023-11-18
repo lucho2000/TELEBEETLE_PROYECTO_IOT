@@ -30,6 +30,7 @@ public class CambioContraseniaActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(CambioContraseniaActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         /* LINKEO HACIA INGRESO CORREO */

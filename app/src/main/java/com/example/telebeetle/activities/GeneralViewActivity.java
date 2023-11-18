@@ -43,8 +43,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
+
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class GeneralViewActivity extends AppCompatActivity {
     ActivityGeneralViewBinding binding;
@@ -72,14 +75,99 @@ public class GeneralViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityGeneralViewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Intent intent = getIntent();
-        usuario = (Usuario) intent.getSerializableExtra("usuario");
-        rol_selected = usuario.getRol();
-        GeneralViewActivityViewModel generalViewActivityViewModel = new ViewModelProvider(GeneralViewActivity.this).get(GeneralViewActivityViewModel.class);
-        generalViewActivityViewModel.getUsuario().setValue(usuario);
-
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         initCometChat(firebaseAuth.getCurrentUser().getUid());
+        databaseReference = FirebaseDatabase.getInstance().getReference("usuarios"); //datos de firebase de la coleccion de "usuarios"
+        databaseReference.child(firebaseAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Usuario user = snapshot.getValue(Usuario.class);
+                    rol_selected = user.getRol();
+                    GeneralViewActivityViewModel generalViewActivityViewModel = new ViewModelProvider(GeneralViewActivity.this).get(GeneralViewActivityViewModel.class);
+                    generalViewActivityViewModel.getUsuario().setValue(user);
+                    BottomNavigationView bottomNavigationView =binding.bottomNavigationView;
+                    if (rol_selected.equals(rol_delegado_general)) {
+                        menuToChoose = R.menu.general_bottom_menu;
+                        bottomNavigationView.getMenu().clear();
+                        bottomNavigationView.inflateMenu(menuToChoose);
+
+                        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_general_view);
+                        NavController navController = navHostFragment.getNavController();
+
+                        NavInflater inflater = navController.getNavInflater();
+                        NavGraph graph = inflater.inflate(R.navigation.nav_graph_general);
+                        //graph.addArgument("argument", NavArgument)
+                        graph.setStartDestination(R.id.homeDelegadoGeneralFragment);
+
+                        navHostFragment.getNavController().setGraph(graph);
+                        //navHostFragment.getNavController().getGraph().setDefaultArguments(getIntent().getExtras());
+
+                        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+                        binding.fab.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                showBottomMenuFabDialog();
+                            }
+                        });
+                    } else if (rol_selected.equals(rol_delegado_actividad)) {
+                        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) binding.fab.getLayoutParams();
+                        p.setAnchorId(View.NO_ID);
+                        binding.fab.setLayoutParams(p);
+                        binding.fab.setVisibility(View.GONE);
+                        menuToChoose = R.menu.del_actividad_bottom_menu;
+                        bottomNavigationView.getMenu().clear();
+                        bottomNavigationView.inflateMenu(menuToChoose);
+
+                        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_general_view);
+                        NavController navController = navHostFragment.getNavController();
+
+                        NavInflater inflater = navController.getNavInflater();
+                        NavGraph graph = inflater.inflate(R.navigation.nav_graph_general);
+                        //graph.addArgument("argument", NavArgument)
+                        graph.setStartDestination(R.id.homeDelegadoActivitdadFragment);
+
+                        navHostFragment.getNavController().setGraph(graph);
+                        //navHostFragment.getNavController().getGraph().setDefaultArguments(getIntent().getExtras());
+
+                        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+                        //invalidateOptionsMenu();
+
+
+                    } else { //rol_usuario fue seleccionado aqui
+                        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) binding.fab.getLayoutParams();
+                        p.setAnchorId(View.NO_ID);
+                        binding.fab.setLayoutParams(p);
+                        binding.fab.setVisibility(View.GONE);
+                        menuToChoose = R.menu.student_bottom_menu;
+                        bottomNavigationView.getMenu().clear();
+                        bottomNavigationView.inflateMenu(menuToChoose);
+
+                        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_general_view);
+                        NavController navController = navHostFragment.getNavController();
+
+                        NavInflater inflater = navController.getNavInflater();
+                        NavGraph graph = inflater.inflate(R.navigation.nav_graph_general);
+                        //graph.addArgument("argument", NavArgument)
+                        graph.setStartDestination(R.id.homeStudentFragment);
+
+                        navHostFragment.getNavController().setGraph(graph);
+                        //navHostFragment.getNavController().getGraph().setDefaultArguments(getIntent().getExtras());
+
+                        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+
+                    }
+                } else {
+                    Log.d("User", "User not found");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("User", "Failed to read value.", error.toException());
+            }
+        });
 
 
         /*firebaseAuth = FirebaseAuth.getInstance();
@@ -115,79 +203,6 @@ public class GeneralViewActivity extends AppCompatActivity {
 
 
 
-        BottomNavigationView bottomNavigationView =binding.bottomNavigationView;
-        if (rol_selected.equals(rol_delegado_general)) {
-            menuToChoose = R.menu.general_bottom_menu;
-            bottomNavigationView.getMenu().clear();
-            bottomNavigationView.inflateMenu(menuToChoose);
-
-            NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_general_view);
-            NavController navController = navHostFragment.getNavController();
-
-            NavInflater inflater = navController.getNavInflater();
-            NavGraph graph = inflater.inflate(R.navigation.nav_graph_general);
-            //graph.addArgument("argument", NavArgument)
-            graph.setStartDestination(R.id.homeDelegadoGeneralFragment);
-
-            navHostFragment.getNavController().setGraph(graph);
-            //navHostFragment.getNavController().getGraph().setDefaultArguments(getIntent().getExtras());
-
-            NavigationUI.setupWithNavController(bottomNavigationView, navController);
-            binding.fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showBottomMenuFabDialog();
-                }
-            });
-        } else if (rol_selected.equals(rol_delegado_actividad)) {
-            CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) binding.fab.getLayoutParams();
-            p.setAnchorId(View.NO_ID);
-            binding.fab.setLayoutParams(p);
-            binding.fab.setVisibility(View.GONE);
-            menuToChoose = R.menu.del_actividad_bottom_menu;
-            bottomNavigationView.getMenu().clear();
-            bottomNavigationView.inflateMenu(menuToChoose);
-
-            NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_general_view);
-            NavController navController = navHostFragment.getNavController();
-
-            NavInflater inflater = navController.getNavInflater();
-            NavGraph graph = inflater.inflate(R.navigation.nav_graph_general);
-            //graph.addArgument("argument", NavArgument)
-            graph.setStartDestination(R.id.homeDelegadoActivitdadFragment);
-
-            navHostFragment.getNavController().setGraph(graph);
-            //navHostFragment.getNavController().getGraph().setDefaultArguments(getIntent().getExtras());
-
-            NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
-            //invalidateOptionsMenu();
-
-
-        } else { //rol_usuario fue seleccionado aqui
-            CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) binding.fab.getLayoutParams();
-            p.setAnchorId(View.NO_ID);
-            binding.fab.setLayoutParams(p);
-            binding.fab.setVisibility(View.GONE);
-            menuToChoose = R.menu.student_bottom_menu;
-            bottomNavigationView.getMenu().clear();
-            bottomNavigationView.inflateMenu(menuToChoose);
-
-            NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_general_view);
-            NavController navController = navHostFragment.getNavController();
-
-            NavInflater inflater = navController.getNavInflater();
-            NavGraph graph = inflater.inflate(R.navigation.nav_graph_general);
-            //graph.addArgument("argument", NavArgument)
-            graph.setStartDestination(R.id.homeStudentFragment);
-
-            navHostFragment.getNavController().setGraph(graph);
-            //navHostFragment.getNavController().getGraph().setDefaultArguments(getIntent().getExtras());
-
-            NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
-
-        }
 
     }
 

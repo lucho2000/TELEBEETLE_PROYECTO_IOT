@@ -3,6 +3,7 @@ package com.example.telebeetle.activities;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.example.telebeetle.Entity.Evento;
@@ -48,10 +50,6 @@ public class DetallesEvento1 extends AppCompatActivity {
                 .resize(75,75)
                 .transform(new CropCircleTransformation())
                 .into(imageView);
-        ImageView arrow = findViewById(R.id.left_arrow);
-        arrow.setOnClickListener(view -> {
-            this.finish();
-        });
 
         binding.Apoyar.setOnClickListener(view -> {
             Bundle bundleConEventoUid = new Bundle();
@@ -69,6 +67,13 @@ public class DetallesEvento1 extends AppCompatActivity {
 
         binding.goMapa.setOnClickListener(view -> {
             mostrarUbicacion(evento.getLatitud(), evento.getLongitud(), evento.getLugar());
+        });
+        Toolbar toolbar = findViewById(R.id.myToolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
         });
 
     }
