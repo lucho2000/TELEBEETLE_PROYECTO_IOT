@@ -13,6 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.telebeetle.Entity.Donacion;
 import com.example.telebeetle.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -20,6 +25,8 @@ public class DonacionesAdapter extends RecyclerView.Adapter<DonacionesAdapter.Do
 
     private List<Donacion> listDonaciones;
     private Context context;
+
+    DatabaseReference databaseReference;
 
     @NonNull
     @Override
@@ -42,6 +49,12 @@ public class DonacionesAdapter extends RecyclerView.Adapter<DonacionesAdapter.Do
         String a = dona.getFecha() ;
         textViewFechaYHora.setText(a);
 
+        TextView textViewDonante = holder.itemView.findViewById(R.id.textView29);
+        textViewDonante.setText(dona.getUidDonante());
+
+        TextView textViewPagado = holder.itemView.findViewById(R.id.textView28);
+        textViewPagado.setVisibility(View.INVISIBLE);
+
         ImageView imageView = holder.itemView.findViewById(R.id.imageView8);
         imageView.setImageResource(R.drawable.yy);
     }
@@ -57,6 +70,7 @@ public class DonacionesAdapter extends RecyclerView.Adapter<DonacionesAdapter.Do
         Donacion donacion;
         public DonacionViewHolder(@NonNull View itemView) {
             super(itemView);
+
         }
     }
     public List<Donacion> getListDonaciones() {

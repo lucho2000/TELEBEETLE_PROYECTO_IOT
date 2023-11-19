@@ -82,85 +82,60 @@ public class QRDonarActivity extends AppCompatActivity {
 
             //se deberia sacar la condicion del usuario
             String usuarioActualUID = firebaseAuth.getCurrentUser().getUid();
+            Log.d("msg-test", "ID USER: " +usuarioActualUID);
 
-            database.getReference("usuarios").child(usuarioActualUID).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    if (snapshot.exists()){
+            if(!binding.editTextMonto.getText().toString().isEmpty()){
 
-                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
-                            Usuario usuario1 = dataSnapshot.getValue(Usuario.class);
-                            Log.d("msg-test", "Usuario llego con nombre: " + usuario1.getNombres() + "" +usuario1.getApellidos());
+                if (!urlImagen.toString().isEmpty()){
 
-                            //revisando si es egresado
-                            if (usuario1.getCondicion().equalsIgnoreCase("alumno") ){
+                    database.getReference("usuarios").child(usuarioActualUID).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                if(!binding.editTextMonto.getText().toString().isEmpty() && !urlImagen.toString().isEmpty()){
-                                    StorageReference carpetaFotosDonacionesRef = storageReference.child("Capturas Donaciones");
-                                    StorageReference fotoRef = carpetaFotosDonacionesRef.child(new Date().toString());
+                            if (snapshot.exists()){
 
-                                    fotoRef.putFile(urlImagen).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                        @Override
-                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                            Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                                            while (!uriTask.isSuccessful());
-                                            Uri uriDownload = uriTask.getResult();
-                                            donacion = new Donacion();
-                                            donacion.setMonto(montoInt.toString()); //poner monto a donar
-                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                                fecha = LocalDate.now().toString();
-                                                donacion.setFecha(fecha);
-                                            }
-                                            donacion.setImagenCaptura(uriDownload.toString());
-                                            donacion.setAccepted(false);
-                                            Intent intent = new Intent(QRDonarActivity.this, ScreenEsperaActivity.class);
-                                            startActivity(intent);
-                                            //intent.putExtra("fecha",fecha);
-                                            database.getReference("donaciones").push().setValue(donacion).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Toast.makeText(QRDonarActivity.this, "Donacion realizada exitosamente", Toast.LENGTH_SHORT).show();
-                                                    finish();
-                                                }
-                                            }).addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.d("mgs-test", e.toString());
-                                                }
-                                            });
+                                String condicion = snapshot.child("condicion").getValue(String.class);
+                                String nombre = snapshot.child("nombres").getValue(String.class);
+                                String apellidos = snapshot.child("apellidos").getValue(String.class);
 
-                                        }
-                                    });
-                                } else {
+                                String donante = nombre + " " + apellidos;
+                                //Usuario usuario1 = dataSnapshot.getValue(Usuario.class);
+                                Log.d("msg-test", "Usuario llego con condicion: " + condicion);
 
-                                    Toast.makeText(QRDonarActivity.this, "Debe ingresar el monto", Toast.LENGTH_SHORT).show();
+                                //revisando el rol
+                                if (condicion.equalsIgnoreCase("alumno") && montoInt > 0){
+
+                                    crearDonaciones(montoInt, donante);
+
+                                } else { //egresado
+                                    if (montoInt > 100){
+                                        crearDonaciones(montoInt, donante);
+                                    } else {
+                                        Toast.makeText(QRDonarActivity.this, "El monto debe ser mayor a 100 soles para los egresados", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
 
-
-                            } else { //egresado
-                                if (montoInt >=100){
-
-
-                                } else {
-                                    Toast.makeText(QRDonarActivity.this, "el monto debe pasar los 100 soles si es egresado", Toast.LENGTH_SHORT).show();
-                                }
                             }
+
                         }
-                    }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
 
 
 
+                } else {
+                    Toast.makeText(QRDonarActivity.this, "Debe adjuntar la captura del monto ", Toast.LENGTH_SHORT).show();
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+            } else {
 
-                }
-            });
-
-
-
+                Toast.makeText(QRDonarActivity.this, "Debe ingresar el monto ", Toast.LENGTH_SHORT).show();
+            }
 
 
 
@@ -191,5 +166,45 @@ public class QRDonarActivity extends AppCompatActivity {
             Log.d("msg-test", "uri.getLastPathSegment(): " + urlImagen.getLastPathSegment());
 
         }
+    }
+
+    public void crearDonaciones(int montoInt, String nombreDonante){
+        StorageReference carpetaFotosDonacionesRef = storageReference.child("Capturas Donaciones");
+        StorageReference fotoRef = carpetaFotosDonacionesRef.child(new Date().toString());
+
+        fotoRef.putFile(urlImagen).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                while (!uriTask.isSuccessful());
+                Uri uriDownload = uriTask.getResult();
+                donacion = new Donacion();
+                donacion.setMonto(String.valueOf(montoInt)); //poner monto a donar
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    fecha = LocalDate.now().toString();
+                    donacion.setFecha(fecha);
+                }
+                donacion.setImagenCaptura(uriDownload.toString());
+                donacion.setAccepted(false);
+                donacion.setUidDonante(nombreDonante);
+                Intent intent = new Intent(QRDonarActivity.this, ScreenEsperaActivity.class);
+                startActivity(intent);
+                //intent.putExtra("fecha",fecha);
+                database.getReference("donaciones_por_validar").push().setValue(donacion).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(QRDonarActivity.this, "Donacion realizada, espere a que se valide ", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("mgs-test", e.toString());
+                    }
+                });
+
+            }
+        });
+
     }
 }

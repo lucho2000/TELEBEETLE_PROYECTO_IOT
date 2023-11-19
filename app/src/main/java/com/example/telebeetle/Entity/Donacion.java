@@ -2,7 +2,7 @@ package com.example.telebeetle.Entity;
 
 public class Donacion {
 
-    private String asunto;
+    private String keyDonacion;
 
     private String fecha;
 
@@ -12,6 +12,16 @@ public class Donacion {
 
     private String imagenCaptura;
 
+    private String uidDonante;
+
+
+    public String getUidDonante() {
+        return uidDonante;
+    }
+
+    public void setUidDonante(String uidDonante) {
+        this.uidDonante = uidDonante;
+    }
 
     public String getMonto() {
         return monto;
@@ -25,17 +35,17 @@ public class Donacion {
 
     }
 
-    public Donacion(String asunto, String fecha) {
-        this.asunto = asunto;
+    public Donacion(String keyDonacion, String fecha) {
+        this.keyDonacion = keyDonacion;
         this.fecha = fecha;
     }
 
-    public String getAsunto() {
-        return asunto;
+    public String getKeyDonacion() {
+        return keyDonacion;
     }
 
-    public void setAsunto(String asunto) {
-        this.asunto = asunto;
+    public void setKeyDonacion(String keyDonacion) {
+        this.keyDonacion = keyDonacion;
     }
 
     public String getFecha() {
