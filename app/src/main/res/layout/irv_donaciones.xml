@@ -40,28 +40,32 @@
 
             <TextView
                 android:id="@+id/donacionAsunto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="168dp"
+                android:layout_height="24dp"
 
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Donacion para la AITEL"
                 android:textColor="#FF9800"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/fechaHora"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.3" />
 
             <TextView
                 android:id="@+id/fechaHora"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="104dp"
+                android:layout_height="20dp"
 
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
                 android:text="hora y fecha"
+                android:textAlignment="center"
                 android:textColor="#3F51B5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/donacionAsunto" />
+                app:layout_constraintBottom_toTopOf="@+id/textView29"
+                app:layout_constraintEnd_toEndOf="@+id/textView29"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textView29" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline8"
@@ -74,24 +78,23 @@
                 android:id="@+id/textView28"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="84dp"
-                android:layout_marginEnd="68dp"
                 android:text="Pagado"
                 android:textColor="#000000"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/donacionAsunto" />
+                app:layout_constraintHorizontal_bias="0.418"
+                app:layout_constraintStart_toStartOf="@+id/guideline8" />
 
             <TextView
                 android:id="@+id/textView29"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="56dp"
+                android:layout_marginBottom="12dp"
                 android:text="Hiroshi Giotoku"
                 android:textColor="#000000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.435"
-                app:layout_constraintStart_toStartOf="@+id/guideline8"
-                app:layout_constraintTop_toBottomOf="@+id/donacionAsunto" />
+                app:layout_constraintBottom_toTopOf="@+id/textView28"
+                app:layout_constraintEnd_toEndOf="@+id/textView28"
+                app:layout_constraintStart_toStartOf="@+id/textView28" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

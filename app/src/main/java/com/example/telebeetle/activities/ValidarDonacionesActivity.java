@@ -1,5 +1,6 @@
 package com.example.telebeetle.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,12 +10,23 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.telebeetle.Entity.Donacion;
+import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ValidarDonacionesActivity extends AppCompatActivity {
+
+    List<Donacion> solicitudesDonaciones;
+
+    DatabaseReference databaseReference;
+    DatabaseReference databaseReference2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,13 +53,34 @@ public class ValidarDonacionesActivity extends AppCompatActivity {
         return donacions;
     }
     public void cargarListaDonaciones(){
-        List<Donacion> donacions = listaDonacionesHardcodeada();
+        //List<Donacion> donacions = listaDonacionesHardcodeada();
+        solicitudesDonaciones = new ArrayList<>();
         ValidarDonacionesAdapter validarDonacionesAdapter = new ValidarDonacionesAdapter();
-        validarDonacionesAdapter.setListaValidarDonaciones(donacions);
+        validarDonacionesAdapter.setListaValidarDonaciones(solicitudesDonaciones);
         validarDonacionesAdapter.setContext(ValidarDonacionesActivity.this);
         RecyclerView rv = findViewById(R.id.rv_validardonaciones);
         rv.setAdapter(validarDonacionesAdapter);
         rv.setLayoutManager(new LinearLayoutManager(ValidarDonacionesActivity.this));
+
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("donaciones_por_validar");
+        databaseReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                solicitudesDonaciones.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    String keyDonacion = dataSnapshot.getKey();
+                    Donacion donacion = dataSnapshot.getValue(Donacion.class);
+                    donacion.setKeyDonacion(keyDonacion);
+                    solicitudesDonaciones.add(donacion);
+                }
+                validarDonacionesAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 }

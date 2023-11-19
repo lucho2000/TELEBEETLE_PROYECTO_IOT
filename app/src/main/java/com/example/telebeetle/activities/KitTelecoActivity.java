@@ -1,10 +1,12 @@
 package com.example.telebeetle.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import com.example.telebeetle.Entity.Usuario;
@@ -13,7 +15,9 @@ import com.example.telebeetle.databinding.ActivityKitTelecoBinding;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.sql.Time;
@@ -34,12 +38,30 @@ public class KitTelecoActivity extends AppCompatActivity {
         binding = ActivityKitTelecoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        String usuarioActualUID = firebaseAuth.getCurrentUser().getUid();
-        Task<DataSnapshot> usuario = database.getReference("usuarios").child(usuarioActualUID).get();
-        Usuario usuario1 = (Usuario) usuario.getResult().getValue();
+        firebaseAuth = FirebaseAuth.getInstance();
 
-        binding.textView23.setText(usuario1.getNombres() + "" + usuario1.getApellidos()) ;
-        binding.textView24.setText(usuario1.getCorreo());
+
+        String usuarioActualUID = firebaseAuth.getCurrentUser().getUid();
+        database.getReference("usuarios").child(usuarioActualUID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+
+                    Usuario usuario1 = snapshot.getValue(Usuario.class);
+                    Log.d("msg-test", "Usuario llego con nombre: " + usuario1.getNombres() + "" +usuario1.getApellidos());
+                    binding.textView23.setText(usuario1.getNombres() + "" + usuario1.getApellidos()) ;
+                    binding.textView24.setText(usuario1.getCorreo());
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         binding.textView25.setText("Oficina de la AITEL (Primer piso del pabellon V)");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

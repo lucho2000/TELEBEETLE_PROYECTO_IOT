@@ -3,6 +3,7 @@ package com.example.telebeetle.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -17,6 +18,11 @@ import com.example.telebeetle.activities.DonacionesAdapter;
 import com.example.telebeetle.activities.EventAdapter;
 import com.example.telebeetle.activities.QRDonarActivity;
 import com.example.telebeetle.databinding.FragmentDonationBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.lang.annotation.Inherited;
 import java.util.ArrayList;
@@ -26,6 +32,11 @@ import java.util.List;
 public class DonationFragment extends Fragment {
 
     FragmentDonationBinding binding;
+
+    DatabaseReference databaseReference2;
+
+    List<Donacion> donaciones;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,12 +77,34 @@ public class DonationFragment extends Fragment {
     }
 
     public void cargarlistaDonaciones(){
-        List<Donacion> listaDonaciones = listarDonacionesHardcoded();
+        donaciones = new ArrayList<>();
         DonacionesAdapter donacionesAdapter = new DonacionesAdapter();
-        donacionesAdapter.setListDonaciones(listaDonaciones);
+        donacionesAdapter.setListDonaciones(donaciones);
         donacionesAdapter.setContext(getActivity().getApplicationContext());
         binding.rvDonaciones.setAdapter(donacionesAdapter);
         binding.rvDonaciones.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("donaciones");
+        databaseReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                donaciones.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    String keyDonacion = dataSnapshot.getKey();
+                    Donacion donacion = dataSnapshot.getValue(Donacion.class);
+                    //donacion.setKeyDonacion(keyDonacion);
+                    donaciones.add(donacion);
+                }
+                donacionesAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
 }
