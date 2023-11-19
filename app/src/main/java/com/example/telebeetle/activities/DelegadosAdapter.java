@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.example.telebeetle.viewmodels.CrearActivityViewModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -51,15 +52,18 @@ public class DelegadosAdapter extends RecyclerView.Adapter<DelegadosAdapter.Dele
 
         ImageView imageViewIcono =  holder.itemView.findViewById(R.id.imageView20);
         CrearActivityViewModel crearActivityViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(CrearActivityViewModel.class);
+        ImageView foto = holder.itemView.findViewById(R.id.imageView18);
+        Picasso.get().load(d.getProfile()).into(foto);
 
         AtomicBoolean condicion = new AtomicBoolean(true);
         imageViewIcono.setOnClickListener(view -> {
             if(condicion.get()){
                 imageViewIcono.setImageResource(R.drawable.baseline_check_24);
-                crearActivityViewModel.getCodigo().postValue(d.getCodigo());
+                crearActivityViewModel.getUid().postValue(d.getUidUsuario());
                 condicion.set(false);
             }else{
                 imageViewIcono.setImageResource(R.drawable.baseline_add_24);
+                crearActivityViewModel.getUid().postValue(null);
                 condicion.set(true);
             }
         });

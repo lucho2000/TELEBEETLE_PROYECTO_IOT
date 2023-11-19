@@ -30,6 +30,7 @@
 
             <TextView
                 android:id="@+id/textView42"
+                android:gravity="center"
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -38,6 +39,7 @@
 
             <TextView
                 android:id="@+id/textView43"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView" />

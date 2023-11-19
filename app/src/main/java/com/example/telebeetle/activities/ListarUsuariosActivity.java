@@ -48,10 +48,12 @@ public class ListarUsuariosActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-
                     for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
                         Usuario usuario = dataSnapshot.getValue(Usuario.class);
-                        usuarioList.add(usuario);
+                        if(!usuario.getRol().equalsIgnoreCase("delegado_general")){
+                            usuario.setUidUsuario(dataSnapshot.getKey());
+                            usuarioList.add(usuario);
+                        }
                     }
                     usuarioAdapter.notifyDataSetChanged();
                 }

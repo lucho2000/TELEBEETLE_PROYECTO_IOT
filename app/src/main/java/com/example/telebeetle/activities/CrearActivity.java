@@ -56,7 +56,7 @@ public class CrearActivity extends AppCompatActivity {
     ImageView previsualizaImagen;
 
     DatabaseReference databaseReference;
-
+    DatabaseReference databaseReference2;
     StorageReference storageReference;
 
     List<Usuario> listaDelegado;
@@ -64,12 +64,14 @@ public class CrearActivity extends AppCompatActivity {
     ActivityCrearBinding binding;
 
     FirebaseStorage storage;
+    String codigoDelegado;
 
     Actividad actividad;
 
     Uri urlImagen;
 
     Usuario delegadoAdd;
+    ArrayList<String> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,7 @@ public class CrearActivity extends AppCompatActivity {
         String[] opcionesMenu = {"Masculino", "Femenino", "Mixto"}; //opciones del menu
 
         databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("actividad");
 
         listaDelegado = new ArrayList<>();
 
@@ -106,24 +109,42 @@ public class CrearActivity extends AppCompatActivity {
 
         binding.recyclerView3.setAdapter(delegadosAdapter1);
         binding.recyclerView3.setLayoutManager(new LinearLayoutManager(CrearActivity.this));
+        list = new ArrayList<>();
 
         //binding.recyclerView3.addItemDecoration(new DividerItemDecoration(CrearActivity.this, DividerItemDecoration.VERTICAL));
 
-
-
-        //llenar lista de delegados
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-
+                if(snapshot.exists()){
                     for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
-                        Usuario usuario = dataSnapshot.getValue(Usuario.class);
-
-                        delegadoAdd = usuario;
-                        listaDelegado.add(usuario);
+                        Actividad actividadga = dataSnapshot.getValue(Actividad.class);
+                        list.add(actividadga.getDelegado());
                     }
-                    delegadosAdapter1.notifyDataSetChanged();
+                    //llenar lista de delegados
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()){
+                                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                                    Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                                    if(usuario.getRol().equalsIgnoreCase("usuario")){
+                                        if(!list.contains(dataSnapshot.getKey())){
+                                            usuario.setUidUsuario(dataSnapshot.getKey());
+                                            delegadoAdd = usuario;
+                                            listaDelegado.add(usuario);
+                                        }
+                                    }
+                                }
+                                delegadosAdapter1.notifyDataSetChanged();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
 
@@ -132,6 +153,7 @@ public class CrearActivity extends AppCompatActivity {
 
             }
         });
+
 
         //ir a la galeria
         iconoImagen.setOnClickListener(view -> {
@@ -149,10 +171,11 @@ public class CrearActivity extends AppCompatActivity {
 
             String nombreActividad = editTextActividad.getText().toString();
             String categoria = autoCompleteTextViewCategoria.getText().toString();
+            crearActivityViewModel.getUid().observe(CrearActivity.this, uid -> {
+                codigoDelegado = uid;
+            });
 
-            if (!nombreActividad.isEmpty() && !categoria.isEmpty()) {
-
-                databaseReference = FirebaseDatabase.getInstance().getReference("actividad");
+            if (!nombreActividad.isEmpty() && !categoria.isEmpty() && urlImagen!=null && codigoDelegado!=null) {
 
                 StorageReference carpetaFotosActividadesRef = storageReference.child("Fotos Actividades");
                 StorageReference fotoRef = carpetaFotosActividadesRef.child(new Date().toString());
@@ -168,14 +191,35 @@ public class CrearActivity extends AppCompatActivity {
                         actividad.setCategoria(categoria);
                         actividad.setImagen(uriDownload.toString());
                         actividad.setEstado(true);
-                        crearActivityViewModel.getCodigo().observe(CrearActivity.this, codigo -> {
-                            actividad.setDelegado(codigo);
-                        });
-                        databaseReference.push().setValue(actividad).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        actividad.setDelegado(codigoDelegado);
+                        databaseReference2.push().setValue(actividad).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(CrearActivity.this, "Actividad creada exitosamente", Toast.LENGTH_SHORT).show();
-                                finish();
+                                databaseReference.child(codigoDelegado).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if(snapshot.exists()){
+                                            Usuario user = snapshot.getValue(Usuario.class);
+                                            user.setRol("delegado_actividad");
+                                            databaseReference.child(snapshot.getKey()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Toast.makeText(CrearActivity.this, "Actividad creada exitosamente", Toast.LENGTH_SHORT).show();
+                                                    finish();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+
+                                                }
+                                            });
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -186,6 +230,8 @@ public class CrearActivity extends AppCompatActivity {
                     }
                 });
 
+            }else{
+                Toast.makeText(this, "Faltan campos por rellenar", Toast.LENGTH_SHORT).show();
             }
 
 

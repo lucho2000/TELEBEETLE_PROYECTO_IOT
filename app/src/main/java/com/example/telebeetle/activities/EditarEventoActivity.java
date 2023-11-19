@@ -31,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -40,12 +41,11 @@ import java.util.TimeZone;
 
 public class EditarEventoActivity extends AppCompatActivity {
 
-    TextInputLayout textInputLayout;
-    TextInputEditText editTextDatePicker;
+    TextInputLayout textInputLayout, textInputLayoutTimePicker;
+    TextInputEditText editTextDatePicker, editTextTime;
     ActivityEditarEventoBinding binding;
 
     FirebaseDatabase database;
-    TextView horaInicial;
     Evento eventoObjEditar;
 
     @Override
@@ -60,20 +60,22 @@ public class EditarEventoActivity extends AppCompatActivity {
 
 
         editTextDatePicker = binding.editTextDate;
-        horaInicial = findViewById(R.id.textViewHoraInicial);
-
+        editTextTime = binding.HoraActividad;
 
         database = FirebaseDatabase.getInstance();
         rellenarConDataCamposEditarEvento(idEvento);
 
         textInputLayout = binding.FechaTextField;
+        textInputLayoutTimePicker = binding.HoraActividadTextField;
+        editTextDatePicker.setEnabled(false);
         textInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showMaterialDesignDatePicker();
             }
         });
-        binding.imageView17.setOnClickListener(v -> {
+        editTextTime.setEnabled(false);
+        textInputLayoutTimePicker.setEndIconOnClickListener(v -> {
             showTimePicker();
         });
 
@@ -81,7 +83,6 @@ public class EditarEventoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 editarDataEventoFirebase(idEvento);
-                finish();
             }
         });
 
@@ -114,9 +115,18 @@ public class EditarEventoActivity extends AppCompatActivity {
                 int hour = materialTimePicker.getHour();
                 int minute = materialTimePicker.getMinute();
 
+                // Create a Calendar instance and set the selected time
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
+
+                // Create a SimpleDateFormat instance with the desired 12-hour format
+                SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+
+                // Format the selected time
+                String selectedTime = dateFormat.format(calendar.getTime());
                 // Handle the selected time
-                String selectedTime = String.format("%02d:%02d", hour, minute);
-                horaInicial.setText(selectedTime);
+                editTextTime.setText(selectedTime);
             }
         });
 
@@ -145,11 +155,9 @@ public class EditarEventoActivity extends AppCompatActivity {
     }
 
     public void rellenarConDataCamposEditarEvento(String idEvento) {
-        TextInputEditText miActividadEditarEvento = binding.nombreActividadEvento;
         TextInputEditText nombreEvento = binding.nombreEvento;
         EditText descripcionEvento = binding.editTextDescripcion;
         DatabaseReference eventosData = database.getReference("evento");
-        TextView hora = binding.textViewHoraInicial;
         eventosData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -159,11 +167,10 @@ public class EditarEventoActivity extends AppCompatActivity {
                         if (eventoObjEditar != null) {
                             Log.d("msg-test-firebase",eventoObjEditar.getFecha());
                             editTextDatePicker.setText(eventoObjEditar.getFecha());
-                            miActividadEditarEvento.setText(eventoObjEditar.getActividad());
                             nombreEvento.setText(eventoObjEditar.getEtapa()); //revisar atributos objeto evento
                             //descripcionEvento.setText(eventoObjEditar.getDescripcion());
                             descripcionEvento.setText(eventoObjEditar.getDescripcion());
-                            hora.setText(eventoObjEditar.getHora());
+                            editTextTime.setText(eventoObjEditar.getHora());
                         } else {
                             //objeto nulo
                             Log.d("msg-test-firebase","objeto evento nulo. no match with ID");
@@ -182,31 +189,32 @@ public class EditarEventoActivity extends AppCompatActivity {
     }
 
     public void editarDataEventoFirebase(String idEvento) {
-        String miActividadEditarEvento = binding.nombreActividadEvento.getText().toString();
         String nombreEvento = binding.nombreEvento.getText().toString();
         String descripcionEvento = binding.editTextDescripcion.getText().toString();
-        String horaEvento = binding.textViewHoraInicial.getText().toString();
-        DatabaseReference eventosData = database.getReference("evento");
-        HashMap<String, Object> eventoUpdate = new HashMap<>();
-        eventoUpdate.put("actividad",miActividadEditarEvento);
-        eventoUpdate.put("etapa",nombreEvento);
-        eventoUpdate.put("fecha",editTextDatePicker.getText().toString());
-        eventoUpdate.put("descripcion", descripcionEvento);
-        eventoUpdate.put("hora", horaEvento);
-        //eventoUpdate.put("lugar",);
+        if(!nombreEvento.isEmpty() && !descripcionEvento.isEmpty()){
+            DatabaseReference eventosData = database.getReference("evento");
+            HashMap<String, Object> eventoUpdate = new HashMap<>();
+            eventoUpdate.put("etapa",nombreEvento);
+            eventoUpdate.put("fecha",editTextDatePicker.getText().toString());
+            eventoUpdate.put("descripcion", descripcionEvento);
+            eventoUpdate.put("hora", editTextTime.getText().toString());
+            //eventoUpdate.put("lugar",);
 
-        eventosData.child(idEvento).updateChildren(eventoUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
-                    rellenarConDataCamposEditarEvento(idEvento);
-                    Toast.makeText(EditarEventoActivity.this,"Success to update event",Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(EditarEventoActivity.this,"Failed to update event",Toast.LENGTH_SHORT).show();
+            eventosData.child(idEvento).updateChildren(eventoUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()){
+                        rellenarConDataCamposEditarEvento(idEvento);
+                        Toast.makeText(EditarEventoActivity.this,"Success to update event",Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(EditarEventoActivity.this,"Failed to update event",Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
-
+            });
+        }else{
+            Toast.makeText(this, "Faltan campos por rellenar", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /*

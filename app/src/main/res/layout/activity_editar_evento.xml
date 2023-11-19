@@ -47,74 +47,15 @@
                 app:layout_constraintStart_toStartOf="@+id/myToolbar"
                 app:layout_constraintTop_toTopOf="@+id/myToolbar" />
 
-            <ImageView
-                android:id="@+id/icon_notification_bg"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/icon_elipse_noti"
-                app:layout_constraintEnd_toEndOf="@+id/myToolbar"
-                app:layout_constraintTop_toTopOf="@+id/myToolbar" />
-
-            <ImageView
-                android:id="@+id/icon_notification"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/icon_elipse_noti"
-                android:src="@drawable/icon_notifications"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_notification_bg"
-                app:layout_constraintEnd_toEndOf="@+id/icon_notification_bg"
-                app:layout_constraintStart_toStartOf="@+id/icon_notification_bg"
-                app:layout_constraintTop_toTopOf="@+id/icon_notification_bg" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
-        android:id="@+id/textViewMiActividadEditarEvento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/inter"
-        android:text="Mi actividad"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/NombreActividadEditTextField"
-        app:layout_constraintTop_toBottomOf="@id/topappBarLayout" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/NombreActividadEditTextField"
-        android:layout_width="310dp"
-        android:layout_height="63dp"
-        android:layout_marginTop="8dp"
-        app:boxStrokeColor="@color/inputTextBorderLineColor"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMiActividadEditarEvento">
-
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nombreActividadEvento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Voley"
-            tools:layout_editor_absoluteX="39dp"
-            tools:layout_editor_absoluteY="468dp" />
-
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
         android:id="@+id/textViewNombreEventoEditarEvento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/inter"
         android:text="Nombre del evento"
         android:textSize="16sp"
@@ -122,7 +63,7 @@
         app:counterEnabled="true"
         app:counterMaxLength="30"
         app:layout_constraintStart_toStartOf="@+id/NombreEventoEditTextField"
-        app:layout_constraintTop_toBottomOf="@+id/NombreActividadEditTextField" />
+        app:layout_constraintTop_toBottomOf="@+id/topappBarLayout" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/NombreEventoEditTextField"
@@ -184,6 +125,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <TextView
         android:id="@+id/textViewFecha"
         android:layout_width="wrap_content"
@@ -192,31 +134,30 @@
         android:text="Fecha"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/FechaTextField"
+        app:layout_constraintStart_toStartOf="@+id/descripcionEventoEditTextField"
         app:layout_constraintTop_toBottomOf="@+id/descripcionEventoEditTextField" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/FechaTextField"
         android:layout_width="310dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-
+        android:layout_marginTop="8dp"
         app:boxStrokeColor="@color/inputTextBorderLineColor"
         app:endIconMode="custom"
+        android:hint="Seleccionar fecha"
         app:endIconDrawable="@drawable/baseline_calendar_today_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textViewFecha"
         app:layout_constraintTop_toBottomOf="@+id/textViewFecha">
 
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextDate"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="39dp"
-            tools:layout_editor_absoluteY="468dp" />
+            android:layout_height="57dp" />
+
 
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <TextView
         android:id="@+id/textViewHoraInicial"
@@ -229,35 +170,25 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/FechaTextField"
         app:layout_constraintTop_toBottomOf="@+id/FechaTextField" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/HoraActividadTextField"
+        android:layout_width="310dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="16dp"
+        android:hint="Seleccionar hora"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/baseline_access_time_24"
+        app:layout_constraintStart_toStartOf="@+id/textViewHoraInicial"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHoraInicial">
 
-    <ImageView
-        android:id="@+id/imageView17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewHoraInicial"
-        app:layout_constraintStart_toEndOf="@+id/textViewHoraInicial"
-        app:layout_constraintTop_toTopOf="@+id/textViewHoraInicial"
-        app:srcCompat="@drawable/baseline_access_time_24" />
 
-    <!--<TextView
-        android:id="@+id/textViewHoraFinal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:drawableRight="@drawable/baseline_access_time_24"
-        android:drawablePadding="8dp"
-        android:text="Hora fin"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/botonEditarEvento"
-        app:layout_constraintEnd_toEndOf="@+id/FechaTextField"
-        app:layout_constraintTop_toBottomOf="@+id/FechaTextField"
-        app:layout_constraintVertical_bias="0.120000005" />-->
-
-    <!--app:icon="@drawable/baseline_check_24"
-        app:iconGravity="textEnd"
-        app:iconPadding="16dp"-->
-
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/HoraActividad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="39dp"
+            tools:layout_editor_absoluteY="468dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/botonEditarEvento"
@@ -275,7 +206,7 @@
         app:iconPadding="16dp"
         app:iconTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView17" />
+        app:layout_constraintTop_toBottomOf="@+id/HoraActividadTextField" />
 
     <Button
         android:id="@+id/botonCancelarEditarEvento"

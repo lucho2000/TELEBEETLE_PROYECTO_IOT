@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -50,28 +49,6 @@
                 app:layout_constraintStart_toStartOf="@+id/myToolbar"
                 app:layout_constraintTop_toTopOf="@+id/myToolbar" />
 
-            <ImageView
-                android:id="@+id/icon_notification_bg"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/icon_elipse_noti"
-                app:layout_constraintEnd_toEndOf="@+id/myToolbar"
-                app:layout_constraintTop_toTopOf="@+id/myToolbar" />
-
-            <ImageView
-                android:id="@+id/icon_notification"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/icon_elipse_noti"
-                android:src="@drawable/icon_notifications"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_notification_bg"
-                app:layout_constraintEnd_toEndOf="@+id/icon_notification_bg"
-                app:layout_constraintStart_toStartOf="@+id/icon_notification_bg"
-                app:layout_constraintTop_toTopOf="@+id/icon_notification_bg" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -122,7 +99,7 @@
                 android:layout_width="310dp"
                 android:layout_height="63dp"
                 android:layout_marginTop="16dp"
-                android:hint="@string/label2"
+                android:hint="Nombre del evento"
                 app:endIconMode="clear_text"
                 app:layout_constraintEnd_toEndOf="@+id/actividad"
                 app:layout_constraintStart_toStartOf="@+id/actividad"
@@ -222,11 +199,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/FechaTextField"
-                android:layout_width="177dp"
+                android:layout_width="310dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                app:boxStrokeColor="@color/inputTextBorderLineColor"
+                app:endIconMode="custom"
                 android:hint="Seleccionar fecha"
-                app:endIconMode="clear_text"
+                app:endIconDrawable="@drawable/baseline_calendar_today_24"
                 app:layout_constraintStart_toStartOf="@+id/textViewFecha"
                 app:layout_constraintTop_toBottomOf="@+id/textViewFecha">
 
@@ -251,6 +230,25 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/FechaTextField"
                 app:layout_constraintTop_toBottomOf="@+id/FechaTextField" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/HoraActividadTextField"
+                android:layout_width="310dp"
+                android:layout_height="63dp"
+                android:layout_marginTop="16dp"
+                android:hint="Seleccionar hora"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/baseline_access_time_24"
+                app:layout_constraintStart_toStartOf="@+id/textViewHoraInicial"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHoraInicial">
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/HoraActividad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteX="39dp"
+                    tools:layout_editor_absoluteY="468dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/botonCrearEvento"
@@ -285,36 +283,28 @@
                 app:layout_constraintBaseline_toBaselineOf="@+id/botonCrearEvento"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageView17"
+
+
+            <TextView
+                android:id="@+id/lugar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewHoraInicial"
-                app:layout_constraintStart_toEndOf="@+id/textViewHoraInicial"
-                app:layout_constraintTop_toTopOf="@+id/textViewHoraInicial"
-                app:srcCompat="@drawable/baseline_access_time_24" />
-
-            <ImageView
-                android:id="@+id/imageView25"
-                android:layout_width="40dp"
-                android:layout_height="33dp"
-                android:layout_marginStart="32dp"
-                app:layout_constraintBottom_toBottomOf="@+id/FechaTextField"
-                app:layout_constraintStart_toEndOf="@+id/FechaTextField"
-                app:layout_constraintTop_toTopOf="@+id/FechaTextField"
-                app:layout_constraintVertical_bias="0.52"
-                app:srcCompat="@drawable/baseline_calendar_today_24" />
-
+                android:layout_marginTop="16dp"
+                android:drawablePadding="8dp"
+                android:text="Ubicación"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/HoraActividadTextField"
+                app:layout_constraintTop_toBottomOf="@+id/HoraActividadTextField" />
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/LugarActividadTextField"
                 android:layout_width="310dp"
                 android:layout_height="63dp"
                 android:layout_marginTop="16dp"
-                android:hint="Lugar"
+                android:hint="Ingresar nombre de la ubicación"
                 app:endIconMode="clear_text"
-                app:layout_constraintStart_toStartOf="@+id/textViewHoraInicial"
-                app:layout_constraintTop_toBottomOf="@+id/textViewHoraInicial">
+                app:layout_constraintStart_toStartOf="@+id/lugar"
+                app:layout_constraintTop_toBottomOf="@+id/lugar">
 
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -326,19 +316,29 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Arrastrar el marcador en el mapa a la ubicación deseada"
+                android:textAllCaps="false"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@id/LugarActividadTextField"
+                app:layout_constraintStart_toStartOf="@id/LugarActividadTextField"
+                app:layout_constraintTop_toBottomOf="@+id/LugarActividadTextField" />
             <fragment
                 android:id="@+id/mapaLugarActividad"
                 android:name="com.example.telebeetle.activities.MySupportMapFragment"
                 android:layout_width="350dp"
                 android:layout_height="300dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="48dp"
                 app:layout_constraintEnd_toEndOf="@+id/LugarActividadTextField"
                 app:layout_constraintStart_toStartOf="@+id/LugarActividadTextField"
                 app:layout_constraintTop_toBottomOf="@+id/LugarActividadTextField"
                 map:cameraZoom="10"
                 map:uiRotateGestures="true"
-                map:uiZoomControls="true"></fragment>
+                map:uiZoomControls="true" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

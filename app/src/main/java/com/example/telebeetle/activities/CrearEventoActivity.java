@@ -37,6 +37,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
@@ -63,14 +64,12 @@ import java.util.TimeZone;
 
 public class CrearEventoActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
 
-    TextInputLayout textInputLayoutDatePicker;
+    TextInputLayout textInputLayoutDatePicker, textInputLayoutTimePicker;
 
     EditText editActividad, nombreEvento, descripcion, textFecha, nombreLugar;
-    TextInputEditText editTextDate;
+    TextInputEditText editTextDate, editTextTime;
 
-    TextView horaInicial;
 
-    ImageView seleccionIconoHoraInicial, seleccionIconoFecha;
 
     int hour, minute, arch;
     NumberPicker participantes;
@@ -119,6 +118,7 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, actividades);
         autoCompleteTextView.setAdapter(adapter);
         textInputLayoutDatePicker = findViewById(R.id.FechaTextField);
+        textInputLayoutTimePicker = findViewById(R.id.HoraActividadTextField);
         participantes = findViewById(R.id.numberPicker2);
         participantes.setMinValue(1);
         participantes.setMaxValue(100);
@@ -133,21 +133,19 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
         editTextDate = findViewById(R.id.editTextDate); //fecha
         nombreEvento = findViewById(R.id.nombreEvento);
         descripcion = findViewById(R.id.editTextComentario);
+        editTextTime = findViewById(R.id.HoraActividad);
         //textFecha = findViewById(R.id.editTextDate);
 
-        horaInicial = findViewById(R.id.textViewHoraInicial);
 
-        seleccionIconoHoraInicial = findViewById(R.id.imageView17);
 
-        seleccionIconoFecha = findViewById(R.id.imageView25);
 
         crearEvento = findViewById(R.id.botonCrearEvento);
         cancelar = findViewById(R.id.botonCancelarCrearEvento);
 
         //pasarlos a string
 
-
-        seleccionIconoFecha.setOnClickListener(view -> {
+        editTextDate.setEnabled(false);
+        textInputLayoutDatePicker.setEndIconOnClickListener(view -> {
             showDatePicker();
         });
         //para el date picker
@@ -157,7 +155,8 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
 
         //para la seleccion de hora inicial y final
 
-        seleccionIconoHoraInicial.setOnClickListener(view -> {
+        editTextTime.setEnabled(false);
+        textInputLayoutTimePicker.setEndIconOnClickListener(view -> {
             showTimePicker();
         });
 
@@ -181,7 +180,7 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
             nombreEvento1 = nombreEvento.getText().toString();
             textDescripcion = descripcion.getText().toString();
             fecha = editTextDate.getText().toString();
-            horaa = horaInicial.getText().toString();
+            horaa = editTextTime.getText().toString();
 
             if(latitud!=null && longitud!=null && lugar!=null && actividad!=null && nombreEvento1!=null && textDescripcion!=null && fecha!=null && horaa!=null && maximoParticipantes!=null){
                 if (!latitud.isEmpty() && !longitud.isEmpty() && !lugar.isEmpty() && !actividad.isEmpty() && !nombreEvento1.isEmpty() && !textDescripcion.isEmpty() && !fecha.isEmpty() && !horaa.isEmpty() && !maximoParticipantes.isEmpty()) {
@@ -200,6 +199,7 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
                     evento.setHora(horaa);
                     evento.setLatitud(latitud);
                     evento.setLongitud(longitud);
+                    evento.setEstado("En proceso");
 
 
                     databaseReference = FirebaseDatabase.getInstance().getReference("evento");
@@ -214,7 +214,7 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
                                 editTextDate.setText("");
                                 nombreEvento.setText("");
                                 descripcion.setText("");
-                                horaInicial.setText("");
+                                editTextTime.setText("");
                                 nombreLugar.setText("");
                                 CometChatApiRest cometChatApiRest = new CometChatApiRest();
                                 cometChatApiRest.crearGrupoEventoCometChat(event_key,nombreEvento1,firebaseAuth.getCurrentUser().getUid(),textDescripcion);
@@ -260,9 +260,21 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
 
 
     public void showDatePicker() {
+        // Get the current date
+        Calendar today = Calendar.getInstance();
+
+        // Create an instance of CalendarConstraints.Builder
+        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
+
+        // Set the minimum date to today
+        constraintsBuilder.setStart(today.getTimeInMillis());
+
+        // Build the CalendarConstraints
+        CalendarConstraints calendarConstraints = constraintsBuilder.build();
         MaterialDatePicker<Long> materialDatePicker =  MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Seleccione fecha del evento")
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .setCalendarConstraints(calendarConstraints)
                 .build();
         materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
             @Override
@@ -290,9 +302,18 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
                 int hour = materialTimePicker.getHour();
                 int minute = materialTimePicker.getMinute();
 
+                // Create a Calendar instance and set the selected time
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
+
+                // Create a SimpleDateFormat instance with the desired 12-hour format
+                SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+
+                // Format the selected time
+                String selectedTime = dateFormat.format(calendar.getTime());
                 // Handle the selected time
-                String selectedTime = String.format("%02d:%02d", hour, minute);
-                horaInicial.setText(selectedTime);
+                editTextTime.setText(selectedTime);
             }
         });
 
