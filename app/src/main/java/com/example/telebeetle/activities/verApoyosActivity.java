@@ -2,9 +2,11 @@ package com.example.telebeetle.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.telebeetle.Entity.Apoyo;
 import com.example.telebeetle.Entity.Usuario;
@@ -34,6 +36,13 @@ public class verApoyosActivity extends AppCompatActivity {
 
         cargarApoyos();
 
+        Toolbar toolbar = findViewById(R.id.myToolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
 

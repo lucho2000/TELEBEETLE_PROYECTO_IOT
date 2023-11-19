@@ -5,18 +5,26 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.R;
 import com.example.telebeetle.activities.EventAdapter;
 import com.example.telebeetle.activities.EventsActivity;
+import com.example.telebeetle.activities.MyPagerAdapter;
 import com.example.telebeetle.databinding.FragmentHomeStudentBinding;
+import com.example.telebeetle.viewmodels.SharedViewModel;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,31 +56,62 @@ public class HomeStudentFragment extends Fragment {
         super.onResume();
         searchView = binding.searchView;
         searchView.clearFocus();
-        databaseReference = FirebaseDatabase.getInstance().getReference("evento"); //datos de firebase de la coleccion de "evento"
-        listaEvents = new ArrayList<>();
-        eventAdapter = new EventAdapter();
-        eventAdapter.setListEvents(listaEvents);
-        eventAdapter.setContext(getActivity().getApplicationContext());
-        binding.rvEvents.setAdapter(eventAdapter);
-        binding.rvEvents.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        //databaseReference = FirebaseDatabase.getInstance().getReference("evento"); //datos de firebase de la coleccion de "evento"
+        //listaEvents = new ArrayList<>();
+        //eventAdapter = new EventAdapter();
+        //eventAdapter.setListEvents(listaEvents);
+        //eventAdapter.setContext(getActivity().getApplicationContext());
+        //binding.rvEvents.setAdapter(eventAdapter);
+        //binding.rvEvents.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
-        //codigo para extraer la data de firebase y mostrarla en el recycler view
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        ViewPager2 viewPager = binding.viewPager;
+        TabLayout tabLayout = binding.secondTab;
+
+        MyPagerAdapter adapter = new MyPagerAdapter(requireActivity());
+        new Handler().post(new Runnable() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listaEvents.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Evento evento = dataSnapshot.getValue(Evento.class);
-                    evento.setUidEvento(dataSnapshot.getKey());
-                    listaEvents.add(evento);
-                }
-                eventAdapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void run() {
+                viewPager.setAdapter(adapter);
+                // Connect TabLayout with ViewPager
+                new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+                    switch (position) {
+                        case 0:
+                            tab.setText("En proceso");
+                            break;
+                        case 1:
+                            tab.setText("Finalizado");
+                            break;
+                    }
+                }).attach();
+                viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        // Handle tab selection
+                        //Toast.makeText(getContext(), "Tab " + (position + 1) + " selected", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
+
+
+        //codigo para extraer la data de firebase y mostrarla en el recycler view
+        //databaseReference.addValueEventListener(new ValueEventListener() {
+        //    @Override
+        //    public void onDataChange(@NonNull DataSnapshot snapshot) {
+        //        listaEvents.clear();
+        //        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+        //            Evento evento = dataSnapshot.getValue(Evento.class);
+        //            evento.setUidEvento(dataSnapshot.getKey());
+        //            listaEvents.add(evento);
+        //        }
+        //        eventAdapter.notifyDataSetChanged();
+        //    }
+        //    @Override
+        //    public void onCancelled(@NonNull DatabaseError error) {
+        //    }
+        //});
+        SharedViewModel sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -80,19 +119,19 @@ public class HomeStudentFragment extends Fragment {
             }
             @Override
             public boolean onQueryTextChange(String s) {
-                searchList(s);
+                sharedViewModel.getSearchQuery().setValue(s);
                 return true;
             }
         });
     }
 
-    public void searchList(String text){
-        ArrayList<Evento> searchList = new ArrayList<>();
-        for(Evento evento: listaEvents){
-            if(evento.getActividad().toLowerCase().contains(text.toLowerCase()) || evento.getEtapa().toLowerCase().contains(text.toLowerCase())){
-                searchList.add(evento);
-            }
-        }
-        eventAdapter.searchDataList(searchList);
-    }
+   // public void searchList(String text){
+   //     ArrayList<Evento> searchList = new ArrayList<>();
+   //     for(Evento evento: listaEvents){
+   //         if(evento.getActividad().toLowerCase().contains(text.toLowerCase()) || evento.getEtapa().toLowerCase().contains(text.toLowerCase())){
+   //             searchList.add(evento);
+   //         }
+   //     }
+   //     eventAdapter.searchDataList(searchList);
+   // }
 }

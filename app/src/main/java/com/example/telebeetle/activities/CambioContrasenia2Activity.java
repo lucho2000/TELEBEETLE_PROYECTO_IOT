@@ -21,6 +21,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.zip.Inflater;
 
@@ -28,6 +34,7 @@ public class CambioContrasenia2Activity extends AppCompatActivity {
 
 
     ActivityCambioContrasenia2Binding binding;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +74,7 @@ public class CambioContrasenia2Activity extends AppCompatActivity {
         binding.buttonAceptar2.setOnClickListener(v -> {
             String passNew = binding.contrasenaNew.getEditText().getText().toString();
             String passNew2 = binding.contrasenaNew2.getEditText().getText().toString();
+
             Log.d("msg-test",passNew);
             if(regex.contrasenaisValid(passNew) && passNew2.equalsIgnoreCase(passNew)){
 
@@ -74,10 +82,53 @@ public class CambioContrasenia2Activity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                Toast.makeText(CambioContrasenia2Activity.this,"Contraseña cambiada correctamente",Toast.LENGTH_SHORT).show();
+
+                                DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("usuarios");
+                                Query emailQuery = usersRef.orderByChild("correo").equalTo(user.getEmail());
+
+                                emailQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                      @Override
+                                      public void onDataChange(DataSnapshot dataSnapshot) {
+                                          if (dataSnapshot.exists()) {
+                                              //char[] hashEnter = password.toCharArray();
+                                              for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                                                  if (userSnapshot.child("correo").getValue(String.class).equalsIgnoreCase(user.getEmail())) {
+                                                      //&& BCrypt.verifyer().verify(hashEnter,passDB).verified){
+                                                      //Log.d("msg-test","Lo que obtuve de la db: "+passDB);
+                                                      //Log.d("msg-test","Lo que ingrese: "+hashEnter);
+                                                      String codigo = userSnapshot.child("codigo").getValue(String.class);
+                                                      String correo = userSnapshot.child("correo").getValue(String.class);
+                                                      String nombres = userSnapshot.child("nombres").getValue(String.class);
+                                                      String apellidos = userSnapshot.child("apellidos").getValue(String.class);
+                                                      //String contrasena = userSnapshot.child("contrasena").getValue(String.class);
+                                                      String condicion = userSnapshot.child("condicion").getValue(String.class);
+                                                      String rol = userSnapshot.child("rol").getValue(String.class);
+                                                      Boolean enable = userSnapshot.child("enable").getValue(Boolean.class);
+                                                      Boolean kitTele = userSnapshot.child("kit_teleco").getValue(Boolean.class);
+                                                      String profile = userSnapshot.child("profile").getValue(String.class);
+                                                      Usuario user = new Usuario(codigo, correo, nombres, apellidos, condicion, enable, kitTele, rol, profile);
+                                                      Toast.makeText(CambioContrasenia2Activity.this,"Contraseña cambiada correctamente",Toast.LENGTH_SHORT).show();
+                                                      Intent intent = new Intent(CambioContrasenia2Activity.this, GeneralViewActivity.class);
+                                                      intent.putExtra("usuario", user);
+                                                      startActivity(intent);
+                                                      finish();
+                                                      break;
+                                                  }
+                                              }
+                                          }
+                                      }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        Log.d("msg-test","Error al volver a general de cambio de contraseña");
+                                    }
+                                });
+
+
+                                /*Toast.makeText(CambioContrasenia2Activity.this,"Contraseña cambiada correctamente",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(CambioContrasenia2Activity.this,GeneralViewActivity.class);
                                 startActivity(intent);
-                                finish();
+                                finish();*/
 
                             }
                         }).addOnFailureListener(new OnFailureListener() {

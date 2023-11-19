@@ -2,6 +2,7 @@ package com.example.telebeetle.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,19 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.telebeetle.Entity.Actividad;
 import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class EventHorizontalAdapter extends RecyclerView.Adapter<EventHorizontalAdapter.EventoViewHolder>{
@@ -39,6 +47,7 @@ public class EventHorizontalAdapter extends RecyclerView.Adapter<EventHorizontal
 
     private List<Evento> eventoList;
     private Context context;
+    DatabaseReference databaseReference;
 
     @NonNull
     @Override
@@ -51,21 +60,34 @@ public class EventHorizontalAdapter extends RecyclerView.Adapter<EventHorizontal
     public void onBindViewHolder(@NonNull EventoViewHolder holder, int position) {
         ImageView iv= holder.itemView.findViewById(R.id.imageView3);
         iv.setImageResource(R.drawable.baseline_location_on_24);
-        int drawableResourceId2 = R.drawable.voley;
-        Picasso picasso2 = Picasso.get();
         ImageView imageViewActivity = holder.itemView.findViewById(R.id.imageViewEvento);
-        picasso2.load(drawableResourceId2)
-                .resize(240,120)
-                .transform(new RoundedCornersTransformation(
-                        8,
-                        0
-                ))
-                .into(imageViewActivity);
         Evento e = eventoList.get(position);
         holder.evento = e;
-
         TextView nombre = holder.itemView.findViewById(R.id.nameActividad);
-        nombre.setText(e.getActividad());
+        databaseReference = FirebaseDatabase.getInstance().getReference("actividad"); //datos de firebase de la coleccion de "usuarios"
+        databaseReference.child(e.getActividad()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Actividad actividad = snapshot.getValue(Actividad.class);
+                    Picasso.get().load(actividad.getImagen())
+                            .resize(240,120)
+                            .transform(new RoundedCornersTransformation(
+                                    8,
+                                    0
+                            ))
+                            .into(imageViewActivity);
+                    nombre.setText(actividad.getNombreActividad());
+                } else {
+                    Log.d("User", "User not found");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("User", "Failed to read value.", error.toException());
+            }
+        });
+
         TextView nombreEvento = holder.itemView.findViewById(R.id.nombreEvent);
         nombreEvento.setText(e.getEtapa());
         TextView fechaHora = holder.itemView.findViewById(R.id.fechaHora);
