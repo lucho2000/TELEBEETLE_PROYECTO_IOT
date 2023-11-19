@@ -2,6 +2,7 @@ package com.example.telebeetle.activities;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -14,12 +15,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.telebeetle.Entity.Actividad;
 import com.example.telebeetle.Entity.Evento;
+import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.ActivityDetallesEvento1Binding;
 import com.example.telebeetle.fragments.OpcionesApoyar;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -28,6 +36,7 @@ public class DetallesEvento1 extends AppCompatActivity {
     ActivityDetallesEvento1Binding binding;
     private Double latitudFinal = -12.066553051720968;
     private Double longitudFinal = -77.08034059751783;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +46,45 @@ public class DetallesEvento1 extends AppCompatActivity {
         Intent intent = getIntent();
         Evento evento = (Evento) intent.getSerializableExtra("Evento");
         //binding.nombre.setText(evento.getDelegadoActividadAsignado());
-        binding.chip.setText(evento.getActividad());
         binding.hora.setText(evento.getHora());
         binding.fecha.setText(evento.getFecha());
         binding.textView6.setText(evento.getEtapa());
         binding.lugar.setText(evento.getLugar());
         binding.textView12.setText(evento.getDescripcion());
-        int drawableResourceId = R.drawable.juiocesaraliagamachuca;
-        Picasso picasso = Picasso.get();
-        ImageView imageView = binding.fotoperfil;
-        picasso.load(drawableResourceId)
-                .resize(75,75)
-                .transform(new CropCircleTransformation())
-                .into(imageView);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("actividad"); //datos de firebase de la coleccion de "usuarios"
+        databaseReference.child(evento.getActividad()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    Actividad actividad = snapshot.getValue(Actividad.class);
+                    binding.chip.setText(actividad.getNombreActividad());
+                    databaseReference = FirebaseDatabase.getInstance().getReference("usuarios"); //datos de firebase de la coleccion de "usuarios"
+                    databaseReference.child(actividad.getDelegado()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                            if(snapshot2.exists()){
+                                Usuario usuario = snapshot2.getValue(Usuario.class);
+                                binding.nombre.setText(usuario.getNombres() + " " + usuario.getApellidos());
+                                ImageView imageView = binding.fotoperfil;
+                                Picasso.get().load(usuario.getProfile())
+                                        .resize(75,75)
+                                        .transform(new CropCircleTransformation())
+                                        .into(imageView);
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         binding.Apoyar.setOnClickListener(view -> {
             Bundle bundleConEventoUid = new Bundle();

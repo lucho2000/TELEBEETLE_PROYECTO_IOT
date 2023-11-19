@@ -23,6 +23,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.telebeetle.Entity.Actividad;
 import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
@@ -47,6 +48,7 @@ public class DetalleActividadGeneralActivity extends AppCompatActivity {
 
     ActivityDetalleActividadGeneralBinding binding;
     DatabaseReference databaseReference;
+    DatabaseReference databaseReference2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,20 +56,49 @@ public class DetalleActividadGeneralActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         Intent intent1 = getIntent();
         Evento evento = (Evento) intent1.getSerializableExtra("Evento");
-        //binding.nombre.setText(evento.getDelegadoActividadAsignado());
-        binding.chip.setText(evento.getActividad());
+
         binding.hora.setText(evento.getHora());
         binding.fecha.setText(evento.getFecha());
         binding.textView6.setText(evento.getEtapa());
         binding.lugar.setText(evento.getLugar());
         binding.textView12.setText(evento.getDescripcion());
-        int drawableResourceId = R.drawable.juiocesaraliagamachuca;
-        Picasso picasso = Picasso.get();
-        ImageView imageView = binding.fotoperfil;
-        picasso.load(drawableResourceId)
-                .resize(75,75)
-                .transform(new CropCircleTransformation())
-                .into(imageView);
+
+
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("actividad"); //datos de firebase de la coleccion de "usuarios"
+        databaseReference2.child(evento.getActividad()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    Actividad actividad = snapshot.getValue(Actividad.class);
+                    binding.chip.setText(actividad.getNombreActividad());
+                    databaseReference2 = FirebaseDatabase.getInstance().getReference("usuarios"); //datos de firebase de la coleccion de "usuarios"
+                    databaseReference2.child(actividad.getDelegado()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                            if(snapshot2.exists()){
+                                Usuario usuario = snapshot2.getValue(Usuario.class);
+                                binding.nombre.setText(usuario.getNombres() + " " + usuario.getApellidos());
+                                ImageView imageView = binding.fotoperfil;
+                                Picasso.get().load(usuario.getProfile())
+                                        .resize(75,75)
+                                        .transform(new CropCircleTransformation())
+                                        .into(imageView);
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         Button verApoyos = findViewById(R.id.verApoyos);
         verApoyos.setOnClickListener(view -> {
             Intent intent = new Intent(DetalleActividadGeneralActivity.this, verApoyosActivity.class);

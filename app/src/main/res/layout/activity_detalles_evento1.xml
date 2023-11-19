@@ -140,24 +140,24 @@
             tools:layout_editor_absoluteX="158dp"
             tools:layout_editor_absoluteY="310dp">
 
-            <TextView
-                android:id="@+id/nombre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Julio Cesar"
-                android:textSize="16sp"
-                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/delegado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="Delegado de Actividad"
                 android:textColor="#706E8F"
                 android:textSize="12sp" />
+            <TextView
+                android:id="@+id/nombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="Julio Cesar"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
@@ -280,6 +280,7 @@
         android:id="@+id/textView12"
         android:layout_width="262dp"
         android:layout_height="72dp"
+        android:layout_marginTop="4dp"
         android:text="Este duelo se ha repetido en varias  ocasiones de semana de ingenieria  con un historial de 20 victorias, 11 empates  y 15 derrotas para la fibra toxica"
         android:textAlignment="center"
         android:textColor="#706E8F"
@@ -319,9 +320,10 @@
         android:id="@+id/fragmentContainerView"
         android:layout_width="match_parent"
         android:layout_height="220dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12"
         app:layout_constraintVertical_bias="0.99" />

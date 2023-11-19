@@ -47,6 +47,8 @@ public class HomeDelegadoActivitdadFragment extends Fragment {
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference2;
     DatabaseReference databaseReference3;
+    String uid;
+    String uidActividad;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class HomeDelegadoActivitdadFragment extends Fragment {
         binding = FragmentHomeDelegadoActivitdadBinding.inflate(inflater,container,false);
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference2 = FirebaseDatabase.getInstance().getReference("usuarios"); //datos de firebase de la coleccion de "usuarios"
-        String uid =firebaseAuth.getCurrentUser().getUid();
+        uid =firebaseAuth.getCurrentUser().getUid();
         databaseReference2.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -91,6 +93,7 @@ public class HomeDelegadoActivitdadFragment extends Fragment {
                                             .into(imageViewActivity);
                                     TextView nombre = binding.delegado;
                                     nombre.setText(actividad1.getNombreActividad());
+                                    uidActividad = dataSnapshot.getKey();
                                     break;
                                 }
                             }
@@ -131,6 +134,7 @@ public class HomeDelegadoActivitdadFragment extends Fragment {
                 listaEvents.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Evento evento = dataSnapshot.getValue(Evento.class);
+                    evento.setUidEvento(dataSnapshot.getKey());
                     listaEvents.add(evento);
                 }
                 eventHorizontalAdapter.notifyDataSetChanged();

@@ -127,24 +127,24 @@
             tools:layout_editor_absoluteX="158dp"
             tools:layout_editor_absoluteY="310dp">
 
+
+            <TextView
+                android:id="@+id/delegado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Delegado de Actividad"
+                android:textColor="#706E8F"
+                android:textSize="12sp" />
             <TextView
                 android:id="@+id/nombre"
+                android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Julio Cesar"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/delegado"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:text="Delegado de Actividad"
-                android:textColor="#706E8F"
-                android:textSize="12sp" />
 
 
         </LinearLayout>
