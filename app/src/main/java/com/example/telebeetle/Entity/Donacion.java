@@ -1,6 +1,8 @@
 package com.example.telebeetle.Entity;
 
-public class Donacion {
+import java.io.Serializable;
+
+public class Donacion implements Serializable {
 
     private String keyDonacion;
 

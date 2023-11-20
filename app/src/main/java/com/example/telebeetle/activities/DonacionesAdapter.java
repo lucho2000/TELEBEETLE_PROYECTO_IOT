@@ -1,6 +1,7 @@
 package com.example.telebeetle.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -56,7 +58,22 @@ public class DonacionesAdapter extends RecyclerView.Adapter<DonacionesAdapter.Do
         textViewPagado.setVisibility(View.INVISIBLE);
 
         ImageView imageView = holder.itemView.findViewById(R.id.imageView8);
-        imageView.setImageResource(R.drawable.yy);
+        Picasso.get().load(dona.getImagenCaptura()).into(imageView);
+
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DetailDonationActivity.class);
+                //intent.putExtra("imageURL")
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("donacion", dona);
+                context.startActivity(intent);
+
+            }
+        });
+
+
     }
 
     @Override
