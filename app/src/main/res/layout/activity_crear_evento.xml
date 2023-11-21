@@ -71,7 +71,6 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/actividad"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 android:layout_width="310dp"
                 android:layout_height="63dp"
                 android:layout_marginStart="16dp"
@@ -79,12 +78,11 @@
                 android:layout_marginEnd="16dp"
                 android:hint="Actividad"
                 app:boxBackgroundColor="@color/windowBackgroundColor"
-                app:errorEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <AutoCompleteTextView
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/NombreActividadTextField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -121,7 +119,7 @@
                 android:layout_width="196dp"
                 android:layout_height="22dp"
                 android:layout_marginTop="16dp"
-                android:text="Descripcion del evento"
+                android:text="Descripción del evento"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/EventoTextField"

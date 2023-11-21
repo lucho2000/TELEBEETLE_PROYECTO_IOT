@@ -64,9 +64,9 @@ import java.util.TimeZone;
 
 public class CrearEventoActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
 
-    TextInputLayout textInputLayoutDatePicker, textInputLayoutTimePicker;
+    TextInputLayout textInputLayoutDatePicker, textInputLayoutTimePicker, actividadInputLayout;
 
-    EditText editActividad, nombreEvento, descripcion, textFecha, nombreLugar;
+    EditText nombreActividad, nombreEvento, descripcion, textFecha, nombreLugar;
     TextInputEditText editTextDate, editTextTime;
 
 
@@ -86,8 +86,7 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
 
     GoogleMap mMap;
 
-    ArrayList<String> actividades = new ArrayList<>();
-    ArrayList<String> uidActividades = new ArrayList<>();
+    Actividad actividadGo = new Actividad();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     DatabaseReference databaseReference2;
 
@@ -98,25 +97,28 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
         setContentView(R.layout.activity_crear_evento);
 
 
+        nombreActividad =  findViewById(R.id.NombreActividadTextField);
+        actividadInputLayout = findViewById(R.id.actividad);
         databaseReference2 = FirebaseDatabase.getInstance().getReference("actividad");
-        actividades.clear();
-        uidActividades.clear();
         databaseReference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Actividad actividad1 = dataSnapshot.getValue(Actividad.class);
-                    actividades.add(actividad1.getNombreActividad());
-                    uidActividades.add(dataSnapshot.getKey());
+                    if(actividad1.getDelegado().equals(firebaseAuth.getCurrentUser().getUid())){
+                        actividadGo = actividad1;
+                        actividadGo.setUidActividad(dataSnapshot.getKey());
+                        nombreActividad.setText(actividadGo.getNombreActividad());
+                        nombreActividad.setEnabled(false);
+                        break;
+                    }
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        AutoCompleteTextView autoCompleteTextView =  findViewById(R.id.NombreActividadTextField);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, actividades);
-        autoCompleteTextView.setAdapter(adapter);
+
         textInputLayoutDatePicker = findViewById(R.id.FechaTextField);
         textInputLayoutTimePicker = findViewById(R.id.HoraActividadTextField);
         participantes = findViewById(R.id.numberPicker2);
@@ -175,7 +177,7 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
 
         crearEvento.setOnClickListener(view -> {
             maximoParticipantes = String.valueOf(arch);
-            actividad = autoCompleteTextView.getText().toString();
+            actividad = nombreActividad.getText().toString();
             lugar = nombreLugar.getText().toString();
             nombreEvento1 = nombreEvento.getText().toString();
             textDescripcion = descripcion.getText().toString();
@@ -187,12 +189,7 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
 
                     Evento evento = new Evento();
                     evento.setLugar(lugar);
-                    for(int i=0; i<actividades.size(); i++){
-                        if(actividad.equalsIgnoreCase(actividades.get(i))){
-                            evento.setActividad(uidActividades.get(i));
-                            break;
-                        }
-                    }
+                    evento.setActividad(actividadGo.getUidActividad());
                     evento.setEtapa(nombreEvento1);
                     evento.setDescripcion(textDescripcion);
                     evento.setFecha(fecha);
