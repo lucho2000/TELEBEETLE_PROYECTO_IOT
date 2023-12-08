@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "594022469863-5c22vnrn8v1eg3mq5bmgrib4j0na1052.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.telebeetle",
+            "certificate_hash": "80ac17dc8918dbf4b071233c380cfbc1750d437b"
+          }
+        },
+        {
           "client_id": "594022469863-h92ugpd8b390ur7u9vj0mtar06ctuv9e.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
