@@ -400,6 +400,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
                         startActivity(intent);
                         finish();
+
                     } else {
                         Toast.makeText(MainActivity.this, "El usuario se encuentra baneado", Toast.LENGTH_SHORT).show();
                     }
