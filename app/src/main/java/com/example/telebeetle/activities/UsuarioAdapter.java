@@ -38,21 +38,21 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         public UsuarioViewHolder(@NonNull View itemView) {
             super(itemView);
             Button banear = itemView.findViewById(R.id.buttonBanear);
-            databaseReference = FirebaseDatabase.getInstance().getReference("usuarios_por_admitir");
+            //databaseReference = FirebaseDatabase.getInstance().getReference("usuarios_por_admitir");
             banear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     databaseReference2 = FirebaseDatabase.getInstance().getReference("usuarios");
 
-                    user.setEnable(false); //si se cambia, ya no deberia entrar, pero se deberia borrar del auth tambien
+                    user.setEnable(false); //si se cambia, ya no deberia entrar
                     databaseReference2.child(user.getUidUsuario()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
                             Log.d("msg-test","enable del usuario: "+ user.getEnable());
-                            //user.setEnable(false); //si se cambia, ya no deberia entrar, pero se deberia borrar del auth tambien
+
                             int position = getBindingAdapterPosition();
-                            if (position != RecyclerView.NO_POSITION) { //lo remuevo o le doy al enable false
+                            if (position != RecyclerView.NO_POSITION) { //lo remuevo, pero se vuelve a cargar lo mismo de nuevo
                                 removeItem(position);
                             }
 

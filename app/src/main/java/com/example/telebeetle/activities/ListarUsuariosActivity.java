@@ -44,13 +44,17 @@ public class ListarUsuariosActivity extends AppCompatActivity {
         binding.rvListaUsers.setAdapter(usuarioAdapter);
         binding.rvListaUsers.setLayoutManager(new LinearLayoutManager(ListarUsuariosActivity.this));
 
+
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
                     for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
                         Usuario usuario = dataSnapshot.getValue(Usuario.class);
-                        if(!usuario.getRol().equalsIgnoreCase("delegado_general")){
+                        if(!usuario.getRol().equalsIgnoreCase("delegado_general") &&
+                            usuario.getEnable().equals(true)){
+
                             usuario.setUidUsuario(dataSnapshot.getKey());
                             usuarioList.add(usuario);
                         }
