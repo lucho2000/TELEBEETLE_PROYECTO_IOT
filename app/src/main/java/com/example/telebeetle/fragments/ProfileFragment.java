@@ -62,7 +62,7 @@ public class ProfileFragment extends Fragment {
         });
 
 
-
+        binding.changePass.setVisibility(View.INVISIBLE);
 
         //para ir a cambio de contraseña
 

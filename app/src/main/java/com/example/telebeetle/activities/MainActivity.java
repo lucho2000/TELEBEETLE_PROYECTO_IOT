@@ -150,30 +150,22 @@ public class MainActivity extends AppCompatActivity {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
                                                 if (dataSnapshot.exists()) {
-                                                    //char[] hashEnter = password.toCharArray();
+
                                                     for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                                                        if(userSnapshot.child("correo").getValue(String.class).equalsIgnoreCase(user.getEmail())){
-                                                            //&& BCrypt.verifyer().verify(hashEnter,passDB).verified){
-                                                            //Log.d("msg-test","Lo que obtuve de la db: "+passDB);
-                                                            //Log.d("msg-test","Lo que ingrese: "+hashEnter);
-                                                            //String codigo = userSnapshot.child("codigo").getValue(String.class);
-                                                            //String correo = userSnapshot.child("correo").getValue(String.class);
-                                                            //String nombres = userSnapshot.child("nombres").getValue(String.class);
-                                                            //String apellidos = userSnapshot.child("apellidos").getValue(String.class);
-                                                            ////String contrasena = userSnapshot.child("contrasena").getValue(String.class);
-                                                            //String  condicion = userSnapshot.child("condicion").getValue(String.class);
-                                                            //String rol = userSnapshot.child("rol").getValue(String.class);
-                                                            //Boolean enable = userSnapshot.child("enable").getValue(Boolean.class);
-                                                            //Boolean kitTele = userSnapshot.child("kit_teleco").getValue(Boolean.class);
-                                                            //String profile = userSnapshot.child("profile").getValue(String.class);
-                                                            //Usuario user = new Usuario(codigo,correo,nombres,apellidos,condicion,enable,kitTele, rol, profile);
-                                                            Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
-                                                            //intent.putExtra("usuario",user);
-                                                            startActivity(intent);
-                                                            finish();
+                                                        if (userSnapshot.child("correo").getValue(String.class).equalsIgnoreCase(user.getEmail())) {
+                                                            boolean enable = userSnapshot.child("enable").getValue(Boolean.class);
+                                                            if (enable) {
+                                                                Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
+                                                                startActivity(intent);
+                                                                finish();
+                                                            } else {
+                                                                Toast.makeText(MainActivity.this, "El usuario se encuentra baneado", Toast.LENGTH_SHORT).show();
+                                                            }
                                                             break;
                                                         }
                                                     }
+
+
                                                 } else {
                                                     DatabaseReference usersRef2 = FirebaseDatabase.getInstance().getReference().child("usuarios_por_admitir");
                                                     Query emailQuery2 = usersRef2.orderByChild("correo").equalTo(user.getEmail());
@@ -398,11 +390,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                    Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
+                    //Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
                     //intent.putExtra("usuario",dataSnapshot.getValue(Usuario.class));
                     //Log.d("msg-test",dataSnapshot.getValue(Usuario.class).getCondicion());
-                    intent.putExtra("usuario",usu);
-                    startActivity(intent);
+                    //intent.putExtra("usuario",usu);
+                    //startActivity(intent);
+
+                    if (usu.getEnable()) {
+                        Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(MainActivity.this, "El usuario se encuentra baneado", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     DatabaseReference usersRef2 = FirebaseDatabase.getInstance().getReference().child("usuarios_por_admitir");
                     Query emailQuery2 = usersRef2.orderByChild("correo").equalTo(user.getEmail());
