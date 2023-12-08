@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +19,11 @@ import com.example.telebeetle.R;
 import com.google.firebase.Firebase;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 import java.util.List;
 import java.util.Properties;
@@ -37,6 +43,10 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
     private List<Usuario> listaUsuarios;
     private Context context;
 
+
+    DatabaseReference databaseReference;
+    DatabaseReference databaseReference2;
+
     FirebaseDatabase database;
 
     public class UsuarioViewHolder extends RecyclerView.ViewHolder{
@@ -44,6 +54,40 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         Usuario user;
         public UsuarioViewHolder(@NonNull View itemView) {
             super(itemView);
+           /* Button banear = itemView.findViewById(R.id.bann);
+            //databaseReference = FirebaseDatabase.getInstance().getReference("usuarios_por_admitir");
+            banear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    databaseReference2 = FirebaseDatabase.getInstance().getReference("usuarios");
+
+                    user.setEnable(false); //si se cambia, ya no deberia entrar
+                    databaseReference2.child(user.getUidUsuario()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Log.d("msg-test","enable del usuario: "+ user.getEnable());
+
+                            int position = getBindingAdapterPosition();
+                            if (position != RecyclerView.NO_POSITION) { //lo remuevo, pero se vuelve a cargar lo mismo de nuevo
+                                removeItem(position);
+                            }
+
+                            Toast.makeText(context, "Usuario borrado de la aplicacion", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context, "No se pudo borrar al usuario", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+                }
+
+
+            });
+            */
         }
     }
 
@@ -107,6 +151,11 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
 
     public void setContext(Context context) {
         this.context = context;
+    }
+
+    public void removeItem(int position) {
+        listaUsuarios.remove(position);
+        notifyItemRemoved(position);
     }
 
     public void buttonSendEmail(String correoaEnviar){

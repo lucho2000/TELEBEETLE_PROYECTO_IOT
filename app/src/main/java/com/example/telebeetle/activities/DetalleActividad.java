@@ -12,10 +12,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.telebeetle.Entity.Actividad;
 import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,18 +33,41 @@ public class DetalleActividad extends AppCompatActivity {
     DatabaseReference databaseReference;
     EventAdapter2 eventAdapter2;
     List<Evento> listaEvents;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    DatabaseReference databaseReference2;
+    Actividad actividadGo = new Actividad();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_actividad);
         Button crearEvento = findViewById(R.id.buttonCrearEvento);
         Button finalizarEvento = findViewById(R.id.buttonFinalizarEvento);
+        TextView nombreActividad = findViewById(R.id.textView37);
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("actividad");
+        databaseReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Actividad actividad1 = dataSnapshot.getValue(Actividad.class);
+                    if(actividad1.getDelegado().equals(firebaseAuth.getCurrentUser().getUid())){
+                        actividadGo = actividad1;
+                        actividadGo.setUidActividad(dataSnapshot.getKey());
+                        nombreActividad.setText(actividadGo.getNombreActividad());
+                        break;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
         crearEvento.setOnClickListener(v -> {
             Intent intent = new Intent(DetalleActividad.this, CrearEventoActivity.class);
             startActivity(intent);
         });
         finalizarEvento.setOnClickListener(v -> {
-            Toast.makeText(DetalleActividad.this,"Falta activity finalizar evento",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(DetalleActividad.this, FinalizarEventoActivity.class);
+            startActivity(intent);
         });
         Toolbar toolbar = findViewById(R.id.myToolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
