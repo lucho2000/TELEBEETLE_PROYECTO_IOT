@@ -192,7 +192,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
                 public void run() {
                     try {
                         Transport.send(mimeMessage);
-                        Toast.makeText(getContext(),"Correo enviado",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(),"Correo enviado",Toast.LENGTH_SHORT).show();
                     } catch (MessagingException e) {
                         e.printStackTrace();
                         Log.d("msg-test", String.valueOf(e));
