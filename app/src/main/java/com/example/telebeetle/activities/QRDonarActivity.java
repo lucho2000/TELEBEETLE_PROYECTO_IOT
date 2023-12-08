@@ -106,7 +106,7 @@ public class QRDonarActivity extends AppCompatActivity {
                                 //revisando el rol
                                 if (condicion.equalsIgnoreCase("alumno") && montoInt > 0){
 
-                                    crearDonaciones(montoInt, donante);
+                                    crearDonaciones(montoInt, nombre + " " + apellidos);
 
                                 } else { //egresado
                                     if (montoInt > 100){

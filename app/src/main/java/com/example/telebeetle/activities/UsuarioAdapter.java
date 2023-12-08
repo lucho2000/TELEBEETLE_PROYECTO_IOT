@@ -44,12 +44,17 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
                 public void onClick(View view) {
 
                     databaseReference2 = FirebaseDatabase.getInstance().getReference("usuarios");
+
                     user.setEnable(false); //si se cambia, ya no deberia entrar, pero se deberia borrar del auth tambien
                     databaseReference2.child(user.getUidUsuario()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
                             Log.d("msg-test","enable del usuario: "+ user.getEnable());
                             //user.setEnable(false); //si se cambia, ya no deberia entrar, pero se deberia borrar del auth tambien
+                            int position = getBindingAdapterPosition();
+                            if (position != RecyclerView.NO_POSITION) { //lo remuevo o le doy al enable false
+                                removeItem(position);
+                            }
 
                             Toast.makeText(context, "Usuario borrado de la aplicacion", Toast.LENGTH_SHORT).show();
                         }
@@ -60,7 +65,10 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
 
                         }
                     });
+
                 }
+
+
             });
 
         }
@@ -109,5 +117,10 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
 
     public void setContext(Context context) {
         this.context = context;
+    }
+
+    public void removeItem(int position) {
+        listaUsuarios.remove(position);
+        notifyItemRemoved(position);
     }
 }
