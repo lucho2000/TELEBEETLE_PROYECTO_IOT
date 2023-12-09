@@ -184,47 +184,55 @@ public class CrearActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                        while (!uriTask.isSuccessful());
-                        Uri uriDownload = uriTask.getResult();
-                        actividad = new Actividad();
-                        actividad.setNombreActividad(nombreActividad);
-                        actividad.setCategoria(categoria);
-                        actividad.setImagen(uriDownload.toString());
-                        actividad.setEstado(true);
-                        actividad.setDelegado(codigoDelegado);
-                        databaseReference2.push().setValue(actividad).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        uriTask.addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                databaseReference.child(codigoDelegado).addListenerForSingleValueEvent(new ValueEventListener() {
+                            public void onSuccess(Uri uri) {
+                                actividad = new Actividad();
+                                actividad.setNombreActividad(nombreActividad);
+                                actividad.setCategoria(categoria);
+                                actividad.setImagen(uri.toString());
+                                actividad.setEstado(true);
+                                actividad.setDelegado(codigoDelegado);
+                                databaseReference2.push().setValue(actividad).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if(snapshot.exists()){
-                                            Usuario user = snapshot.getValue(Usuario.class);
-                                            user.setRol("delegado_actividad");
-                                            databaseReference.child(snapshot.getKey()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Toast.makeText(CrearActivity.this, "Actividad creada exitosamente", Toast.LENGTH_SHORT).show();
-                                                    finish();
-                                                }
-                                            }).addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        databaseReference.child(codigoDelegado).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if(snapshot.exists()){
+                                                    Usuario user = snapshot.getValue(Usuario.class);
+                                                    user.setRol("delegado_actividad");
+                                                    databaseReference.child(snapshot.getKey()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void unused) {
+                                                            Toast.makeText(CrearActivity.this, "Actividad creada exitosamente", Toast.LENGTH_SHORT).show();
+                                                            finish();
+                                                        }
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
 
+                                                        }
+                                                    });
                                                 }
-                                            });
-                                        }
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
+                                }).addOnFailureListener(new OnFailureListener() {
                                     @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(CrearActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(CrearActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
                             }
                         });
                     }

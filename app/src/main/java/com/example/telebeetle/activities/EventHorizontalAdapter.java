@@ -96,10 +96,17 @@ public class EventHorizontalAdapter extends RecyclerView.Adapter<EventHorizontal
         lugar.setText(e.getLugar());
         CardView cardView = holder.itemView.findViewById(R.id.card);
         cardView.setOnClickListener(view1 -> {
-            Intent intent = new Intent(context, DetallesEvento1.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("Evento", e);
-            context.startActivity(intent);
+            if(e.getEstado().equalsIgnoreCase("finalizado")){
+                Intent intent = new Intent(context, FinalizadoEventoActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("Evento", e);
+                context.startActivity(intent);
+            }else{
+                Intent intent = new Intent(context, DetallesEvento1.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("Evento", e);
+                context.startActivity(intent);
+            }
         });
     }
 

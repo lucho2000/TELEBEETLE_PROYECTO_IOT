@@ -60,10 +60,10 @@ public class ProfileFragment extends Fragment {
                     .transform(new CropCircleTransformation())
                     .into(imageView);
         });
-
-
-        binding.changePass.setVisibility(View.INVISIBLE);
-
+        String provideID2 = FirebaseAuth.getInstance().getCurrentUser().getProviderData().get(FirebaseAuth.getInstance().getCurrentUser().getProviderData().size() - 1).getProviderId();
+        if (provideID2.equals("google.com")) {
+            binding.changePass.setVisibility(View.INVISIBLE);
+        }
         //para ir a cambio de contraseña
 
         binding.imageView12.setOnClickListener(view -> {

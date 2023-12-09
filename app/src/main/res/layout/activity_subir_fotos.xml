@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.SubirFotosActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/topappBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/top_appbar_background">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/myToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:background="@color/topAppBarColor"
+                android:minHeight="?attr/actionBarSize"
+                android:paddingTop="10dp"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:navigationIcon="@drawable/baseline_arrow_back_changed_size" />
+
+            <TextView
+                android:id="@+id/TopAppBarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/inter"
+                android:text="Subir Fotos"
+                android:textColor="#ECE8E8"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/myToolbar"
+                app:layout_constraintTop_toTopOf="@+id/myToolbar" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="110dp" />
+
+    <ImageView
+        android:id="@+id/select"
+        android:layout_width="208dp"
+        android:layout_height="104dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/backgroundColor"
+        android:backgroundTint="@color/backgroundColor"
+        app:layout_constraintEnd_toEndOf="@+id/topappBarLayout"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/topappBarLayout"
+        app:layout_constraintTop_toBottomOf="@+id/topappBarLayout"
+        app:srcCompat="@android:drawable/ic_menu_upload" />
+
+    <TextView
+        android:id="@+id/textViewSubir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Subir Fotos"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/select"
+        app:layout_constraintHorizontal_bias="0.456"
+        app:layout_constraintStart_toStartOf="@+id/select"
+        app:layout_constraintTop_toBottomOf="@+id/select" />
+
+    <!--click here to view previous image-->
+
+    <!--click here to view next image-->
+
+    <ImageSwitcher
+        android:id="@+id/image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/select"
+        app:layout_constraintStart_toStartOf="@+id/select"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSubir" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/previous"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="16dp"
+        app:backgroundTint="#0961F5"
+        app:layout_constraintEnd_toStartOf="@+id/image"
+        app:layout_constraintTop_toTopOf="@+id/image"
+        app:srcCompat="@drawable/ic_arrow_back"
+        app:tint="@color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="80dp"
+        app:backgroundTint="#0961F5"
+        app:layout_constraintStart_toEndOf="@+id/image"
+        app:layout_constraintTop_toTopOf="@+id/image"
+        app:srcCompat="@drawable/baseline_arrow_forward_24"
+        app:tint="@color/white" />
+
+    <Button
+        android:id="@+id/botonAceptar"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:layout_width="170dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="52dp"
+        android:backgroundTint="@color/colorLigero"
+        android:fontFamily="@font/inter"
+        android:text="ACEPTAR"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image" />
+
+    <ProgressBar
+        android:id="@+id/pBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:indeterminateTint="@color/colorPrimaryDark"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/next"
+        app:layout_constraintStart_toEndOf="@+id/previous"
+        app:layout_constraintTop_toBottomOf="@+id/image" />
+
+    <Button
+        android:id="@+id/botonCancelar"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:layout_width="130dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="48dp"
+        android:backgroundTint="@color/cancelarButtonGrey"
+        android:fontFamily="@font/inter"
+        android:text="CANCELAR"
+        android:textColor="@color/canelarButtonTextDarkGrey"
+        android:textSize="15sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/botonAceptar"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
