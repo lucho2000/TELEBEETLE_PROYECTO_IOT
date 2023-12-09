@@ -18,6 +18,15 @@
         android:theme="@style/Theme.TeleBeetle"
         tools:targetApi="31">
         <activity
+            android:name=".activities.SubirFotosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.FotosEventoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.FinalizadoEventoActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.FinalizarEventoActivity"
             android:exported="false" />
         <activity

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.DetallesEvento1">
-
+    tools:context=".activities.FinalizadoEventoActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/topappBarLayout"
         android:layout_width="match_parent"
@@ -52,6 +51,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
@@ -64,19 +64,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Apoyo"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <TextView
         android:id="@+id/textView6"
@@ -100,7 +87,7 @@
     <com.google.android.material.chip.Chip
         android:id="@+id/chip"
         style="@style/Widget.Material3.Chip.Suggestion"
-        android:layout_width="112dp"
+        android:layout_width="wrap_content"
         android:layout_height="39dp"
         android:layout_marginTop="4dp"
         android:text="@string/chip_text_1"
@@ -109,6 +96,21 @@
         app:chipStrokeWidth="0dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip2"
+        style="@style/Widget.Material3.Chip.Suggestion"
+        android:layout_width="wrap_content"
+        android:layout_height="39dp"
+        android:layout_marginTop="4dp"
+        android:text="Finalizado"
+        android:textColor="@color/white"
+        app:chipBackgroundColor="#CA2E0C"
+        app:chipStrokeWidth="0dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintHorizontal_bias="0.986"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
@@ -258,15 +260,6 @@
 
         </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/goMapa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginStart="80dp"
-            app:backgroundTint="@color/colorLigero"
-            app:srcCompat="@drawable/baseline_arrow_forward_24"
-            app:tint="@color/white" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
@@ -288,27 +281,6 @@
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="262dp"
-        android:layout_height="72dp"
-        android:text="Puedes apoyar este evento ya sea como parte de la barra o participante. Presiona  “Apoyar Evento” y escoge la opcion de tu preferencia!"
-        android:textAlignment="center"
-        android:textColor="#706E8F"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
-    <Button
-        android:id="@+id/Apoyar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="APOYAR EVENTO"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
         android:layout_width="wrap_content"
@@ -316,15 +288,22 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="370dp" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:layout_marginTop="8dp"
+    <Button
+        android:id="@+id/buttonFotos"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/colorLigero"
+        android:text="Ver Fotos del Evento"
+        android:textColor="@color/white"
+        app:icon="@drawable/baseline_arrow_forward_24"
+        app:iconGravity="textEnd"
+        app:iconPadding="16dp"
+        app:iconTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12"
-        app:layout_constraintVertical_bias="0.99" />
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
