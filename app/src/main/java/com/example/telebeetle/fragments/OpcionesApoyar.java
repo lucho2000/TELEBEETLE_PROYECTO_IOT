@@ -10,24 +10,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.activities.DetallesEvento1;
 import com.example.telebeetle.cometchatapi.CometChatApiRest;
 import com.example.telebeetle.databinding.FragmentOpcionesApoyarBinding;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class OpcionesApoyar extends Fragment {
 
     CometChatApiRest cometChatApiRest = new CometChatApiRest();
     FragmentOpcionesApoyarBinding binding;
     FirebaseAuth firebaseAuth;
+
+    DatabaseReference databaseReference;
+
+    List<String> listaUIDUsuarios;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         firebaseAuth = FirebaseAuth.getInstance();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("evento");
+
+        String uidUserActual =  firebaseAuth.getCurrentUser().getUid();
 
         String evento_uid;
         Bundle bundle = getArguments();
@@ -47,12 +60,18 @@ public class OpcionesApoyar extends Fragment {
             bundleHaciaDialogApoyo.putString("evento_uid",evento_uid);
             Log.d("msg_test","iconBarra");
             addUsertoEventoGroupCometChat(evento_uid);
-            DialogApoyo dialogApoyo = new DialogApoyo();
-            dialogApoyo.setEvento_uid(evento_uid);
-            dialogApoyo.show(getChildFragmentManager(),"DIALOGAPOYO");
+            listaUIDUsuarios.add(uidUserActual); //agregando el usuario a la lista de barras
+            databaseReference.child(evento_uid).child("barra").setValue(listaUIDUsuarios).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    DialogApoyo dialogApoyo = new DialogApoyo();
+                    dialogApoyo.setEvento_uid(evento_uid);
+                    dialogApoyo.show(getChildFragmentManager(),"DIALOGAPOYO");
+                }
+            });
 
         });
-        binding.iconParticipante.setOnClickListener(view -> {
+        binding.iconParticipante.setOnClickListener(view -> { //esto deberia estar en delegado de actividad
             TextView textView = binding.textView10;
             textView.setText("Se alcanzó el máximo número de participantes");
             textView.setTextColor(0x706E8F);
