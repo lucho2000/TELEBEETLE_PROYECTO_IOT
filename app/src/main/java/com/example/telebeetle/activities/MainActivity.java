@@ -156,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                                                             boolean enable = userSnapshot.child("enable").getValue(Boolean.class);
                                                             if (enable) {
                                                                 Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
+                                                                //intent.putExtra("normal","normal");
                                                                 startActivity(intent);
                                                                 finish();
                                                             } else {

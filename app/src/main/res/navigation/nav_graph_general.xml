@@ -35,4 +35,5 @@
         android:name="com.example.telebeetle.fragments.HomeDelegadoGeneralFragment"
         android:label="fragment_home_delegado_general"
         tools:layout="@layout/fragment_home_delegado_general" />
+
 </navigation>
