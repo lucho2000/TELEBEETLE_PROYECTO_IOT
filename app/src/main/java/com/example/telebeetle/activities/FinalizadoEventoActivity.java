@@ -27,6 +27,7 @@ public class FinalizadoEventoActivity extends AppCompatActivity {
 
     ActivityFinalizadoEventoBinding binding;
     DatabaseReference databaseReference;
+    String nombreActividad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class FinalizadoEventoActivity extends AppCompatActivity {
                 if(snapshot.exists()){
                     Actividad actividad = snapshot.getValue(Actividad.class);
                     binding.chip.setText(actividad.getNombreActividad());
+                    nombreActividad = actividad.getNombreActividad();
                     databaseReference = FirebaseDatabase.getInstance().getReference("usuarios"); //datos de firebase de la coleccion de "usuarios"
                     databaseReference.child(actividad.getDelegado()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -79,6 +81,7 @@ public class FinalizadoEventoActivity extends AppCompatActivity {
         binding.buttonFotos.setOnClickListener(v -> {
             Intent intent1 = new Intent(FinalizadoEventoActivity.this, FotosEventoActivity.class);
             intent1.putExtra("Evento", evento);
+            intent1.putExtra("nombreActividad", nombreActividad);
             startActivity(intent1);
         });
         Toolbar toolbar = findViewById(R.id.myToolbar);
