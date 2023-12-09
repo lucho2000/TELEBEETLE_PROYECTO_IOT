@@ -69,7 +69,18 @@
                 android:id="@+id/rv_solicitudesRegistro"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/textNoRegistros"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="No hay registros"
+                android:textSize="40sp"
+                android:visibility="gone" />
         </LinearLayout>
+
+
 
 
     </LinearLayout>

@@ -18,6 +18,7 @@ import com.example.telebeetle.activities.DonacionesAdapter;
 import com.example.telebeetle.activities.EventAdapter;
 import com.example.telebeetle.activities.QRDonarActivity;
 import com.example.telebeetle.databinding.FragmentDonationBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +37,8 @@ public class DonationFragment extends Fragment {
     DatabaseReference databaseReference2;
 
     List<Donacion> donaciones;
+
+    FirebaseAuth firebaseAuth ;
 
 
     @Override
@@ -84,6 +87,9 @@ public class DonationFragment extends Fragment {
         binding.rvDonaciones.setAdapter(donacionesAdapter);
         binding.rvDonaciones.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        String uidActual = firebaseAuth.getCurrentUser().getUid();
+
         databaseReference2 = FirebaseDatabase.getInstance().getReference("donaciones");
         databaseReference2.addValueEventListener(new ValueEventListener() {
             @Override
@@ -92,8 +98,13 @@ public class DonationFragment extends Fragment {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     String keyDonacion = dataSnapshot.getKey();
                     Donacion donacion = dataSnapshot.getValue(Donacion.class);
-                    //donacion.setKeyDonacion(keyDonacion);
-                    donaciones.add(donacion);
+
+                    if(donacion.getUidDonante().equalsIgnoreCase(uidActual) &&
+                       donacion.getAccepted().equals(true)){ //filtrando para que liste las donaciones validadas que el usuario hizo
+                        donaciones.add(donacion);
+
+                    }
+
                 }
                 donacionesAdapter.notifyDataSetChanged();
 
@@ -104,9 +115,6 @@ public class DonationFragment extends Fragment {
 
             }
         });
-
-
-
 
 
     }

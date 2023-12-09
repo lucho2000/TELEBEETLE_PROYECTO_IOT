@@ -51,9 +51,6 @@ public class DonacionesAdapter extends RecyclerView.Adapter<DonacionesAdapter.Do
         String a = dona.getFecha() ;
         textViewFechaYHora.setText(a);
 
-        TextView textViewDonante = holder.itemView.findViewById(R.id.textView29);
-        textViewDonante.setText(dona.getUidDonante());
-
         TextView textViewPagado = holder.itemView.findViewById(R.id.textView28);
         textViewPagado.setVisibility(View.INVISIBLE);
 
