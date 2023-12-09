@@ -284,7 +284,7 @@ public class GeneralViewActivity extends AppCompatActivity {
                 startActivity(intent);
 
                 dialog.dismiss();
-                Toast.makeText(GeneralViewActivity.this,"Create a short is Clicked",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(GeneralViewActivity.this,"Create a short is Clicked",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -298,7 +298,7 @@ public class GeneralViewActivity extends AppCompatActivity {
                 startActivity(intent);
 
                 dialog.dismiss();
-                Toast.makeText(GeneralViewActivity.this,"Go live is Clicked",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(GeneralViewActivity.this,"Go live is Clicked",Toast.LENGTH_SHORT).show();
                 //Intent intent = new Intent(GeneralViewActivity.this, );
                 //startActivity(intent);
 
