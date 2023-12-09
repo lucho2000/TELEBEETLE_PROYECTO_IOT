@@ -26,6 +26,17 @@ import org.checkerframework.checker.units.qual.C;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
@@ -75,6 +86,8 @@ public class SolicitudesRegistroAdapter extends RecyclerView.Adapter<Solicitudes
         correo.setText(u.getCorreo());
         TextView condicion = holder.itemView.findViewById(R.id.condicionEstudio);
         condicion.setText(u.getCondicion());
+
+
     }
 
     @Override
@@ -89,6 +102,11 @@ public class SolicitudesRegistroAdapter extends RecyclerView.Adapter<Solicitudes
             Button accept = itemView.findViewById(R.id.accept);
             databaseReference2 = FirebaseDatabase.getInstance().getReference("usuarios_por_admitir"); //datos de firebase de la coleccion de "evento"
             accept.setOnClickListener(v -> {
+
+                String text = "Bienvenido usuario "+usuario.getNombres()+" "+usuario.getApellidos()+". Se ha aceptado su solicitud de registro en la app Telebeetle";
+
+                buttonSendEmail(usuario.getCorreo(),text);
+
                 databaseReference = FirebaseDatabase.getInstance().getReference("usuarios"); //datos de firebase de la coleccion de "evento"
                 databaseReference.child(usuario.getUidUsuario()).setValue(usuario).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -118,6 +136,11 @@ public class SolicitudesRegistroAdapter extends RecyclerView.Adapter<Solicitudes
             });
             Button deny = itemView.findViewById(R.id.deny);
             deny.setOnClickListener(v -> {
+
+                String text = "Estimado usuario "+usuario.getNombres()+" "+usuario.getApellidos()+".Su solicitud de registro ha sido denegada";
+
+                buttonSendEmail(usuario.getCorreo(),text);
+
                 databaseReference2.child(usuario.getUidUsuario()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -139,5 +162,58 @@ public class SolicitudesRegistroAdapter extends RecyclerView.Adapter<Solicitudes
     public void removeItem(int position) {
         usuarioList.remove(position);
         notifyItemRemoved(position);
+    }
+
+
+    public void buttonSendEmail(String correoaEnviar,String text){
+
+        try {
+            String stringSenderEmail = "telesystemclinic@gmail.com";
+            String stringReceiverEmail = correoaEnviar;
+            String stringPasswordSenderEmail = "qyxm eonv gmql dqak";
+
+            String stringHost = "smtp.gmail.com";
+
+            Properties properties = System.getProperties();
+
+            properties.put("mail.smtp.host", stringHost);
+            properties.put("mail.smtp.port", "465");
+            properties.put("mail.smtp.ssl.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+
+            javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(stringSenderEmail, stringPasswordSenderEmail);
+                }
+            });
+
+            MimeMessage mimeMessage = new MimeMessage(session);
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(stringReceiverEmail));
+
+            mimeMessage.setSubject("Solicitud Respondida");
+            mimeMessage.setText(text);
+
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Transport.send(mimeMessage);
+                        //Toast.makeText(getContext(),"Correo enviado",Toast.LENGTH_SHORT).show();
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                        Log.d("msg-test", String.valueOf(e));
+                    }
+                }
+            });
+            thread.start();
+
+        } catch (AddressException e) {
+            e.printStackTrace();
+            Log.d("msg-test", String.valueOf(e));
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            Log.d("msg-test", String.valueOf(e));
+        }
     }
 }

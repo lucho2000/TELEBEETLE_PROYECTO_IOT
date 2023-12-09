@@ -47,14 +47,19 @@ public class ListarUsuariosActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                ArrayList<Usuario> newList = new ArrayList<>();
                 if (snapshot.exists()){
                     for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
                         Usuario usuario = dataSnapshot.getValue(Usuario.class);
-                        if(!usuario.getRol().equalsIgnoreCase("delegado_general")){
+                        if(!usuario.getRol().equalsIgnoreCase("delegado_general") &&
+                            usuario.getEnable().equals(true)){
+
                             usuario.setUidUsuario(dataSnapshot.getKey());
-                            usuarioList.add(usuario);
+                            newList.add(usuario);
                         }
                     }
+                    usuarioAdapter.setListaUsuarios(newList);
                     usuarioAdapter.notifyDataSetChanged();
                 }
             }

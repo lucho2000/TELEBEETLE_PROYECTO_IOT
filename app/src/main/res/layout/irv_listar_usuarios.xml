@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <ImageView
@@ -19,11 +19,12 @@
             android:layout_height="75dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout
-            android:layout_width="182dp"
-            android:layout_height="72dp"
+            android:layout_width="141dp"
+            android:layout_height="73dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -44,29 +45,20 @@
                 android:text="TextView" />
         </LinearLayout>
 
-
-        <LinearLayout
-            android:layout_width="110dp"
-            android:layout_height="70dp"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/buttonBanear"
-                style="?attr/materialIconButtonFilledTonalStyle"
-                android:layout_width="99dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                android:backgroundTint="@color/topAppBarColor"
-                android:fontFamily="@font/inter"
-                android:text="Banear"
-                android:textColor="@color/white"
-                app:icon="@drawable/ic_close_24dp"
-                app:iconGravity="textEnd"
-                app:iconPadding="16dp"
-                app:iconTint="@color/white"
-                app:layout_constraintEnd_toEndOf="parent" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/banear"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/colorLigero"
+            android:text="Banear"
+            android:textColor="@color/white"
+            app:icon="@drawable/ic_close_24dp"
+            app:iconPadding="8dp"
+            app:iconTint="@color/white" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

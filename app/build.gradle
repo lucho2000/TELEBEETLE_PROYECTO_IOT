@@ -21,6 +21,7 @@ android {
         def properties = new Properties()
         properties.load(new FileInputStream(rootProject.file("local.properties")))
         buildConfigField("String","ROUTE_API_KEY", "\"${properties.getProperty('ROUTE_API_KEY')}\"")
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -37,6 +38,12 @@ android {
         buildConfig true
         viewBinding true
     }
+
+    packagingOptions{
+        exclude 'META-INF/NOTICE.md'
+        exclude 'META-INF/LICENSE.md'
+    }
+
 }
 
 dependencies {
@@ -79,4 +86,11 @@ dependencies {
 
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     implementation group: 'at.favre.lib', name: 'bcrypt', version: '0.9.0'
+
+    implementation 'com.sun.mail:android-mail:1.6.6'
+    implementation 'com.sun.mail:android-activation:1.6.7'
+
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+    implementation("androidx.multidex:multidex:2.0.1")
+
 }

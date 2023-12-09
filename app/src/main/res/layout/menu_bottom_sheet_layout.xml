@@ -80,10 +80,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="LISTAR USUARIOS"
-                android:textColor="@color/fab_color"
                 android:layout_marginLeft="30dp"
-                android:textSize="17sp"/>
+                android:text="BANEAR USUARIOS"
+                android:textColor="@color/fab_color"
+                android:textSize="17sp" />
 
         </LinearLayout>
 
