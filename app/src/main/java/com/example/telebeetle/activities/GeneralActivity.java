@@ -1,12 +1,20 @@
 package com.example.telebeetle.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Pie;
+import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -17,13 +25,23 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GeneralActivity extends AppCompatActivity {
 
-    BarChart barChart;
-    PieChart pieChart;
+    AnyChartView anyChartView;
+
+    String[] condicion = {"Alumno","Egresado"};
+    List<Usuario>  listaAlumnos;
+    List<Usuario>  listaEgresados;
+
 
 
     @Override
@@ -32,12 +50,22 @@ public class GeneralActivity extends AppCompatActivity {
         setContentView(R.layout.activity_general);
 
 
-        barChart = findViewById(R.id.bar_chart);
-        pieChart = findViewById(R.id.pie_chart);
+       // barChart = findViewById(R.id.bar_chart);
+        //pieChart = findViewById(R.id.pie_chart);
 
 
+        Intent intent = getIntent();
+        listaAlumnos = (List<Usuario>) intent.getSerializableExtra("listaAlumnos");
+        listaEgresados = (List<Usuario>) intent.getSerializableExtra("listaEgresados");
 
 
+        int[] porcentaje = {listaAlumnos.size(),listaEgresados.size()};
+
+        anyChartView = findViewById(R.id.anyChartView);
+        setupChartView(porcentaje);
+
+
+        /*
 
         // Data con respecto a los usuarios que se registran a la plataforma
         ArrayList<BarEntry> barEntries1 = new ArrayList<>();
@@ -107,8 +135,24 @@ public class GeneralActivity extends AppCompatActivity {
             public void onClick(View view) {
                 finish();
             }
-        });
+        });*/
 
 
+
+
+    }
+
+
+    private void setupChartView(int[] porcentaje){
+        Pie pie = AnyChart.pie();
+        List<DataEntry> dataEntries = new ArrayList<>();
+
+        for (int i=0; i<condicion.length;i++){
+            dataEntries.add(new ValueDataEntry(condicion[i],porcentaje[i]));
+        }
+        pie.data(dataEntries);
+        pie.title("Porcentajes");
+
+        anyChartView.setChart(pie);
     }
 }
