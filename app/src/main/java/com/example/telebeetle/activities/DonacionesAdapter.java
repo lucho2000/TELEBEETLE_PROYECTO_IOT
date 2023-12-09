@@ -59,7 +59,7 @@ public class DonacionesAdapter extends RecyclerView.Adapter<DonacionesAdapter.Do
 
 
 
-
+        /*
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +71,7 @@ public class DonacionesAdapter extends RecyclerView.Adapter<DonacionesAdapter.Do
 
             }
         });
-
+        */
 
     }
 
