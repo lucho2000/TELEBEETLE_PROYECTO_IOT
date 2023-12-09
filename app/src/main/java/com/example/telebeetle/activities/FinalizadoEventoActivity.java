@@ -78,7 +78,7 @@ public class FinalizadoEventoActivity extends AppCompatActivity {
         });
         binding.buttonFotos.setOnClickListener(v -> {
             Intent intent1 = new Intent(FinalizadoEventoActivity.this, FotosEventoActivity.class);
-            intent1.putExtra("eventoUID", evento.getUidEvento());
+            intent1.putExtra("Evento", evento);
             startActivity(intent1);
         });
         Toolbar toolbar = findViewById(R.id.myToolbar);

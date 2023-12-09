@@ -8,24 +8,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.ActivityFotosEventoBinding;
 
 public class FotosEventoActivity extends AppCompatActivity {
 
     ActivityFotosEventoBinding binding;
-    String eventoUID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityFotosEventoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Intent intent = getIntent();
-        eventoUID = (String) intent.getStringExtra("eventoUID");
+        Evento evento = (Evento) intent.getSerializableExtra("Evento");
 
         binding.floatingActionButton.setOnClickListener(v -> {
             Intent intent1 = new Intent(FotosEventoActivity.this, SubirFotosActivity.class);
-            intent1.putExtra("eventoUID", eventoUID);
+            intent1.putExtra("Evento", evento);
             startActivity(intent1);
         });
 

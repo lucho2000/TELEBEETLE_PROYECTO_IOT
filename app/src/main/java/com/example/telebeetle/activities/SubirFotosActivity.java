@@ -3,6 +3,7 @@ package com.example.telebeetle.activities;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -19,44 +20,55 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.ActivitySubirFotosBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public class SubirFotosActivity extends AppCompatActivity {
 
     ActivitySubirFotosBinding binding;
-    String eventoUID;
-
-
-    Button select, previous, next;
     ImageSwitcher imageView;
     int PICK_IMAGE_MULTIPLE = 1;
-    String imageEncoded;
-    TextView total;
     ArrayList<Uri> mArrayUri;
     int position = 0;
-    List<String> imagesEncodedList;
+    FirebaseStorage storage;
+    StorageReference storageReference;
+    List<String> downloadLinks = new ArrayList<>();
+    FirebaseDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySubirFotosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Intent intent = getIntent();
-        eventoUID = (String) intent.getStringExtra("eventoUID");
+        Evento evento = (Evento) intent.getSerializableExtra("Evento");
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        database = FirebaseDatabase.getInstance();
 
-        //Toolbar toolbar = findViewById(R.id.myToolbar);
-        //toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View view) {
-        //        finish();
-        //    }
-        //});
+        Toolbar toolbar = findViewById(R.id.myToolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         //binding.imageView7.setOnClickListener(v -> {
         //    pickMedias.launch(new PickVisualMediaRequest.Builder()
         //            .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
@@ -65,10 +77,7 @@ public class SubirFotosActivity extends AppCompatActivity {
         //    //        .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
         //    //        .build());
         //});
-        select = findViewById(R.id.select);
-        total = findViewById(R.id.text);
         imageView = findViewById(R.id.image);
-        previous = findViewById(R.id.previous);
         mArrayUri = new ArrayList<Uri>();
 
         // showing all images in imageswitcher
@@ -78,10 +87,9 @@ public class SubirFotosActivity extends AppCompatActivity {
                 return new ImageView(getApplicationContext());
             }
         });
-        next = findViewById(R.id.next);
 
         // click here to select next image
-        next.setOnClickListener(new View.OnClickListener() {
+        binding.next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (position < mArrayUri.size() - 1) {
@@ -95,7 +103,7 @@ public class SubirFotosActivity extends AppCompatActivity {
         });
 
         // click here to view previous image
-        previous.setOnClickListener(new View.OnClickListener() {
+        binding.previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (position > 0) {
@@ -109,7 +117,7 @@ public class SubirFotosActivity extends AppCompatActivity {
         imageView = findViewById(R.id.image);
 
         // click here to select image
-        select.setOnClickListener(new View.OnClickListener() {
+        binding.select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -123,6 +131,60 @@ public class SubirFotosActivity extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_MULTIPLE);
+            }
+        });
+        binding.botonCancelar.setOnClickListener(v -> {
+            finish();
+        });
+
+        binding.botonAceptar.setOnClickListener(v -> {
+            if(mArrayUri.isEmpty()){
+                Toast.makeText(this, "No ha seleccionado fotos", Toast.LENGTH_SHORT).show();
+            }else{
+                binding.pBar.setVisibility(View.VISIBLE);
+                StorageReference carpetaFotosEventosRef = storageReference.child("Fotos Eventos");
+                for(Uri uu : mArrayUri){
+                    Log.d("msg-test", uu.toString());
+                    StorageReference fotoRef = carpetaFotosEventosRef.child(UUID.randomUUID().toString()); // Use a unique name for each file
+                    fotoRef.putFile(uu).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                            uriTask.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    downloadLinks.add(uri.toString());
+                                    if (downloadLinks.size() == mArrayUri.size()) {
+                                        for(int i=0;i<downloadLinks.size();i++){
+                                            evento.getRutasFotosEventos().put(UUID.randomUUID().toString(), downloadLinks.get(i).toString());
+                                        }
+                                        DatabaseReference eventosData = database.getReference("evento");
+                                        HashMap<String, Object> eventoUpdate = new HashMap<>();
+                                        eventoUpdate.put("rutasFotosEventos", evento.getRutasFotosEventos());
+                                        eventosData.child(evento.getUidEvento()).updateChildren(eventoUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()){
+                                                    Toast.makeText(SubirFotosActivity.this,"Fotos actualizadas con exito",Toast.LENGTH_SHORT).show();
+                                                    binding.pBar.setVisibility(View.INVISIBLE);
+                                                    finish();
+                                                } else {
+                                                    Toast.makeText(SubirFotosActivity.this,"Error al actualizar fotos",Toast.LENGTH_SHORT).show();
+                                                    binding.pBar.setVisibility(View.INVISIBLE);
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
+                        }
+                    });
+                }
             }
         });
     }
@@ -180,6 +242,7 @@ public class SubirFotosActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         // When an Image is picked
         if (requestCode == PICK_IMAGE_MULTIPLE && resultCode == RESULT_OK && null != data) {
+            mArrayUri.clear();
             // Get the Image from data
             if (data.getClipData() != null) {
                 ClipData mClipData = data.getClipData();

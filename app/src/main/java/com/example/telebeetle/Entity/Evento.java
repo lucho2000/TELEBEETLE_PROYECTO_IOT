@@ -1,6 +1,7 @@
 package com.example.telebeetle.Entity;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 public class Evento implements Serializable {
@@ -29,13 +30,13 @@ public class Evento implements Serializable {
     private String estado; //(boolean)
 
 
-    private List<String> rutasFotosEventos; //lista de rutas URL
+    private HashMap<String,String> rutasFotosEventos; //lista de rutas URL
 
     private String uidEvento;
 
-    private List<String> listaApoyosBarras;  //(lista de KEY de usuarios)
+    private HashMap<String, String> listaApoyosBarras;  //(lista de KEY de usuarios)
 
-    private List<String> listaApoyosParticipantes;  //(lista de KEY de usuarios)
+    private HashMap<String, String> listaApoyosParticipantes;  //(lista de KEY de usuarios)
 
     public String getLatitud() {
         return latitud;
@@ -153,27 +154,27 @@ public class Evento implements Serializable {
         this.estado = estado;
     }
 
-    public List<String> getRutasFotosEventos() {
+    public HashMap<String,String> getRutasFotosEventos() {
         return rutasFotosEventos;
     }
 
-    public void setRutasFotosEventos(List<String> rutasFotosEventos) {
+    public void setRutasFotosEventos(HashMap<String,String> rutasFotosEventos) {
         this.rutasFotosEventos = rutasFotosEventos;
     }
 
-    public List<String> getListaApoyosBarras() {
+    public HashMap<String, String> getListaApoyosBarras() {
         return listaApoyosBarras;
     }
 
-    public void setListaApoyosBarras(List<String> listaApoyosBarras) {
+    public void setListaApoyosBarras(HashMap<String,String> listaApoyosBarras) {
         this.listaApoyosBarras = listaApoyosBarras;
     }
 
-    public List<String> getListaApoyosParticipantes() {
+    public HashMap<String, String> getListaApoyosParticipantes() {
         return listaApoyosParticipantes;
     }
 
-    public void setListaApoyosParticipantes(List<String> listaApoyosParticipantes) {
+    public void setListaApoyosParticipantes(HashMap<String, String> listaApoyosParticipantes) {
         this.listaApoyosParticipantes = listaApoyosParticipantes;
     }
 }
