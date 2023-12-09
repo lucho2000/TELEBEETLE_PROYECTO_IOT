@@ -33,6 +33,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class QRDonarActivity extends AppCompatActivity {
@@ -48,7 +49,7 @@ public class QRDonarActivity extends AppCompatActivity {
 
     Uri urlImagen;
 
-    String fecha;
+    LocalDate fecha;
 
     Usuario usuario1;
     @Override
@@ -106,7 +107,7 @@ public class QRDonarActivity extends AppCompatActivity {
                                 //revisando el rol
                                 if (condicion.equalsIgnoreCase("alumno") && montoInt > 0){
 
-                                    crearDonaciones(montoInt, nombre + " " + apellidos);
+                                    crearDonaciones(montoInt, usuarioActualUID);
 
                                 } else { //egresado
                                     if (montoInt > 100){
@@ -168,7 +169,7 @@ public class QRDonarActivity extends AppCompatActivity {
         }
     }
 
-    public void crearDonaciones(int montoInt, String nombreDonante){
+    public void crearDonaciones(int montoInt, String uidDonante){
         StorageReference carpetaFotosDonacionesRef = storageReference.child("Capturas Donaciones");
         StorageReference fotoRef = carpetaFotosDonacionesRef.child(new Date().toString());
 
@@ -181,19 +182,25 @@ public class QRDonarActivity extends AppCompatActivity {
                 donacion = new Donacion();
                 donacion.setMonto(String.valueOf(montoInt)); //poner monto a donar
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    fecha = LocalDate.now().toString();
-                    donacion.setFecha(fecha);
+                    fecha = LocalDate.now();
+                    // Definir un formato personalizado con barras
+                    DateTimeFormatter formatoConBarras = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+                    // Formatear la fecha con el formato personalizado
+                    String fechaFormateadaConBarras = fecha.format(formatoConBarras);
+
+                    donacion.setFecha(fechaFormateadaConBarras);
                 }
                 donacion.setImagenCaptura(uriDownload.toString());
                 donacion.setAccepted(false);
-                donacion.setUidDonante(nombreDonante);
-                Intent intent = new Intent(QRDonarActivity.this, ScreenEsperaActivity.class);
+                donacion.setUidDonante(uidDonante);
+                Intent intent = new Intent(QRDonarActivity.this, ActivityEsperaDonacion.class);
                 startActivity(intent);
                 //intent.putExtra("fecha",fecha);
                 database.getReference("donaciones_por_validar").push().setValue(donacion).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(QRDonarActivity.this, "Donacion realizada, espere a que se valide ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(QRDonarActivity.this, "Donacion realizada", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
