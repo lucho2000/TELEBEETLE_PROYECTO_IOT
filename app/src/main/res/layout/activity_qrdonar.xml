@@ -40,7 +40,7 @@
                 android:layout_marginStart="60dp"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/inter"
-                android:text="Donar"
+                android:text="Donación"
                 android:textColor="#ECE8E8"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -93,30 +93,31 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/inter"
-        android:text="Nombre del encargado: Victor Diaz"
+        android:text="Nombre del encargado: Luis Ramos Torres"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageEvent" />
 
+
     <TextView
         android:id="@+id/textViewNumeroYape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/inter"
         android:text="Yape/Plin: 963215487"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:fontFamily="@font/inter"
         app:layout_constraintStart_toStartOf="@+id/textViewNombre"
         app:layout_constraintTop_toBottomOf="@+id/textViewNombre" />
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/TextFieldMonto"
-        android:layout_width="265dp"
-        android:layout_height="47dp"
+        android:layout_width="269dp"
+        android:layout_height="57dp"
         android:layout_marginTop="8dp"
         android:hint="Monto a donar"
         app:endIconMode="clear_text"
@@ -129,7 +130,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextMonto"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="47dp"
             tools:layout_editor_absoluteX="39dp"
             tools:layout_editor_absoluteY="468dp" />
 

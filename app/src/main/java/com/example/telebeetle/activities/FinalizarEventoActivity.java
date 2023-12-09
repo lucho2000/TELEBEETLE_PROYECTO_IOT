@@ -117,10 +117,10 @@ public class FinalizarEventoActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
                             descripcion.setText("");
-                            Toast.makeText(FinalizarEventoActivity.this,"Success to end event",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FinalizarEventoActivity.this,"Evento finalizado con exito",Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
-                            Toast.makeText(FinalizarEventoActivity.this,"Failed to update event",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FinalizarEventoActivity.this,"Error al finalizar evento",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -47,7 +47,6 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
     DatabaseReference databaseReference;
     DatabaseReference databaseReference2;
 
-    FirebaseDatabase database;
 
     public class UsuarioViewHolder extends RecyclerView.ViewHolder{
 
@@ -102,7 +101,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
     @Override
     public void onBindViewHolder(@NonNull UsuarioAdapter.UsuarioViewHolder holder, int position) {
 
-        database =  FirebaseDatabase.getInstance();
+
 
         Usuario user = listaUsuarios.get(position);
         holder.user = user;
@@ -116,17 +115,39 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         textViewCodigo.setText(user.getCodigo());
 
 
-        ImageView ban = holder.itemView.findViewById(R.id.bannn);
-        ban.setOnClickListener(view -> {
+        //ImageView ban = holder.itemView.findViewById(R.id.bannn);
+        Button banear = holder.itemView.findViewById(R.id.banear);
+
+        banear.setOnClickListener(view -> {
+
+            databaseReference =  FirebaseDatabase.getInstance().getReference("usuarios");
             user.setEnable(false);
+            databaseReference.child(user.getUidUsuario()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+
+//                    int position = holder.getBindingAdapterPosition();
+//                    if (position != RecyclerView.NO_POSITION) { //lo remuevo, pero se vuelve a cargar lo mismo de nuevo
+//                        //removeItem(position);
+//                    }
+
+                    Toast.makeText(context, "Usuario baneado de la aplicacion", Toast.LENGTH_SHORT).show();
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, "No se pudo borrar al usuario", Toast.LENGTH_SHORT).show();
+                }
+            });
+
             buttonSendEmail(user.getCorreo());
-            Intent intent = new Intent(getContext(),GeneralViewActivity.class);
-            getContext().startActivity(intent);
+
+            //Intent intent = new Intent(getContext(),GeneralViewActivity.class);
+            //getContext().startActivity(intent);
+
 
         });
-
-
-
 
 
 
@@ -192,7 +213,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
                 public void run() {
                     try {
                         Transport.send(mimeMessage);
-                        Toast.makeText(getContext(),"Correo enviado",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(),"Correo enviado",Toast.LENGTH_SHORT).show();
                     } catch (MessagingException e) {
                         e.printStackTrace();
                         Log.d("msg-test", String.valueOf(e));
