@@ -1,12 +1,19 @@
 package com.example.telebeetle.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
 
 import com.example.telebeetle.Entity.Evento;
+import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.databinding.ActivityEventsBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +21,6 @@ import java.util.List;
 public class EventsActivity extends AppCompatActivity {
 
     ActivityEventsBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,8 +29,6 @@ public class EventsActivity extends AppCompatActivity {
 
 
         cargarListaEventos();
-
-
 
     }
 

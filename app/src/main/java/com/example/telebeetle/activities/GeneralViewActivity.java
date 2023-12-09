@@ -45,6 +45,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -294,11 +297,44 @@ public class GeneralViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(GeneralViewActivity.this, GeneralActivity.class);
-                startActivity(intent);
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
 
-                dialog.dismiss();
-                Toast.makeText(GeneralViewActivity.this,"Go live is Clicked",Toast.LENGTH_SHORT).show();
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        List<Usuario> listaAlumnos = new ArrayList<>();
+                        List<Usuario> listaEgresados = new ArrayList<>();
+
+                        for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                            Usuario usuario = snapshot1.getValue(Usuario.class);
+
+                            if (usuario != null) {
+                                if ("Alumno".equalsIgnoreCase(usuario.getCondicion())) {
+                                    listaAlumnos.add(usuario);
+                                } else if ("Egresado".equalsIgnoreCase(usuario.getCondicion())) {
+                                    listaEgresados.add(usuario);
+                                }
+                            }
+                        }
+
+                        Intent intent = new Intent(GeneralViewActivity.this, GeneralActivity.class);
+                        intent.putExtra("listaAlumnos", (Serializable) listaAlumnos);
+                        intent.putExtra("listaEgresados", (Serializable) listaEgresados);
+
+                        startActivity(intent);
+
+                        dialog.dismiss();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+                //Toast.makeText(GeneralViewActivity.this,"Go live is Clicked",Toast.LENGTH_SHORT).show();
                 //Intent intent = new Intent(GeneralViewActivity.this, );
                 //startActivity(intent);
 
