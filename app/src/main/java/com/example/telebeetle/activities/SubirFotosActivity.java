@@ -49,7 +49,7 @@ public class SubirFotosActivity extends AppCompatActivity {
     int position = 0;
     FirebaseStorage storage;
     StorageReference storageReference;
-    List<String> downloadLinks = new ArrayList<>();
+    HashMap<String,String> downloadLinks = new HashMap<>();
     FirebaseDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,11 +153,9 @@ public class SubirFotosActivity extends AppCompatActivity {
                             uriTask.addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    downloadLinks.add(uri.toString());
+                                    downloadLinks.put(UUID.randomUUID().toString(),uri.toString());
                                     if (downloadLinks.size() == mArrayUri.size()) {
-                                        for(int i=0;i<downloadLinks.size();i++){
-                                            evento.getRutasFotosEventos().put(UUID.randomUUID().toString(), downloadLinks.get(i).toString());
-                                        }
+                                        evento.getRutasFotosEventos().putAll(downloadLinks);
                                         DatabaseReference eventosData = database.getReference("evento");
                                         HashMap<String, Object> eventoUpdate = new HashMap<>();
                                         eventoUpdate.put("rutasFotosEventos", evento.getRutasFotosEventos());
