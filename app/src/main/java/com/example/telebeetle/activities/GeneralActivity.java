@@ -8,12 +8,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Pie;
+import com.example.telebeetle.Entity.Donacion;
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.github.mikephil.charting.charts.BarChart;
@@ -52,6 +54,36 @@ public class GeneralActivity extends AppCompatActivity {
 
        // barChart = findViewById(R.id.bar_chart);
         //pieChart = findViewById(R.id.pie_chart);
+        Toolbar toolbar = findViewById(R.id.myToolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference("donaciones");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                int totalDonado = 0;
+
+                for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                    Donacion donacion = snapshot1.getValue(Donacion.class);
+                    int donadooo = Integer.parseInt(donacion.getMonto());
+                    totalDonado = totalDonado+donadooo;
+                }
+                TextView donado = findViewById(R.id.textView31);
+                donado.setText("Monto total recaudado por Donaciones: S/"+totalDonado);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
 
         Intent intent = getIntent();
