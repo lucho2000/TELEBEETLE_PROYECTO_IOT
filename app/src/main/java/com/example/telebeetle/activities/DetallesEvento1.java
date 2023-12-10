@@ -23,6 +23,7 @@ import com.example.telebeetle.databinding.ActivityDetallesEvento1Binding;
 import com.example.telebeetle.fragments.OpcionesApoyar;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,13 +31,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class DetallesEvento1 extends AppCompatActivity {
     ActivityDetallesEvento1Binding binding;
     private Double latitudFinal = -12.066553051720968;
     private Double longitudFinal = -77.08034059751783;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, databaseReference2;
+
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +60,13 @@ public class DetallesEvento1 extends AppCompatActivity {
         binding.lugar.setText(evento.getLugar());
         binding.textView12.setText(evento.getDescripcion());
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        String UIDusuarioActual = firebaseAuth.getCurrentUser().getUid();
+
         databaseReference = FirebaseDatabase.getInstance().getReference("actividad"); //datos de firebase de la coleccion de "usuarios"
+
+
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("evento");
         databaseReference.child(evento.getActividad()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -84,16 +98,73 @@ public class DetallesEvento1 extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
+
+
         });
+
+//        Set<String> keys = evento.getListaApoyosBarras().keySet();
+//        for (String key : keys) {
+//            if(!key.equalsIgnoreCase("ga") && evento.getListaApoyosBarras().get(key).equals(UIDusuarioActual)){ //validando
+//
+//                binding.Apoyar.setEnabled(false);
+//                getSupportFragmentManager().
+//                        beginTransaction().
+//                        setReorderingAllowed(true).
+//                        add(R.id.fragmentContainerView, OpcionesApoyar.class, bundleConEventoUid).commit();
+//
+//            }
+//        }
+
+
 
         binding.Apoyar.setOnClickListener(view -> {
             Bundle bundleConEventoUid = new Bundle();
             bundleConEventoUid.putString("evento_uid", evento.getUidEvento());
+            bundleConEventoUid.putSerializable("listaApoyosBarras", evento.getListaApoyosBarras());
+            bundleConEventoUid.putSerializable("listaApoyosParticipante", evento.getListaApoyosParticipantes());
             Log.d("msg_test","que mrd ");
             getSupportFragmentManager().
                     beginTransaction().
                     setReorderingAllowed(true).
                     add(R.id.fragmentContainerView, OpcionesApoyar.class, bundleConEventoUid).commit();
+
+
+//            //si ya apoyó a un evento, se debe deshabilitar el boton
+//            databaseReference.child(evento.getUidEvento()).child("listaApoyosBarra").addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    if (snapshot.exists()){
+//
+//                        for (DataSnapshot dataSnapshot : snapshot.getChildren() ) {
+//                            HashMap<String, String> listaApoyosBD = dataSnapshot.getValue(HashMap.class);
+//
+//                            listaApoyosBD.get("ga");
+//
+//                            for (Map.Entry<String, String> entry : listaApoyosBD.entrySet()) {
+//                                String clave = entry.getKey();
+//                                String valor = entry.getValue();
+//                                System.out.println("Clave: " + clave + ", Valor: " + valor);
+//                            }
+//
+//                            for (String value: listaApoyosBD.values()) {
+//                                Log.d("msg-test2","valores: " +value);
+//
+//                                if (value.equalsIgnoreCase(UIDusuarioActual)){
+//
+//                                    binding.Apoyar.setEnabled(false);
+//
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                }
+//            });
             /*getSupportFragmentManager().
                     beginTransaction().
                     setReorderingAllowed(true).
