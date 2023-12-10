@@ -105,19 +105,19 @@
         android:id="@+id/textViewNumeroYape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/inter"
         android:text="Yape/Plin: 963215487"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textViewNombre"
         app:layout_constraintStart_toStartOf="@+id/textViewNombre"
         app:layout_constraintTop_toBottomOf="@+id/textViewNombre" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/TextFieldMonto"
-        android:layout_width="269dp"
-        android:layout_height="57dp"
+        android:layout_width="273dp"
+        android:layout_height="54dp"
         android:layout_marginTop="8dp"
         android:hint="Monto a donar"
         app:endIconMode="clear_text"

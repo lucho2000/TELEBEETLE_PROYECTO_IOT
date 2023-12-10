@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.ActivityEsperaDonacionBinding;
+import com.example.telebeetle.fragments.DonationFragment;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,7 +27,7 @@ public class ActivityEsperaDonacion extends AppCompatActivity {
         binding.buttonReturnDonaciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ActivityEsperaDonacion.this, DonacionActivity.class );
+                Intent intent = new Intent(ActivityEsperaDonacion.this, GeneralViewActivity.class );
 
                 startActivity(intent);
                 finish();

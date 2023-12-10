@@ -37,7 +37,7 @@ public class DetailDonationActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Donacion donacion = (Donacion) intent.getSerializableExtra("donacion");
 
-        binding.textView47.setText(donacion.getMonto());
+        binding.textView47.setText("S./ " + donacion.getMonto());
 
         Picasso.get().load(donacion.getImagenCaptura()).into(binding.imageView9);
 
