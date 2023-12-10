@@ -155,9 +155,9 @@
         android:text="No se cuenta con fotos para este evento"
         android:textSize="24sp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/gridView"
-        app:layout_constraintEnd_toEndOf="@+id/gridView"
-        app:layout_constraintStart_toStartOf="@+id/gridView"
-        app:layout_constraintTop_toTopOf="@+id/gridView" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topappBarLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

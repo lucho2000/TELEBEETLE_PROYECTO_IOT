@@ -54,6 +54,13 @@ public class HomeDelegadoActivitdadFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = FragmentHomeDelegadoActivitdadBinding.inflate(inflater,container,false);
+
+        return binding.getRoot();
+    }
+    @Override
+
+    public void onResume() {
+        super.onResume();
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference2 = FirebaseDatabase.getInstance().getReference("usuarios"); //datos de firebase de la coleccion de "usuarios"
         uid =firebaseAuth.getCurrentUser().getUid();
@@ -97,6 +104,44 @@ public class HomeDelegadoActivitdadFragment extends Fragment {
                                     break;
                                 }
                             }
+                            databaseReference = FirebaseDatabase.getInstance().getReference("evento"); //datos de firebase de la coleccion de "evento"
+                            listaEvents = new ArrayList<>();
+                            eventHorizontalAdapter = new EventHorizontalAdapter();
+                            eventHorizontalAdapter.setEventoList(listaEvents);
+                            eventHorizontalAdapter.setContext(getActivity().getApplicationContext());
+                            binding.rvEventos.setAdapter(eventHorizontalAdapter);
+                            binding.rvEventos.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), RecyclerView.HORIZONTAL, false));
+
+                            //codigo para extraer la data de firebase y mostrarla en el recycler view
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    listaEvents.clear();
+                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                        Evento evento = dataSnapshot.getValue(Evento.class);
+                                        if(!evento.getActividad().equals(uidActividad)){
+                                            evento.setUidEvento(dataSnapshot.getKey());
+                                            listaEvents.add(evento);
+                                        }
+                                    }
+                                    eventHorizontalAdapter.notifyDataSetChanged();
+                                    if (binding.rvEventos.getAdapter()!= null && binding.rvEventos.getAdapter().getItemCount() == 0){
+                                        //vacio
+                                        Log.d("msg-test", "llega sin informacion");
+                                        binding.rvEventos.setVisibility(View.GONE);
+                                        binding.textNoRegistros.setVisibility(View.VISIBLE);
+                                    } else {
+                                        binding.textNoRegistros.setVisibility(View.GONE);
+                                        binding.rvEventos.setVisibility(View.VISIBLE);
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
@@ -110,49 +155,6 @@ public class HomeDelegadoActivitdadFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.d("User", "Failed to read value.", error.toException());
-            }
-        });
-
-        return binding.getRoot();
-    }
-    @Override
-
-    public void onResume() {
-        super.onResume();
-        databaseReference = FirebaseDatabase.getInstance().getReference("evento"); //datos de firebase de la coleccion de "evento"
-        listaEvents = new ArrayList<>();
-        eventHorizontalAdapter = new EventHorizontalAdapter();
-        eventHorizontalAdapter.setEventoList(listaEvents);
-        eventHorizontalAdapter.setContext(getActivity().getApplicationContext());
-        binding.rvEventos.setAdapter(eventHorizontalAdapter);
-        binding.rvEventos.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), RecyclerView.HORIZONTAL, false));
-
-        //codigo para extraer la data de firebase y mostrarla en el recycler view
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listaEvents.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Evento evento = dataSnapshot.getValue(Evento.class);
-                    evento.setUidEvento(dataSnapshot.getKey());
-                    listaEvents.add(evento);
-                }
-                eventHorizontalAdapter.notifyDataSetChanged();
-                if (binding.rvEventos.getAdapter()!= null && binding.rvEventos.getAdapter().getItemCount() == 0){
-                    //vacio
-                    Log.d("msg-test", "llega sin informacion");
-                    binding.rvEventos.setVisibility(View.GONE);
-                    binding.textNoRegistros.setVisibility(View.VISIBLE);
-                } else {
-                    binding.textNoRegistros.setVisibility(View.GONE);
-                    binding.rvEventos.setVisibility(View.VISIBLE);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }

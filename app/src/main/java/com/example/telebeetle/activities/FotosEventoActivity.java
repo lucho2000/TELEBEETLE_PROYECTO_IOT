@@ -86,8 +86,8 @@ public class FotosEventoActivity extends AppCompatActivity {
                         gridView.setVisibility(View.GONE);
                         textView.setVisibility(View.VISIBLE);
                     }else{
-                        gridView.setVisibility(View.VISIBLE);
                         textView.setVisibility(View.GONE);
+                        gridView.setVisibility(View.VISIBLE);
                     }
                 }
             }

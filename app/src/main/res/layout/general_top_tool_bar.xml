@@ -21,26 +21,6 @@
             android:textStyle="bold" />
 
 
-
-        <ImageView
-            android:id="@+id/icon_notification_bg"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/title_top_tool_bar"
-            android:layout_marginStart="115dp"
-            android:src="@drawable/icon_elipse_noti" />
-
-        <ImageView
-            android:id="@+id/icon_notification"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/title_top_tool_bar"
-            android:layout_marginStart="125dp"
-            android:src="@drawable/icon_notifications"
-            android:background="@drawable/icon_elipse_noti"/>
-
     </RelativeLayout>
 
 </RelativeLayout>

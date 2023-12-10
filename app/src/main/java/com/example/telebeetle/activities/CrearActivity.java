@@ -128,7 +128,7 @@ public class CrearActivity extends AppCompatActivity {
                             if (snapshot.exists()){
                                 for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
                                     Usuario usuario = dataSnapshot.getValue(Usuario.class);
-                                    if(usuario.getRol().equalsIgnoreCase("usuario")){
+                                    if(usuario.getRol().equalsIgnoreCase("usuario") && usuario.getEnable().equals(true)){
                                         if(!list.contains(dataSnapshot.getKey())){
                                             usuario.setUidUsuario(dataSnapshot.getKey());
                                             delegadoAdd = usuario;
@@ -137,6 +137,16 @@ public class CrearActivity extends AppCompatActivity {
                                     }
                                 }
                                 delegadosAdapter1.notifyDataSetChanged();
+                                if (binding.recyclerView3.getAdapter()!= null && binding.recyclerView3.getAdapter().getItemCount() == 0){
+                                    //vacio
+                                    Log.d("msg-test", "llega sin informacion");
+                                    binding.recyclerView3.setVisibility(View.GONE);
+                                    binding.textNoRegistros.setVisibility(View.VISIBLE);
+                                } else {
+                                    binding.textNoRegistros.setVisibility(View.GONE);
+                                    binding.recyclerView3.setVisibility(View.VISIBLE);
+
+                                }
                             }
                         }
 

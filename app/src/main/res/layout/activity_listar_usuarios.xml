@@ -53,12 +53,22 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_lista_users"
-        android:layout_width="409dp"
-        android:layout_height="700dp"
+        android:layout_width="390dp"
+        android:layout_height="575dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topappBarLayout"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/topappBarLayout" />
+    <TextView
+        android:id="@+id/textNoRegistros"
+        android:layout_width="358dp"
+        android:layout_height="120dp"
+        android:gravity="center"
+        android:text="No se cuenta con usuarios"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topappBarLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
