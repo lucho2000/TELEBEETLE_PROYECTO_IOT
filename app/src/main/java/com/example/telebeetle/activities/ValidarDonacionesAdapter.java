@@ -52,6 +52,8 @@ public class ValidarDonacionesAdapter extends RecyclerView.Adapter<ValidarDonaci
     DatabaseReference databaseReference;
     DatabaseReference databaseReference2;
 
+    TextView donante;
+
     @NonNull
     @Override
     public ValidarDonacionesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -92,7 +94,7 @@ public class ValidarDonacionesAdapter extends RecyclerView.Adapter<ValidarDonaci
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             String nombres = snapshot.child("nombres").getValue(String.class);
                             String apellidos = snapshot.child("apellidos").getValue(String.class);
-                            TextView donante = holder.itemView.findViewById(R.id.donante);
+                            donante = holder.itemView.findViewById(R.id.donante);
                             donante.setText("Donante: " + nombres + " " +apellidos);
                         }
                         @Override

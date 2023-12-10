@@ -111,9 +111,9 @@ public class QRDonarActivity extends AppCompatActivity {
             Log.d("msg-test", "ID USER: " +usuarioActualUID);
 
 
-            if(!binding.editTextMonto.getText().toString().isEmpty()){
+            if( !montoInt.toString().isEmpty() && !urlImagen.toString().isEmpty()){
 
-                if (!urlImagen.toString().isEmpty()){
+
 
                     database.getReference("usuarios").child(usuarioActualUID).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -136,7 +136,7 @@ public class QRDonarActivity extends AppCompatActivity {
 
                                 } else { //egresado
                                     if (montoInt > 100){
-                                        crearDonaciones(montoInt, donante);
+                                        crearDonaciones(montoInt, usuarioActualUID);
                                     } else {
                                         Toast.makeText(QRDonarActivity.this, "El monto debe ser mayor a 100 soles para los egresados", Toast.LENGTH_SHORT).show();
                                     }
@@ -153,17 +153,9 @@ public class QRDonarActivity extends AppCompatActivity {
                     });
 
 
-
-                } else {
-                    Toast.makeText(QRDonarActivity.this, "Debe adjuntar la captura del monto ", Toast.LENGTH_SHORT).show();
-                }
-
             } else {
-
-                Toast.makeText(QRDonarActivity.this, "Debe ingresar el monto ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QRDonarActivity.this, "Debe adjuntar la captura del monto ", Toast.LENGTH_SHORT).show();
             }
-
-
 
         });
 
