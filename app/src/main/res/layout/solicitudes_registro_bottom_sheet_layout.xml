@@ -72,11 +72,11 @@
 
             <TextView
                 android:id="@+id/textNoRegistros"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="No hay registros"
-                android:textSize="40sp"
+                android:text="No se cuenta con solicitudes de registro por el momento"
+                android:textSize="32sp"
                 android:visibility="gone" />
         </LinearLayout>
 

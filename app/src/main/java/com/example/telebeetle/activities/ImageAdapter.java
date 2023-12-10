@@ -35,7 +35,6 @@ public class ImageAdapter extends ArrayAdapter<String> {
 
         Glide.with(context)
                 .load(getItem(position))
-                .placeholder(R.drawable.telito)
                 .into(imageView);
 
         return imageView;

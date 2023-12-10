@@ -84,6 +84,16 @@ public class HomeDelegadoGeneralFragment extends Fragment {
                     activityList.add(activity);
                 }
                 activityAdapter.notifyDataSetChanged();
+                if (binding.rvActividades.getAdapter()!= null && binding.rvActividades.getAdapter().getItemCount() == 0){
+                    //vacio
+                    Log.d("msg-test", "llega sin informacion");
+                    binding.rvActividades.setVisibility(View.GONE);
+                    binding.textNoRegistros.setVisibility(View.VISIBLE);
+                } else {
+                    binding.textNoRegistros.setVisibility(View.GONE);
+                    binding.rvActividades.setVisibility(View.VISIBLE);
+
+                }
             }
 
             @Override
@@ -117,36 +127,33 @@ public class HomeDelegadoGeneralFragment extends Fragment {
 
         //validacion del recycler view vacio
 
-        if (recyclerView.getAdapter()!= null && recyclerView.getAdapter().getItemCount() == 0){
-            //vacio
-            Log.d("msg-test", "llega sin informacion");
-            recyclerView.setVisibility(View.GONE);
-            dialog.findViewById(R.id.textNoRegistros).setVisibility(View.VISIBLE);
-
-        } else {
-            dialog.findViewById(R.id.textNoRegistros).setVisibility(View.GONE);
-
-            databaseReference2.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    solicitudesRegistro.clear();
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        String uidUsuario = dataSnapshot.getKey();
-                        Usuario usuario = dataSnapshot.getValue(Usuario.class);
-                        usuario.setUidUsuario(uidUsuario);
-                        solicitudesRegistro.add(usuario);
-                    }
-                    solicitudesRegistroAdapter.notifyDataSetChanged();
+        databaseReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                solicitudesRegistro.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    String uidUsuario = dataSnapshot.getKey();
+                    Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                    usuario.setUidUsuario(uidUsuario);
+                    solicitudesRegistro.add(usuario);
                 }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                solicitudesRegistroAdapter.notifyDataSetChanged();
+                if (recyclerView.getAdapter()!= null && recyclerView.getAdapter().getItemCount() == 0){
+                    //vacio
+                    Log.d("msg-test", "llega sin informacion");
+                    recyclerView.setVisibility(View.GONE);
+                    dialog.findViewById(R.id.textNoRegistros).setVisibility(View.VISIBLE);
+                } else {
+                    dialog.findViewById(R.id.textNoRegistros).setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
 
                 }
-            });
-        }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-
+            }
+        });
         dialog.show();
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

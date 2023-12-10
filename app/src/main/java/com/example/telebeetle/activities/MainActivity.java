@@ -160,12 +160,11 @@ public class MainActivity extends AppCompatActivity {
                                                                 finish();
                                                             } else {
                                                                 Toast.makeText(MainActivity.this, "El usuario se encuentra baneado", Toast.LENGTH_SHORT).show();
+                                                                FirebaseAuth.getInstance().signOut();
                                                             }
                                                             break;
                                                         }
                                                     }
-
-
                                                 } else {
                                                     DatabaseReference usersRef2 = FirebaseDatabase.getInstance().getReference().child("usuarios_por_admitir");
                                                     Query emailQuery2 = usersRef2.orderByChild("correo").equalTo(user.getEmail());
@@ -180,6 +179,18 @@ public class MainActivity extends AppCompatActivity {
                                                                         break;
                                                                     }
                                                                 }
+                                                            }else{
+                                                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                                                user.delete()
+                                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                            @Override
+                                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                                if (task.isSuccessful()) {
+                                                                                    Log.d("msg-test", "User account deleted.");
+                                                                                    Toast.makeText(MainActivity.this, "Registro de usuario invalidado", Toast.LENGTH_SHORT).show();
+                                                                                }
+                                                                            }
+                                                                        });
                                                             }
                                                         }
                                                         @Override
@@ -400,9 +411,9 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, GeneralViewActivity.class);
                         startActivity(intent);
                         finish();
-
                     } else {
                         Toast.makeText(MainActivity.this, "El usuario se encuentra baneado", Toast.LENGTH_SHORT).show();
+                        FirebaseAuth.getInstance().signOut();
                     }
                 } else {
                     DatabaseReference usersRef2 = FirebaseDatabase.getInstance().getReference().child("usuarios_por_admitir");
