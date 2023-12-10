@@ -106,7 +106,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         return listEvents.size();
     }
 
-    public void searchDataList(ArrayList<Evento> searchList){
+    public void searchDataList(List<Evento> searchList){
 
         listEvents = searchList;
         notifyDataSetChanged();

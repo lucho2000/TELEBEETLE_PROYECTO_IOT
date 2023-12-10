@@ -41,12 +41,6 @@ public class EventosFinal extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentEventosFinalBinding.inflate(inflater,container,false);
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onResume(){
-       super.onResume();
         listaEvents = new ArrayList<>();
         nombresActividades = new ArrayList<>();
         eventAdapter = new EventAdapter();
@@ -99,18 +93,26 @@ public class EventosFinal extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        // Observe the search query
+        return binding.getRoot();
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        eventAdapter.searchDataList(listaEvents);
         SharedViewModel sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         sharedViewModel.getSearchQuery().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String query) {
-                // Update RecyclerView based on the search query
-                searchList(query);
+                if(!query.equals("")) {
+                    searchList(query);
+                }else{
+                    eventAdapter.searchDataList(listaEvents);
+                }
             }
         });
     }
     public void searchList(String text){
-        ArrayList<Evento> searchList = new ArrayList<>();
+        List<Evento> searchList = new ArrayList<>();
         for(int i=0; i<listaEvents.size(); i++){
             if(nombresActividades.get(i).toLowerCase().contains(text.toLowerCase()) || listaEvents.get(i).getEtapa().toLowerCase().contains(text.toLowerCase())){
                 searchList.add(listaEvents.get(i));
