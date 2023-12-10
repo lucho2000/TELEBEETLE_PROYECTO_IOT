@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,6 +21,7 @@ import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.ActivityDetallesEvento1Binding;
+import com.example.telebeetle.fragments.OpcionApoyando;
 import com.example.telebeetle.fragments.OpcionesApoyar;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -59,13 +61,9 @@ public class DetallesEvento1 extends AppCompatActivity {
         binding.textView6.setText(evento.getEtapa());
         binding.lugar.setText(evento.getLugar());
         binding.textView12.setText(evento.getDescripcion());
-
         firebaseAuth = FirebaseAuth.getInstance();
         String UIDusuarioActual = firebaseAuth.getCurrentUser().getUid();
-
         databaseReference = FirebaseDatabase.getInstance().getReference("actividad"); //datos de firebase de la coleccion de "usuarios"
-
-
         databaseReference2 = FirebaseDatabase.getInstance().getReference("evento");
         databaseReference.child(evento.getActividad()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -89,88 +87,40 @@ public class DetallesEvento1 extends AppCompatActivity {
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
                         }
                     });
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
-
-
-
         });
-
-//        Set<String> keys = evento.getListaApoyosBarras().keySet();
-//        for (String key : keys) {
-//            if(!key.equalsIgnoreCase("ga") && evento.getListaApoyosBarras().get(key).equals(UIDusuarioActual)){ //validando
-//
-//                binding.Apoyar.setEnabled(false);
-//                getSupportFragmentManager().
-//                        beginTransaction().
-//                        setReorderingAllowed(true).
-//                        add(R.id.fragmentContainerView, OpcionesApoyar.class, bundleConEventoUid).commit();
-//
-//            }
-//        }
-
-
-
+        Set<String> keys = evento.getListaApoyosBarras().keySet();
+        for (String key : keys) {
+            if(!key.equalsIgnoreCase("ga") && evento.getListaApoyosBarras().get(key).equals(UIDusuarioActual)){ //validando
+                //binding.Apoyar.setEnabled(false);
+                Bundle bundle = new Bundle();
+                bundle.putString("evento_uid", evento.getUidEvento());
+                bundle.putString("keyUser", key);
+                bundle.putSerializable("listaApoyosBarras", evento.getListaApoyosBarras());
+                getSupportFragmentManager().
+                        beginTransaction().
+                        setReorderingAllowed(true).
+                        add(R.id.fragmentContainerView, OpcionApoyando.class, bundle).commit();
+                break;
+            }
+        }
         binding.Apoyar.setOnClickListener(view -> {
             Bundle bundleConEventoUid = new Bundle();
             bundleConEventoUid.putString("evento_uid", evento.getUidEvento());
             bundleConEventoUid.putSerializable("listaApoyosBarras", evento.getListaApoyosBarras());
-            bundleConEventoUid.putSerializable("listaApoyosParticipante", evento.getListaApoyosParticipantes());
+            bundleConEventoUid.putSerializable("listaApoyosParticipantes", evento.getListaApoyosParticipantes());
             Log.d("msg_test","que mrd ");
             getSupportFragmentManager().
                     beginTransaction().
                     setReorderingAllowed(true).
                     add(R.id.fragmentContainerView, OpcionesApoyar.class, bundleConEventoUid).commit();
-
-
-//            //si ya apoyó a un evento, se debe deshabilitar el boton
-//            databaseReference.child(evento.getUidEvento()).child("listaApoyosBarra").addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    if (snapshot.exists()){
-//
-//                        for (DataSnapshot dataSnapshot : snapshot.getChildren() ) {
-//                            HashMap<String, String> listaApoyosBD = dataSnapshot.getValue(HashMap.class);
-//
-//                            listaApoyosBD.get("ga");
-//
-//                            for (Map.Entry<String, String> entry : listaApoyosBD.entrySet()) {
-//                                String clave = entry.getKey();
-//                                String valor = entry.getValue();
-//                                System.out.println("Clave: " + clave + ", Valor: " + valor);
-//                            }
-//
-//                            for (String value: listaApoyosBD.values()) {
-//                                Log.d("msg-test2","valores: " +value);
-//
-//                                if (value.equalsIgnoreCase(UIDusuarioActual)){
-//
-//                                    binding.Apoyar.setEnabled(false);
-//
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                }
-//            });
-            /*getSupportFragmentManager().
-                    beginTransaction().
-                    setReorderingAllowed(true).
-                    add(R.id.fragmentContainerView, OpcionesApoyar.class, null).commit();*/
         });
-
         binding.goMapa.setOnClickListener(view -> {
             mostrarUbicacion(evento.getLatitud(), evento.getLongitud(), evento.getLugar());
         });
@@ -181,7 +131,6 @@ public class DetallesEvento1 extends AppCompatActivity {
                 finish();
             }
         });
-
     }
     public void deleteFragment(Fragment fragmentToDelete) {
         // Use FragmentManager to remove the specified fragment
