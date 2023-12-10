@@ -138,6 +138,16 @@ public class HomeDelegadoActivitdadFragment extends Fragment {
                     listaEvents.add(evento);
                 }
                 eventHorizontalAdapter.notifyDataSetChanged();
+                if (binding.rvEventos.getAdapter()!= null && binding.rvEventos.getAdapter().getItemCount() == 0){
+                    //vacio
+                    Log.d("msg-test", "llega sin informacion");
+                    binding.rvEventos.setVisibility(View.GONE);
+                    binding.textNoRegistros.setVisibility(View.VISIBLE);
+                } else {
+                    binding.textNoRegistros.setVisibility(View.GONE);
+                    binding.rvEventos.setVisibility(View.VISIBLE);
+
+                }
             }
 
             @Override

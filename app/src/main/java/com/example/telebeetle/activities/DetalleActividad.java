@@ -92,6 +92,7 @@ public class DetalleActividad extends AppCompatActivity {
         RecyclerView rv = findViewById(R.id.rvEventos2);
         rv.setAdapter(eventAdapter2);
         rv.setLayoutManager(new LinearLayoutManager(DetalleActividad.this));
+        TextView textView = findViewById(R.id.textNoRegistros);
 
         //codigo para extraer la data de firebase y mostrarla en el recycler view
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -105,6 +106,16 @@ public class DetalleActividad extends AppCompatActivity {
                     listaEvents.add(evento);
                 }
                 eventAdapter2.notifyDataSetChanged();
+                if (rv.getAdapter()!= null && rv.getAdapter().getItemCount() == 0){
+                    //vacio
+                    Log.d("msg-test", "llega sin informacion");
+                    rv.setVisibility(View.GONE);
+                    textView.setVisibility(View.VISIBLE);
+                } else {
+                    textView.setVisibility(View.GONE);
+                    rv.setVisibility(View.VISIBLE);
+
+                }
             }
 
             @Override

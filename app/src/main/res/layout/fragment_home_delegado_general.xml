@@ -102,6 +102,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView39" />
 
+    <TextView
+        android:id="@+id/textNoRegistros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="No se cuenta con actividades por el momento"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_actividades"
+        app:layout_constraintEnd_toEndOf="@+id/rv_actividades"
+        app:layout_constraintStart_toStartOf="@+id/rv_actividades"
+        app:layout_constraintTop_toTopOf="@+id/rv_actividades" />
+
     <ImageView
         android:id="@+id/imageView22"
         android:layout_width="352dp"

@@ -48,7 +48,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="5dp"
                 android:padding="8dp"
-                android:text="Solicitudes de equipo"
+                android:text="Solicitudes de participantes"
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textSize="23sp" />
@@ -71,6 +71,14 @@
                 android:id="@+id/rv_solicitudesRegistro"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/textNoRegistros"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="No se cuenta con solicitudes de participantes por el momento"
+                android:textSize="32sp"
+                android:visibility="gone" />
         </LinearLayout>
 
 

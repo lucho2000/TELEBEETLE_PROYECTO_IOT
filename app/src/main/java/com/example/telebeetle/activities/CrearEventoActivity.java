@@ -59,6 +59,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -197,6 +198,16 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
                     evento.setLatitud(latitud);
                     evento.setLongitud(longitud);
                     evento.setEstado("En proceso");
+                    HashMap<String, String> fotos = new HashMap<>();
+                    fotos.put("ga", "ga");
+                    evento.setRutasFotosEventos(fotos);
+                    HashMap<String, String> barra = new HashMap<>();
+                    barra.put("ga", "ga");
+                    evento.setListaApoyosBarras(barra);
+                    HashMap<String, String> equipo = new HashMap<>();
+                    equipo.put("ga", "ga");
+                    evento.setListaApoyosParticipantes(equipo);
+                    evento.setNroMaxParticipante(maximoParticipantes);
 
 
                     databaseReference = FirebaseDatabase.getInstance().getReference("evento");
