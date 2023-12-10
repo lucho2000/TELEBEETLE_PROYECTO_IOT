@@ -1,5 +1,8 @@
 package com.example.telebeetle.activities;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,6 +55,22 @@ public class QRDonarActivity extends AppCompatActivity {
     LocalDate fecha;
 
     Usuario usuario1;
+
+
+
+    ActivityResultLauncher<PickVisualMediaRequest> launcher  =
+            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                // Callback is invoked after the user selects a media item or closes the
+                // photo picker.
+                if (urlImagen != null) {
+                    Log.d("PhotoPicker", "Selected URI: " + urlImagen);
+                } else {
+                    Log.d("PhotoPicker", "No media selected");
+                }
+
+            });
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,14 +85,20 @@ public class QRDonarActivity extends AppCompatActivity {
 
         binding.imageView2.setOnClickListener(v -> {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+//
+//                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                intent.setType("image/*");
+//                startActivityForResult(intent, 1);
+//
+//            }
 
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intent.setType("image/*");
-                startActivityForResult(intent, 1);
-
-            }
+            launcher.launch(new PickVisualMediaRequest.Builder()
+                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                    .build());
         });
+
+
 
 
         //hacia la vista de la pantalla de espera perosnalizada

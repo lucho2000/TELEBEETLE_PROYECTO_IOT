@@ -40,39 +40,18 @@ public class HomeStudentFragment extends Fragment {
     FragmentHomeStudentBinding binding;
 
     SearchView searchView;
-    EventAdapter eventAdapter;
-    DatabaseReference databaseReference;
-    List<Evento> listaEvents;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeStudentBinding.inflate(inflater,container,false);
-        return binding.getRoot();
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
         searchView = binding.searchView;
-        searchView.clearFocus();
-        //databaseReference = FirebaseDatabase.getInstance().getReference("evento"); //datos de firebase de la coleccion de "evento"
-        //listaEvents = new ArrayList<>();
-        //eventAdapter = new EventAdapter();
-        //eventAdapter.setListEvents(listaEvents);
-        //eventAdapter.setContext(getActivity().getApplicationContext());
-        //binding.rvEvents.setAdapter(eventAdapter);
-        //binding.rvEvents.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-
         ViewPager2 viewPager = binding.viewPager;
         TabLayout tabLayout = binding.secondTab;
-
         MyPagerAdapter adapter = new MyPagerAdapter(requireActivity());
         new Handler().post(new Runnable() {
             @Override
             public void run() {
                 viewPager.setAdapter(adapter);
-                // Connect TabLayout with ViewPager
                 new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
                     switch (position) {
                         case 0:
@@ -86,31 +65,11 @@ public class HomeStudentFragment extends Fragment {
                 viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
                     @Override
                     public void onPageSelected(int position) {
-                        // Handle tab selection
                         //Toast.makeText(getContext(), "Tab " + (position + 1) + " selected", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
-
-
-
-        //codigo para extraer la data de firebase y mostrarla en el recycler view
-        //databaseReference.addValueEventListener(new ValueEventListener() {
-        //    @Override
-        //    public void onDataChange(@NonNull DataSnapshot snapshot) {
-        //        listaEvents.clear();
-        //        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-        //            Evento evento = dataSnapshot.getValue(Evento.class);
-        //            evento.setUidEvento(dataSnapshot.getKey());
-        //            listaEvents.add(evento);
-        //        }
-        //        eventAdapter.notifyDataSetChanged();
-        //    }
-        //    @Override
-        //    public void onCancelled(@NonNull DatabaseError error) {
-        //    }
-        //});
         SharedViewModel sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -123,15 +82,10 @@ public class HomeStudentFragment extends Fragment {
                 return true;
             }
         });
+        return binding.getRoot();
     }
-
-   // public void searchList(String text){
-   //     ArrayList<Evento> searchList = new ArrayList<>();
-   //     for(Evento evento: listaEvents){
-   //         if(evento.getActividad().toLowerCase().contains(text.toLowerCase()) || evento.getEtapa().toLowerCase().contains(text.toLowerCase())){
-   //             searchList.add(evento);
-   //         }
-   //     }
-   //     eventAdapter.searchDataList(searchList);
-   // }
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

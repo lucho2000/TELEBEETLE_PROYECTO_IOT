@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.telebeetle.Entity.Actividad;
@@ -65,6 +66,7 @@ public class FotosEventoActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         GridView gridView = findViewById(R.id.gridView);
+        TextView textView = findViewById(R.id.textNoRegistros);
         List<String> imageUrls = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("evento");
         databaseReference.child(evento.getUidEvento()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -80,6 +82,13 @@ public class FotosEventoActivity extends AppCompatActivity {
                     }
                     ImageAdapter imageAdapter = new ImageAdapter(FotosEventoActivity.this, imageUrls);
                     gridView.setAdapter(imageAdapter);
+                    if(gridView.getAdapter()!=null && keys.size()==1){
+                        gridView.setVisibility(View.GONE);
+                        textView.setVisibility(View.VISIBLE);
+                    }else{
+                        textView.setVisibility(View.GONE);
+                        gridView.setVisibility(View.VISIBLE);
+                    }
                 }
             }
             @Override

@@ -19,9 +19,8 @@ public class MyPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         if (position == 1) {
             return new EventosFinal();
-            // Add more cases for additional tabs
         }
-        return new EventosProceso(); // Default to Fragment1
+        return new EventosProceso();
     }
 
     @Override

@@ -1,11 +1,13 @@
 package com.example.telebeetle.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,11 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.telebeetle.Entity.Donacion;
+import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -61,15 +67,50 @@ public class ValidarDonacionesAdapter extends RecyclerView.Adapter<ValidarDonaci
         int drawableResourceId = R.drawable.yape;
         Picasso picasso = Picasso.get();
         ImageView imageViewDonacion = holder.itemView.findViewById(R.id.fotoYape);
-        picasso.load(drawableResourceId)
+        picasso.load(d.getImagenCaptura())
                 .resize(120,150)
                 .into(imageViewDonacion);
         TextView fecha = holder.itemView.findViewById(R.id.fechaDonacion);
-        TextView donante = holder.itemView.findViewById(R.id.donante);
+        //TextView donante = holder.itemView.findViewById(R.id.donante);
         TextView monto = holder.itemView.findViewById(R.id.monto);
         fecha.setText("Fecha: " + d.getFecha());
-        donante.setText("Donante: " + d.getUidDonante());
-        monto.setText("Monto: " + d.getMonto());
+        //donante.setText("Donante: " + d.getUidDonante());
+        monto.setText("Monto: S./ " + d.getMonto());
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("donaciones_por_validar");
+
+        databaseReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    String keyDonacion = dataSnapshot.getKey();
+                    Donacion donacion = dataSnapshot.getValue(Donacion.class);
+
+                    databaseReference.child(donacion.getUidDonante()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String nombres = snapshot.child("nombres").getValue(String.class);
+                            String apellidos = snapshot.child("apellidos").getValue(String.class);
+                            TextView donante = holder.itemView.findViewById(R.id.donante);
+                            donante.setText("Donante: " + nombres + " " +apellidos);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override
@@ -81,9 +122,74 @@ public class ValidarDonacionesAdapter extends RecyclerView.Adapter<ValidarDonaci
         Donacion donacion;
         public ValidarDonacionesViewHolder(@NonNull View itemView){
             super(itemView);
+            databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
+
+//            databaseReference.child(donacion.getUidDonante()).addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    if(snapshot.exists()){
+//                        Usuario user = snapshot.getValue(Usuario.class);
+//                        TextView donante = itemView.findViewById(R.id.donante);
+//                        donante.setText("Donante: " + user.getNombres() + " " +user.getApellidos());
+//                    }
+//                }
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                }
+//            });
+
+
             databaseReference2 = FirebaseDatabase.getInstance().getReference("donaciones_por_validar");
-            Button validar = itemView.findViewById(R.id.validar);
-            Button invalidar = itemView.findViewById(R.id.invalidar);
+            //Button validar = itemView.findViewById(R.id.validar);
+            //Button invalidar = itemView.findViewById(R.id.invalidar);
+
+//            databaseReference2.addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    donaciones.clear();
+//                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                        String keyDonacion = dataSnapshot.getKey();
+//                        Donacion donacion = dataSnapshot.getValue(Donacion.class);
+//
+//                        databaseReference.child(donacion.getUidDonante()).addListenerForSingleValueEvent(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                String nombres = snapshot.child("nombres").getValue(String.class);
+//                                String apellidos = snapshot.child("apellidos").getValue(String.class);
+//                                TextView donante = itemView.findViewById(R.id.donante);
+//                                donante.setText("Donante: " + nombres + " " +apellidos);
+//
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                            }
+//                        });
+//
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                }
+//            });
+
+            LinearLayout cardLayout = itemView.findViewById(R.id.cardd);
+            cardLayout.setOnClickListener((new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, DetailDonationActivity.class);
+                    //intent.putExtra("imageURL")
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("donacion", donacion);
+                    context.startActivity(intent);
+                }
+            }));
+
+            /*
             validar.setOnClickListener(v -> {
 
                 databaseReference = FirebaseDatabase.getInstance().getReference("donaciones");
@@ -109,6 +215,8 @@ public class ValidarDonacionesAdapter extends RecyclerView.Adapter<ValidarDonaci
 
 
             });
+
+
             invalidar.setOnClickListener(v -> {
                 //Toast.makeText(this.getContext(), "Boton pa invalidar", Toast.LENGTH_SHORT).show();
                 databaseReference2.child(donacion.getKeyDonacion()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -117,7 +225,7 @@ public class ValidarDonacionesAdapter extends RecyclerView.Adapter<ValidarDonaci
                         Toast.makeText(context, "Solicitud denegada correctamente", Toast.LENGTH_SHORT).show();
                     }
                 });
-            });
+            });*/
 
         }
     }

@@ -47,29 +47,6 @@
                 app:layout_constraintStart_toStartOf="@+id/myToolbar"
                 app:layout_constraintTop_toTopOf="@+id/myToolbar" />
 
-            <ImageView
-                android:id="@+id/icon_notification_bg"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/icon_elipse_noti"
-                app:layout_constraintEnd_toEndOf="@+id/myToolbar"
-                app:layout_constraintTop_toTopOf="@+id/myToolbar" />
-
-            <ImageView
-                android:id="@+id/icon_notification"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/icon_elipse_noti"
-                android:src="@drawable/icon_notifications"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_notification_bg"
-                app:layout_constraintEnd_toEndOf="@+id/icon_notification_bg"
-                app:layout_constraintStart_toStartOf="@+id/icon_notification_bg"
-                app:layout_constraintTop_toTopOf="@+id/icon_notification_bg" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -114,7 +91,7 @@
         android:layout_marginTop="56dp"
         android:layout_marginEnd="88dp"
         android:text="Validar"
-        android:backgroundTint="@color/green_600"
+        android:backgroundTint="@color/colorLigero"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView47" />
 
@@ -125,7 +102,7 @@
         android:layout_marginStart="84dp"
         android:layout_marginTop="56dp"
         android:text="Invalidar"
-        android:backgroundTint="@color/red"
+        android:backgroundTint="@color/grey"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView41" />
 

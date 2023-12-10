@@ -8,10 +8,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.telebeetle.Entity.Actividad;
 import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.R;
 import com.example.telebeetle.activities.EventAdapter;
@@ -32,14 +34,15 @@ public class EventosFinal extends Fragment {
     FragmentEventosFinalBinding binding;
     EventAdapter eventAdapter;
     DatabaseReference databaseReference;
+    DatabaseReference databaseReference2;
     List<Evento> listaEvents;
+    List<String> nombresActividades;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentEventosFinalBinding.inflate(inflater,container,false);
-
-
         listaEvents = new ArrayList<>();
+        nombresActividades = new ArrayList<>();
         eventAdapter = new EventAdapter();
         eventAdapter.setListEvents(listaEvents);
         eventAdapter.setContext(getActivity().getApplicationContext());
@@ -55,31 +58,64 @@ public class EventosFinal extends Fragment {
                     if(evento.getEstado().equalsIgnoreCase("finalizado")){
                         evento.setUidEvento(dataSnapshot.getKey());
                         listaEvents.add(evento);
+                        databaseReference2 = FirebaseDatabase.getInstance().getReference("actividad"); //datos de firebase de la coleccion de "evento"
+                        databaseReference2.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                for(DataSnapshot dataSnapshot1: snapshot1.getChildren()){
+                                    Actividad actividad = dataSnapshot1.getValue(Actividad.class);
+                                    if(evento.getActividad().equals(dataSnapshot1.getKey())){
+                                        nombresActividades.add(actividad.getNombreActividad()) ;
+                                        break;
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
                 }
                 eventAdapter.notifyDataSetChanged();
+                if (binding.rvEventsFinal.getAdapter()!= null && binding.rvEventsFinal.getAdapter().getItemCount() == 0){
+                    //vacio
+                    Log.d("msg-test", "llega sin informacion");
+                    binding.rvEventsFinal.setVisibility(View.GONE);
+                    binding.textNoRegistros.setVisibility(View.VISIBLE);
+                } else {
+                    binding.textNoRegistros.setVisibility(View.GONE);
+                    binding.rvEventsFinal.setVisibility(View.VISIBLE);
+
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        // Observe the search query
+        return binding.getRoot();
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        eventAdapter.searchDataList(listaEvents);
         SharedViewModel sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         sharedViewModel.getSearchQuery().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String query) {
-                // Update RecyclerView based on the search query
-                searchList(query);
+                if(!query.equals("")) {
+                    searchList(query);
+                }else{
+                    eventAdapter.searchDataList(listaEvents);
+                }
             }
         });
-
-        return binding.getRoot();
     }
     public void searchList(String text){
-        ArrayList<Evento> searchList = new ArrayList<>();
-        for(Evento evento: listaEvents){
-            if(evento.getActividad().toLowerCase().contains(text.toLowerCase()) || evento.getEtapa().toLowerCase().contains(text.toLowerCase())){
-                searchList.add(evento);
+        List<Evento> searchList = new ArrayList<>();
+        for(int i=0; i<listaEvents.size(); i++){
+            if(nombresActividades.get(i).toLowerCase().contains(text.toLowerCase()) || listaEvents.get(i).getEtapa().toLowerCase().contains(text.toLowerCase())){
+                searchList.add(listaEvents.get(i));
             }
         }
         eventAdapter.searchDataList(searchList);

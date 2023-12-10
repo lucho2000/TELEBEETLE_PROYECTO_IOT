@@ -47,29 +47,6 @@
                 app:layout_constraintStart_toStartOf="@+id/myToolbar"
                 app:layout_constraintTop_toTopOf="@+id/myToolbar" />
 
-            <ImageView
-                android:id="@+id/icon_notification_bg"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/icon_elipse_noti"
-                app:layout_constraintEnd_toEndOf="@+id/myToolbar"
-                app:layout_constraintTop_toTopOf="@+id/myToolbar" />
-
-            <ImageView
-                android:id="@+id/icon_notification"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/icon_elipse_noti"
-                android:src="@drawable/icon_notifications"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_notification_bg"
-                app:layout_constraintEnd_toEndOf="@+id/icon_notification_bg"
-                app:layout_constraintStart_toStartOf="@+id/icon_notification_bg"
-                app:layout_constraintTop_toTopOf="@+id/icon_notification_bg" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -105,19 +82,19 @@
         android:id="@+id/textViewNumeroYape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/inter"
         android:text="Yape/Plin: 963215487"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textViewNombre"
         app:layout_constraintStart_toStartOf="@+id/textViewNombre"
         app:layout_constraintTop_toBottomOf="@+id/textViewNombre" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/TextFieldMonto"
-        android:layout_width="269dp"
-        android:layout_height="57dp"
+        android:layout_width="273dp"
+        android:layout_height="54dp"
         android:layout_marginTop="8dp"
         android:hint="Monto a donar"
         app:endIconMode="clear_text"

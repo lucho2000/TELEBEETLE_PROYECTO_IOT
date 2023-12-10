@@ -42,7 +42,7 @@
                 android:layout_marginStart="60dp"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/inter"
-                android:text="Crear evento"
+                android:text="Crear Evento"
                 android:textColor="#ECE8E8"
                 android:textSize="24sp"
                 android:textStyle="bold"

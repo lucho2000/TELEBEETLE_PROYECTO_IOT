@@ -21,7 +21,7 @@ public class ScreenEsperaActivity extends AppCompatActivity {
         TimerTask timer = new TimerTask() {
             @Override
             public void run() {
-                Intent intent = new Intent(ScreenEsperaActivity.this, ReciboDonaActivity.class );
+                Intent intent = new Intent(ScreenEsperaActivity.this, ActivityEsperaDonacion.class );
 
                 startActivity(intent);
                 finish();

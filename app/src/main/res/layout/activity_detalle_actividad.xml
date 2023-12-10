@@ -181,4 +181,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
+    <TextView
+        android:id="@+id/textNoRegistros"
+        android:layout_width="358dp"
+        android:layout_height="120dp"
+        android:gravity="center"
+        android:text="No se cuenta con eventos para esta actividad"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView37" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

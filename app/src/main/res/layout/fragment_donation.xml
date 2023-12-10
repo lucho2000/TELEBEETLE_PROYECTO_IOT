@@ -46,29 +46,6 @@
                 app:layout_constraintStart_toStartOf="@+id/myToolbar"
                 app:layout_constraintTop_toTopOf="@+id/myToolbar" />
 
-            <ImageView
-                android:id="@+id/icon_notification_bg"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/icon_elipse_noti"
-                app:layout_constraintEnd_toEndOf="@+id/myToolbar"
-                app:layout_constraintTop_toTopOf="@+id/myToolbar" />
-
-            <ImageView
-                android:id="@+id/icon_notification"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/icon_elipse_noti"
-                android:src="@drawable/icon_notifications"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_notification_bg"
-                app:layout_constraintEnd_toEndOf="@+id/icon_notification_bg"
-                app:layout_constraintStart_toStartOf="@+id/icon_notification_bg"
-                app:layout_constraintTop_toTopOf="@+id/icon_notification_bg" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -92,13 +69,26 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_donaciones"
-        android:layout_width="335dp"
+        android:layout_width="358dp"
         android:layout_height="485dp"
         android:layout_marginStart="1dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonDonar" />
+
+    <TextView
+        android:id="@+id/textNoRegistros"
+        android:layout_width="358dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="No se cuenta con donaciones por el momento"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topappBarLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
