@@ -26,7 +26,7 @@ public class ActivityEsperaDonacion extends AppCompatActivity {
         binding.buttonReturnDonaciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ActivityEsperaDonacion.this, DonacionActivity.class );
+                Intent intent = new Intent(ActivityEsperaDonacion.this, GeneralViewActivity.class );
 
                 startActivity(intent);
                 finish();
