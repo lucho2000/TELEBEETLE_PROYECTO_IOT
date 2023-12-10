@@ -463,7 +463,6 @@ public class GeneralViewActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(User user) {
                         Log.d("cometchat-test-msg", "Login Successful : " + user.toString());
-
                         FirebaseMessaging.getInstance().getToken()
                                 .addOnCompleteListener(new OnCompleteListener<String>() {
                                     @Override
@@ -484,6 +483,7 @@ public class GeneralViewActivity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(String s) {
                                                 Log.e("onSuccessPN: ", s);
+
                                             }
 
                                             @Override

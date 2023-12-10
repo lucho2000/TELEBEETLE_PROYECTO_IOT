@@ -38,6 +38,7 @@ import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
+import java.util.Objects;
 
 //import constant.StringContract;
 
@@ -67,7 +68,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "JSONObject: " + json.toString());
             JSONObject messageData = new JSONObject(json.getString("message"));
             //MediaMessage mediaMessage = (MediaMessage) CometChatHelper.processMessage(new JSONObject(remoteMessage.getData().get("message")));
-            BaseMessage baseMessage = CometChatHelper.processMessage(new JSONObject(remoteMessage.getData().get("message")));
+            BaseMessage baseMessage = CometChatHelper.processMessage(messageData);
             /*if (baseMessage instanceof Call) {
                 call = (Call) baseMessage;
                 isCall = true;
@@ -177,9 +178,26 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             //Show image incase of media message
             if (baseMessage.getType().equals(CometChatConstants.MESSAGE_TYPE_IMAGE)) {
-                builder.setStyle(new NotificationCompat.BigPictureStyle()
-                        .bigPicture(getBitmapFromURL(((MediaMessage)baseMessage).getAttachment()
-                                .getFileUrl())));
+                //builder.setLargeIcon(getBitmapFromURL( ((MediaMessage)baseMessage).getAttachment()
+                //        .getFileUrl())  );
+
+
+
+
+                Log.d("msg-test-noti","es una imagen");
+                JSONObject messageData = new JSONObject(json.getString("message"));
+                String messageDataStr = messageData.toString();
+                JSONObject dataInsideMessage = new JSONObject(messageData.getString("data"));
+                String url = dataInsideMessage.getString("url");
+                Log.d("msg-test-noti",messageDataStr);
+                Log.d("msg-test-noti-url",url);
+                //builder.setContentText(json.getString("alert")).setStyle(new NotificationCompat.BigPictureStyle().bigPicture(getBitmapFromURL(url)));
+                Bitmap bitmap = getBitmapFromURL( url );
+                NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle()
+                        .bigPicture(bitmap)
+                        .setBigContentTitle(json.getString("title"));
+                        //.setSummaryText(json.getString("alert"));
+                builder.setStyle(bigPictureStyle);
             }
 
             NotificationCompat.Builder summaryBuilder = new NotificationCompat.Builder(this, "2")
@@ -237,8 +255,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             builder.setAutoCancel(true);
             notificationManager.notify(baseMessage.getId(), builder.build());
             notificationManager.notify(0, summaryBuilder.build());
+            Log.d("msg-test-noti","logre mandar en teoria");
         } catch (Exception e) {
             e.printStackTrace();
+            Log.d("msg-test-noti","algo paso");
         }
 
     }
