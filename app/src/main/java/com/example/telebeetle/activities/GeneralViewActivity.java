@@ -575,6 +575,7 @@ public class GeneralViewActivity extends AppCompatActivity {
                             }
                         }
 
+
                         Intent intent = new Intent(GeneralViewActivity.this, GeneralActivity.class);
                         intent.putExtra("listaAlumnos", (Serializable) listaAlumnos);
                         intent.putExtra("listaEgresados", (Serializable) listaEgresados);
