@@ -84,16 +84,6 @@ public class HomeDelegadoGeneralFragment extends Fragment {
                     activityList.add(activity);
                 }
                 activityAdapter.notifyDataSetChanged();
-                if (binding.rvActividades.getAdapter()!= null && binding.rvActividades.getAdapter().getItemCount() == 0){
-                    //vacio
-                    Log.d("msg-test", "llega sin informacion");
-                    binding.rvActividades.setVisibility(View.GONE);
-                    binding.textNoRegistros.setVisibility(View.VISIBLE);
-                } else {
-                    binding.textNoRegistros.setVisibility(View.GONE);
-                    binding.rvActividades.setVisibility(View.VISIBLE);
-
-                }
             }
 
             @Override
@@ -125,8 +115,6 @@ public class HomeDelegadoGeneralFragment extends Fragment {
         recyclerView.setAdapter(solicitudesRegistroAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
-        //validacion del recycler view vacio
-
         databaseReference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -137,23 +125,30 @@ public class HomeDelegadoGeneralFragment extends Fragment {
                     usuario.setUidUsuario(uidUsuario);
                     solicitudesRegistro.add(usuario);
                 }
-                solicitudesRegistroAdapter.notifyDataSetChanged();
-                if (recyclerView.getAdapter()!= null && recyclerView.getAdapter().getItemCount() == 0){
-                    //vacio
-                    Log.d("msg-test", "llega sin informacion");
-                    recyclerView.setVisibility(View.GONE);
-                    dialog.findViewById(R.id.textNoRegistros).setVisibility(View.VISIBLE);
+
+                //validacion del recycler view vacio
+                if ( solicitudesRegistroAdapter.getUsuarioList().size() == 0){
+                //vacio
+                Log.d("msg-test", "llega sin informacion");
+                recyclerView.setVisibility(View.GONE);
+                dialog.findViewById(R.id.textNoRegistros).setVisibility(View.VISIBLE);
+
                 } else {
-                    dialog.findViewById(R.id.textNoRegistros).setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
+                dialog.findViewById(R.id.textNoRegistros).setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
 
                 }
+
+                solicitudesRegistroAdapter.notifyDataSetChanged();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
         });
+
         dialog.show();
         Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
