@@ -1,15 +1,20 @@
 package com.example.telebeetle.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.telebeetle.R;
 import com.example.telebeetle.activities.DetallesEvento1;
+import com.example.telebeetle.activities.GeneralViewActivity;
 import com.example.telebeetle.cometchatapi.CometChatApiRest;
 import com.example.telebeetle.databinding.FragmentOpcionApoyandoBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 
 public class OpcionApoyando extends Fragment {

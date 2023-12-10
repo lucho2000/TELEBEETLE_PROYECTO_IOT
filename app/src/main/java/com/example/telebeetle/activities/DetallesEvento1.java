@@ -23,6 +23,8 @@ import com.example.telebeetle.databinding.ActivityDetallesEvento1Binding;
 import com.example.telebeetle.fragments.OpcionesApoyar;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -98,11 +100,7 @@ public class DetallesEvento1 extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-
-
-
         });
-
 //        Set<String> keys = evento.getListaApoyosBarras().keySet();
 //        for (String key : keys) {
 //            if(!key.equalsIgnoreCase("ga") && evento.getListaApoyosBarras().get(key).equals(UIDusuarioActual)){ //validando
