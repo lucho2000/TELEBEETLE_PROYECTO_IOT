@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,7 +108,16 @@ public class DonationFragment extends Fragment {
 
                 }
                 donacionesAdapter.notifyDataSetChanged();
+                if (binding.rvDonaciones.getAdapter()!= null && binding.rvDonaciones.getAdapter().getItemCount() == 0){
+                    //vacio
+                    Log.d("msg-test", "llega sin informacion");
+                    binding.rvDonaciones.setVisibility(View.GONE);
+                    binding.textNoRegistros.setVisibility(View.VISIBLE);
+                } else {
+                    binding.textNoRegistros.setVisibility(View.GONE);
+                    binding.rvDonaciones.setVisibility(View.VISIBLE);
 
+                }
             }
 
             @Override

@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.telebeetle.Entity.Donacion;
 import com.example.telebeetle.Entity.Usuario;
@@ -55,6 +57,7 @@ public class ValidarDonacionesActivity extends AppCompatActivity {
     public void cargarListaDonaciones(){
         //List<Donacion> donacions = listaDonacionesHardcodeada();
         solicitudesDonaciones = new ArrayList<>();
+        TextView textView = findViewById(R.id.textNoRegistros);
         ValidarDonacionesAdapter validarDonacionesAdapter = new ValidarDonacionesAdapter();
         validarDonacionesAdapter.setListaValidarDonaciones(solicitudesDonaciones);
         validarDonacionesAdapter.setContext(ValidarDonacionesActivity.this);
@@ -74,6 +77,16 @@ public class ValidarDonacionesActivity extends AppCompatActivity {
                     solicitudesDonaciones.add(donacion);
                 }
                 validarDonacionesAdapter.notifyDataSetChanged();
+                if (rv.getAdapter()!= null && rv.getAdapter().getItemCount() == 0){
+                    //vacio
+                    Log.d("msg-test", "llega sin informacion");
+                    rv.setVisibility(View.GONE);
+                    textView.setVisibility(View.VISIBLE);
+                } else {
+                    textView.setVisibility(View.GONE);
+                    rv.setVisibility(View.VISIBLE);
+
+                }
             }
 
             @Override

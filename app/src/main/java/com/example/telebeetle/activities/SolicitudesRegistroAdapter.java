@@ -105,7 +105,6 @@ public class SolicitudesRegistroAdapter extends RecyclerView.Adapter<Solicitudes
 
                 String text = "Bienvenido usuario "+usuario.getNombres()+" "+usuario.getApellidos()+". Se ha aceptado su solicitud de registro en la app Telebeetle";
 
-                buttonSendEmail(usuario.getCorreo(),text);
 
                 databaseReference = FirebaseDatabase.getInstance().getReference("usuarios"); //datos de firebase de la coleccion de "evento"
                 databaseReference.child(usuario.getUidUsuario()).setValue(usuario).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -119,6 +118,7 @@ public class SolicitudesRegistroAdapter extends RecyclerView.Adapter<Solicitudes
                         databaseReference2.child(usuario.getUidUsuario()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
+                                buttonSendEmail(usuario.getCorreo(),text);
                                 Toast.makeText(context, "Exito al aceptar solicitud de usuario", Toast.LENGTH_SHORT).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -139,11 +139,11 @@ public class SolicitudesRegistroAdapter extends RecyclerView.Adapter<Solicitudes
 
                 String text = "Estimado usuario "+usuario.getNombres()+" "+usuario.getApellidos()+".Su solicitud de registro ha sido denegada";
 
-                buttonSendEmail(usuario.getCorreo(),text);
 
                 databaseReference2.child(usuario.getUidUsuario()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
+                        buttonSendEmail(usuario.getCorreo(),text);
                         Toast.makeText(context, "Exito al denegar solicitud de usuario", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {

@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,16 @@ public class EventosFinal extends Fragment {
                     }
                 }
                 eventAdapter.notifyDataSetChanged();
+                if (binding.rvEventsFinal.getAdapter()!= null && binding.rvEventsFinal.getAdapter().getItemCount() == 0){
+                    //vacio
+                    Log.d("msg-test", "llega sin informacion");
+                    binding.rvEventsFinal.setVisibility(View.GONE);
+                    binding.textNoRegistros.setVisibility(View.VISIBLE);
+                } else {
+                    binding.textNoRegistros.setVisibility(View.GONE);
+                    binding.rvEventsFinal.setVisibility(View.VISIBLE);
+
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

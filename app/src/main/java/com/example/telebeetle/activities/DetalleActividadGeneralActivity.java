@@ -151,6 +151,16 @@ public class DetalleActividadGeneralActivity extends AppCompatActivity {
                     listaUsuarios.add(usuario);
                 }
                 solicitudesRegistroAdapter.notifyDataSetChanged();
+                if (solicitudes.getAdapter()!= null && solicitudes.getAdapter().getItemCount() == 0){
+                    //vacio
+                    Log.d("msg-test", "llega sin informacion");
+                    solicitudes.setVisibility(View.GONE);
+                    dialog.findViewById(R.id.textNoRegistros).setVisibility(View.VISIBLE);
+                } else {
+                    dialog.findViewById(R.id.textNoRegistros).setVisibility(View.GONE);
+                    solicitudes.setVisibility(View.VISIBLE);
+
+                }
             }
 
             @Override
