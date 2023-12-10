@@ -1,11 +1,13 @@
 package com.example.telebeetle.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,8 +84,22 @@ public class ValidarDonacionesAdapter extends RecyclerView.Adapter<ValidarDonaci
         public ValidarDonacionesViewHolder(@NonNull View itemView){
             super(itemView);
             databaseReference2 = FirebaseDatabase.getInstance().getReference("donaciones_por_validar");
-            Button validar = itemView.findViewById(R.id.validar);
-            Button invalidar = itemView.findViewById(R.id.invalidar);
+            //Button validar = itemView.findViewById(R.id.validar);
+            //Button invalidar = itemView.findViewById(R.id.invalidar);
+
+            LinearLayout cardLayout = itemView.findViewById(R.id.cardd);
+            cardLayout.setOnClickListener((new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, DetailDonationActivity.class);
+                    //intent.putExtra("imageURL")
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("donacion", donacion);
+                    context.startActivity(intent);
+                }
+            }));
+
+            /*
             validar.setOnClickListener(v -> {
 
                 databaseReference = FirebaseDatabase.getInstance().getReference("donaciones");
@@ -109,6 +125,8 @@ public class ValidarDonacionesAdapter extends RecyclerView.Adapter<ValidarDonaci
 
 
             });
+
+
             invalidar.setOnClickListener(v -> {
                 //Toast.makeText(this.getContext(), "Boton pa invalidar", Toast.LENGTH_SHORT).show();
                 databaseReference2.child(donacion.getKeyDonacion()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -117,7 +135,7 @@ public class ValidarDonacionesAdapter extends RecyclerView.Adapter<ValidarDonaci
                         Toast.makeText(context, "Solicitud denegada correctamente", Toast.LENGTH_SHORT).show();
                     }
                 });
-            });
+            });*/
 
         }
     }
