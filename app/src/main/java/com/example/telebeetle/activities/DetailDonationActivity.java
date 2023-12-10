@@ -59,9 +59,9 @@ public class DetailDonationActivity extends AppCompatActivity {
             //myRef.setValue(false);
             Toast.makeText(DetailDonationActivity.this,"La donacion no ha sido aceptada",Toast.LENGTH_SHORT).show();
             Intent intent1 = new Intent(DetailDonationActivity.this,ValidarDonacionesActivity.class);
+            intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent1);
             finish();
-
         });
         binding.button3.setOnClickListener(view -> {
 
