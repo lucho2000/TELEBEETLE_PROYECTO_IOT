@@ -58,6 +58,8 @@ public class DonacionesAdapter extends RecyclerView.Adapter<DonacionesAdapter.Do
         Picasso.get().load(dona.getImagenCaptura()).into(imageView);
 
 
+
+        /*
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,7 +71,7 @@ public class DonacionesAdapter extends RecyclerView.Adapter<DonacionesAdapter.Do
 
             }
         });
-
+        */
 
     }
 
