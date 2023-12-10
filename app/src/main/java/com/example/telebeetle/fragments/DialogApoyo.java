@@ -14,6 +14,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.telebeetle.R;
 
+import java.util.HashMap;
+
 public class DialogApoyo extends DialogFragment {
 
 
@@ -22,8 +24,15 @@ public class DialogApoyo extends DialogFragment {
     }
 
     private String evento_uid;
+    private HashMap<String,String> listaApoyosBarras;
 
+    public HashMap<String, String> getListaApoyosBarras() {
+        return listaApoyosBarras;
+    }
 
+    public void setListaApoyosBarras(HashMap<String, String> listaApoyosBarras) {
+        this.listaApoyosBarras = listaApoyosBarras;
+    }
 
     @Nullable
     @Override
@@ -36,6 +45,7 @@ public class DialogApoyo extends DialogFragment {
             OpcionApoyando opcionApoyando = new OpcionApoyando();
             Bundle bundle = new Bundle();
             bundle.putString("evento_uid", evento_uid);
+            bundle.putSerializable("listaApoyosBarras", listaApoyosBarras);
             opcionApoyando.setArguments(bundle);
 
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();

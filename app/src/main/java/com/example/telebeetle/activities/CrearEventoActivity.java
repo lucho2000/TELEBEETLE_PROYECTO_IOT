@@ -225,7 +225,7 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
                                 editTextTime.setText("");
                                 nombreLugar.setText("");
                                 CometChatApiRest cometChatApiRest = new CometChatApiRest();
-                                cometChatApiRest.crearGrupoEventoCometChat(event_key,nombreEvento1,firebaseAuth.getCurrentUser().getUid(),textDescripcion);
+                                cometChatApiRest.crearGrupoEventoCometChat(event_key,actividad + " - " + nombreEvento1,firebaseAuth.getCurrentUser().getUid(),textDescripcion);
 
                                 Toast.makeText(CrearEventoActivity.this, "Evento creado correctamente", Toast.LENGTH_SHORT).show();
                                 finish();
