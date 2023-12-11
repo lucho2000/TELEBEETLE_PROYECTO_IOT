@@ -172,40 +172,97 @@ public class GeneralViewActivity extends AppCompatActivity {
                     BottomNavigationView bottomNavigationView =binding.bottomNavigationView;
                     if (rol_selected.equals(rol_delegado_general)) {
 
-                        // Obtener la información sobre el fragmento del Intent
-                       /* Intent intent = getIntent();
-                        if (intent != null) {
+
+                        menuToChoose = R.menu.general_bottom_menu;
+
+
+                        Intent intent = getIntent();
+                        Log.d("msg-test-guidValue","AQUIIIFNSAKNFJASNFNASKF");
+                        if (intent != null && intent.getStringExtra("FRAGMENT_TAG")!=null) {
                             String fragmentTag = intent.getStringExtra("FRAGMENT_TAG");
                             // Verificar el tag del fragmento y mostrar el fragmento correspondiente
                             if ("chatFragment".equals(fragmentTag)) {
-                                loadChatFragment();
+                                bottomNavigationView.getMenu().clear();
+                                bottomNavigationView.inflateMenu(menuToChoose);
+
+                                NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_general_view);
+                                NavController navController = navHostFragment.getNavController();
+
+                                NavInflater inflater = navController.getNavInflater();
+                                NavGraph graph = inflater.inflate(R.navigation.nav_graph_general);
+                                //graph.addArgument("argument", NavArgument)
+
+                                Intent messageIntent = getIntent();
+                                //Bundle bundle = new Bundle();
+                                String guidValue = messageIntent.getStringExtra("guid");
+                                String name = messageIntent.getStringExtra("name");
+                                String group_description = messageIntent.getStringExtra("group_description");
+                                String group_type = messageIntent.getStringExtra("group_type");
+                                String group_owner = messageIntent.getStringExtra("group_owner");
+                                int member_count = messageIntent.getIntExtra("member_count",0);
+                                // bundle.putString("guid", guidValue);
+                                Log.d("msg-test-guidValue",guidValue);
+                                Log.d("msg-test-membercount", String.valueOf(member_count));
+
+                                // Crear argumentos de navegación con valores predeterminados
+                                guidValueNav = new NavArgument.Builder().setDefaultValue(guidValue).build();
+                                nameNav = new NavArgument.Builder().setDefaultValue(name).build();
+                                group_descriptionNav = new NavArgument.Builder().setDefaultValue(group_description).build();
+                                group_typeNav = new NavArgument.Builder().setDefaultValue(group_type).build();
+                                group_ownerNav = new NavArgument.Builder().setDefaultValue(group_owner).build();
+                                member_countNav = new NavArgument.Builder().setDefaultValue(member_count).build();
+                                flagNav = new NavArgument.Builder().setDefaultValue(true).build();
+
+                                graph.setStartDestination(R.id.chatFragment);
+                                // Agregar argumentos al gráfico de navegación
+                                graph.addArgument("ARG_guid", guidValueNav);
+                                graph.addArgument("ARG_name", nameNav);
+                                graph.addArgument("ARG_description", group_descriptionNav);
+                                graph.addArgument("ARG_type", group_typeNav);
+                                graph.addArgument("ARG_owner", group_ownerNav);
+                                graph.addArgument("ARG_memberscount", member_countNav);
+                                graph.addArgument("flag", flagNav);
+                                //flagExternoParaChat = true;
+
+
+                                navHostFragment.getNavController().setGraph(graph);
+                                NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+                                askNotificationPermission();
                             }
-                        }*/
-                        // Cargar otro fragmento o realizar otra lógica según sea necesario
-                        menuToChoose = R.menu.general_bottom_menu;
-                        bottomNavigationView.getMenu().clear();
-                        bottomNavigationView.inflateMenu(menuToChoose);
+                        } else {
+                            bottomNavigationView.getMenu().clear();
+                            bottomNavigationView.inflateMenu(menuToChoose);
+                            NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_general_view);
+                            NavController navController = navHostFragment.getNavController();
 
-                        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_general_view);
-                        NavController navController = navHostFragment.getNavController();
+                            NavInflater inflater = navController.getNavInflater();
+                            NavGraph graph = inflater.inflate(R.navigation.nav_graph_general);
+                            //graph.addArgument("argument", NavArgument)
+                            graph.setStartDestination(R.id.homeDelegadoGeneralFragment);
 
-                        NavInflater inflater = navController.getNavInflater();
-                        NavGraph graph = inflater.inflate(R.navigation.nav_graph_general);
-                        //graph.addArgument("argument", NavArgument)
-                        graph.setStartDestination(R.id.homeDelegadoGeneralFragment);
-
-                        navHostFragment.getNavController().setGraph(graph);
-                        //navHostFragment.getNavController().getGraph().setDefaultArguments(getIntent().getExtras());
-
-                        NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
-                        askNotificationPermission();
-                        binding.fab.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                showBottomMenuFabDialog();
+                            if (getIntent().hasExtra("loadFragment")) {
+                                //String fragmentToLoad = getIntent().getStringExtra("loadFragment");
+                                //assert fragmentToLoad != null;
+                                //loadFragment(fragmentToLoad);
+                                getIntent().removeExtra("loadFragment");
+                                graph.setStartDestination(R.id.chatFragment);
                             }
-                        });
+
+                            navHostFragment.getNavController().setGraph(graph);
+                            //navHostFragment.getNavController().getGraph().setDefaultArguments(getIntent().getExtras());
+
+                            NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+                            askNotificationPermission();
+                            binding.fab.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    showBottomMenuFabDialog();
+                                }
+                            });
+                        }
+
 
                     } else if (rol_selected.equals(rol_delegado_actividad)) {
                         CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) binding.fab.getLayoutParams();
@@ -213,24 +270,90 @@ public class GeneralViewActivity extends AppCompatActivity {
                         binding.fab.setLayoutParams(p);
                         binding.fab.setVisibility(View.GONE);
                         menuToChoose = R.menu.del_actividad_bottom_menu;
-                        bottomNavigationView.getMenu().clear();
-                        bottomNavigationView.inflateMenu(menuToChoose);
 
-                        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_general_view);
-                        NavController navController = navHostFragment.getNavController();
 
-                        NavInflater inflater = navController.getNavInflater();
-                        NavGraph graph = inflater.inflate(R.navigation.nav_graph_general);
-                        //graph.addArgument("argument", NavArgument)
-                        graph.setStartDestination(R.id.homeDelegadoActivitdadFragment);
+                        Intent intent = getIntent();
+                        Log.d("msg-test-guidValue","AQUIIIFNSAKNFJASNFNASKF");
+                        if (intent != null && intent.getStringExtra("FRAGMENT_TAG")!=null) {
+                            String fragmentTag = intent.getStringExtra("FRAGMENT_TAG");
+                            // Verificar el tag del fragmento y mostrar el fragmento correspondiente
+                            if ("chatFragment".equals(fragmentTag)) {
+                                bottomNavigationView.getMenu().clear();
+                                bottomNavigationView.inflateMenu(menuToChoose);
 
-                        navHostFragment.getNavController().setGraph(graph);
-                        //navHostFragment.getNavController().getGraph().setDefaultArguments(getIntent().getExtras());
+                                NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_general_view);
+                                NavController navController = navHostFragment.getNavController();
 
-                        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+                                NavInflater inflater = navController.getNavInflater();
+                                NavGraph graph = inflater.inflate(R.navigation.nav_graph_general);
+                                //graph.addArgument("argument", NavArgument)
 
-                        //invalidateOptionsMenu();
-                        askNotificationPermission();
+                                Intent messageIntent = getIntent();
+                                //Bundle bundle = new Bundle();
+                                String guidValue = messageIntent.getStringExtra("guid");
+                                String name = messageIntent.getStringExtra("name");
+                                String group_description = messageIntent.getStringExtra("group_description");
+                                String group_type = messageIntent.getStringExtra("group_type");
+                                String group_owner = messageIntent.getStringExtra("group_owner");
+                                int member_count = messageIntent.getIntExtra("member_count",0);
+                                // bundle.putString("guid", guidValue);
+                                Log.d("msg-test-guidValue",guidValue);
+                                Log.d("msg-test-membercount", String.valueOf(member_count));
+
+                                // Crear argumentos de navegación con valores predeterminados
+                                guidValueNav = new NavArgument.Builder().setDefaultValue(guidValue).build();
+                                nameNav = new NavArgument.Builder().setDefaultValue(name).build();
+                                group_descriptionNav = new NavArgument.Builder().setDefaultValue(group_description).build();
+                                group_typeNav = new NavArgument.Builder().setDefaultValue(group_type).build();
+                                group_ownerNav = new NavArgument.Builder().setDefaultValue(group_owner).build();
+                                member_countNav = new NavArgument.Builder().setDefaultValue(member_count).build();
+                                flagNav = new NavArgument.Builder().setDefaultValue(true).build();
+
+                                graph.setStartDestination(R.id.chatFragment);
+                                // Agregar argumentos al gráfico de navegación
+                                graph.addArgument("ARG_guid", guidValueNav);
+                                graph.addArgument("ARG_name", nameNav);
+                                graph.addArgument("ARG_description", group_descriptionNav);
+                                graph.addArgument("ARG_type", group_typeNav);
+                                graph.addArgument("ARG_owner", group_ownerNav);
+                                graph.addArgument("ARG_memberscount", member_countNav);
+                                graph.addArgument("flag", flagNav);
+                                //flagExternoParaChat = true;
+
+
+                                navHostFragment.getNavController().setGraph(graph);
+                                NavigationUI.setupWithNavController(bottomNavigationView, navController);
+                                askNotificationPermission();
+                            }
+                        } else {
+                            bottomNavigationView.getMenu().clear();
+                            bottomNavigationView.inflateMenu(menuToChoose);
+                            NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_general_view);
+                            NavController navController = navHostFragment.getNavController();
+
+                            NavInflater inflater = navController.getNavInflater();
+                            NavGraph graph = inflater.inflate(R.navigation.nav_graph_general);
+                            //graph.addArgument("argument", NavArgument)
+                            graph.setStartDestination(R.id.homeDelegadoActivitdadFragment);
+
+
+                            if (getIntent().hasExtra("loadFragment")) {
+                                //String fragmentToLoad = getIntent().getStringExtra("loadFragment");
+                                //assert fragmentToLoad != null;
+                                //loadFragment(fragmentToLoad);
+                                getIntent().removeExtra("loadFragment");
+                                graph.setStartDestination(R.id.chatFragment);
+                            }
+
+                            navHostFragment.getNavController().setGraph(graph);
+                            //navHostFragment.getNavController().getGraph().setDefaultArguments(getIntent().getExtras());
+
+                            NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+                            //invalidateOptionsMenu();
+                            askNotificationPermission();
+                        }
+
 
                     } else { //rol_usuario fue seleccionado aqui
                         CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) binding.fab.getLayoutParams();
@@ -240,8 +363,9 @@ public class GeneralViewActivity extends AppCompatActivity {
                         menuToChoose = R.menu.student_bottom_menu;
 
                         // Obtener la información sobre el fragmento del Intent
-                       Intent intent = getIntent();
+                        Intent intent = getIntent();
                         Log.d("msg-test-guidValue","AQUIIIFNSAKNFJASNFNASKF");
+
                         if (intent != null && intent.getStringExtra("FRAGMENT_TAG")!=null) {
                             String fragmentTag = intent.getStringExtra("FRAGMENT_TAG");
                             // Verificar el tag del fragmento y mostrar el fragmento correspondiente
@@ -356,12 +480,6 @@ public class GeneralViewActivity extends AppCompatActivity {
 
                                 NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
-
-                                navHostFragment.getNavController().setGraph(graph);
-                                //navHostFragment.getNavController().getGraph().setDefaultArguments(getIntent().getExtras());
-
-                                NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
                                 askNotificationPermission();
                             }
                         } else {
@@ -376,16 +494,21 @@ public class GeneralViewActivity extends AppCompatActivity {
                             //graph.addArgument("argument", NavArgument)
                             graph.setStartDestination(R.id.homeStudentFragment);
 
-                            navHostFragment.getNavController().setGraph(graph);
+
                             //navHostFragment.getNavController().getGraph().setDefaultArguments(getIntent().getExtras());
 
+                            askNotificationPermission();
+                           if (getIntent().hasExtra("loadFragment")) {
+                               //String fragmentToLoad = getIntent().getStringExtra("loadFragment");
+                               //assert fragmentToLoad != null;
+                               //loadFragment(fragmentToLoad);
+                               getIntent().removeExtra("loadFragment");
+                               graph.setStartDestination(R.id.chatFragment);
+                           }
+                            navHostFragment.getNavController().setGraph(graph);
                             NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
-                            askNotificationPermission();
                         }
-                        // Cargar otro fragmento o realizar otra lógica según sea necesario
-
-
 
                     }
                 } else {
@@ -639,6 +762,15 @@ public class GeneralViewActivity extends AppCompatActivity {
         dialog.getWindow().getAttributes().windowAnimations = R.style.BottomMenuDialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
 
+    }
+
+
+    private void loadFragment(String fragmentTag) {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_general_view);
+
+        if (fragmentTag.equals("chat_from_detalle_evento")) {
+            navController.navigate(R.id.chatFragment);
+        }
     }
 
 

@@ -146,38 +146,6 @@ public class ChatFragment extends Fragment {
 
         //Context context = requireContext();
 
-        GroupChatViewModel groupChatViewModel = new ViewModelProvider(requireActivity())
-                .get(GroupChatViewModel.class);
-
-        //ArrayList<Group> listaGrupos = new ArrayList<>();
-
-       /* groupChatViewModel.getGroup().observe(getViewLifecycleOwner(), group -> {
-           if(group!=null) {
-               Log.d("msg-test","se obtiene la clase Group");
-
-               //Gson gson = new Gson();
-               //String jsonString= "\"newKey\":\"New Value\"";
-               // Utilizar Gson para convertir la cadena JSON a JsonElement
-               //com.google.gson.JsonElement jsonElement = JsonParser.parseString(jsonString);
-
-               // Convertir el JsonElement a un objeto JSONObject de org.json
-               //JSONObject jsonObject = null;
-               //try {
-               //    jsonObject = new JSONObject(jsonString);
-              // } catch (JSONException e) {
-              //    e.printStackTrace();
-              // }
-               //group.setMetadata(jsonObject);
-               //group.setMembersCount(2);
-               //group.setCreatedAt(1700266115);
-               //group.setUpdatedAt(1700268337);
-               //cometChatGroupsWithMessages.setGroup(group);
-               listaGrupos.add(group);
-           }
-
-        });*/
-
-
         //CometChatGroupsWithMessages cometChatGroupsWithMessages = new CometChatGroupsWithMessages(getContext());
         CometChatConversationsWithMessages cometChatConversationsWithMessages = new CometChatConversationsWithMessages(getContext());
         Log.d("msg-test", String.valueOf(mGuid));
@@ -197,26 +165,7 @@ public class ChatFragment extends Fragment {
         }
 
 
-        /*groupViewModel = new Group();
-        groupViewModel.setGuid("-njukuml4jrxkcfyj_-v");
-        groupViewModel.setName("Semifinal Basket Damas 3vs3");
-        groupViewModel.setMembersCount(2);
-        groupViewModel.setDescription("El mejor evento de la historia");
-        groupViewModel.setOwner("utynqvlw8gwsnhan4z5ekp9azum2");
-        groupViewModel.setGroupType("private");
-        groupViewModel.setHasJoined(true);
 
-        if (groupViewModel != null) {
-            cometChatGroupsWithMessages.setGroup(groupViewModel);
-
-            Log.d("msg-test", String.valueOf(cometChatGroupsWithMessages));
-            Log.d("msg-test", String.valueOf(groupViewModel));
-        }*/
-
-        /*if (!listaGrupos.isEmpty()){
-            cometChatGroupsWithMessages.setGroup(listaGrupos.get(0));
-            listaGrupos.remove(0);
-        }*/
 
         /*cometChatGroupsWithMessages.hideMenuIcon(true);
         cometChatGroupsWithMessages.hideSeparator(true);
@@ -254,6 +203,8 @@ public class ChatFragment extends Fragment {
         ConversationsStyle conversationsStyle = new ConversationsStyle();
         conversationsStyle.setBorderWidth(0);
         conversationsStyle.setCornerRadius(0);
+        //int whiteColor = Color.parseColor("#FFFFFF");
+       // conversationsStyle.setTitleColor(whiteColor);
 
 
         //Conversation conversation = new Conversation("conversationstr1", CometChatConstants.CONVERSATION_TYPE_GROUP);
@@ -294,101 +245,17 @@ public class ChatFragment extends Fragment {
         messageListConfiguration.showAvatar(true);
 
         messagesConfiguration.setMessageListConfiguration(messageListConfiguration);*/
-
-
+        cometChatConversationsWithMessages.setTitle("Chats Grupales de Eventos");
+        cometChatConversationsWithMessages.setTitleAppearance(R.style.CustomTitleStyle);
+        //cometChatConversationsWithMessages.setSearchBackground(redColorValue);
+        //cometChatConversationsWithMessages.setSearchPlaceholderText("Search");
+        //cometChatConversationsWithMessages.hideSearch(false);
         cometChatConversationsWithMessages.setConversationsConfiguration(conversationsConfiguration);
+        //cometChatConversationsWithMessages.setBackground(redColorValue);
         //cometChatConversationsWithMessages.setMessagesConfiguration(messagesConfiguration);
         //return cometChatGroupsWithMessages;
         return cometChatConversationsWithMessages;
 
-
-        /*SharedPreferences sharedPreferences = requireContext().getSharedPreferences("share_preferences_conf", Context.MODE_PRIVATE);
-        String groupUID = sharedPreferences.getString("guid", "null");
-        if (!groupUID.equalsIgnoreCase("null")){
-            Group group = new Group();
-            group.setGuid(groupUID);
-            String name = sharedPreferences.getString("name", "null");
-            String group_description = sharedPreferences.getString("group_description", "null");
-            String group_type = sharedPreferences.getString("group_type", "null");
-            String group_owner = sharedPreferences.getString("group_owner", "null");
-            String member_count = sharedPreferences.getString("member_count", "null");
-
-            group.setName(name);
-            group.setDescription(group_description);
-            group.setGroupType(group_type);
-            group.setOwner(group_owner);
-            group.setMembersCount(Integer.parseInt(member_count));
-
-            Log.d("msg-test","se obtiene la clase Group");
-            cometChatGroupsWithMessages.setGroup(group);
-
-        }
-
-        SharedPreferences.Editor edit = sharedPreferences.edit();
-        edit.remove("guid");
-        edit.remove("name");
-        edit.remove("group_description");
-        edit.remove("group_type");
-        edit.remove("group_owner");
-        edit.remove("member_count");
-        // Aplicar los cambios
-        edit.apply();*/
-
-
-
-        /*ConversationsStyle style = new ConversationsStyle();
-
-
-        style.setBorderWidth(0);
-        int whitecolor = Color.RED;
-        int res = Color.BLACK;
-        int border = 50;
-        style.setSeparatorColor(whitecolor);
-        style.setCornerRadius(1);
-        style.setBackground(whitecolor);
-        style.setBorderColor(res);
-        style.setBorderWidth(border);*/
-        //View view = null;
-
-        /*Bundle arguments = getArguments();
-        if (arguments != null) {
-            // Obtener el valor del extra "guid"
-            String groupUID = arguments.getString("guid");
-            Group group = new Group();
-            group.setGuid(groupUID);
-            Log.d("msg-test","se obtiene la clase Group");
-            cometChatGroupsWithMessages.setGroup(group);
-        }*/
-
     }
 
-
-    /*@Override
-    public void onResume() {
-       super.onResume();
-       Bundle args = getArguments();
-
-        if (args != null) {
-            mGuid = getArguments().getString("ARG_guid");
-            mName = getArguments().getString("ARG_name");
-            mDescription = getArguments().getString("ARG_description");
-            mType = getArguments().getString("ARG_type");
-            mOwner = getArguments().getString("ARG_owner");
-            mMemberscount = getArguments().getInt("ARG_memberscount");
-        }
-        Log.d("msg-test", String.valueOf(mGuid));
-        if (mGuid != null) {
-            Group group = new Group();
-            group.setGuid(mGuid);
-            group.setName(mName);
-            group.setDescription(mDescription);
-            group.setGroupType(mType);
-            group.setOwner(mOwner);
-            group.setMembersCount(mMemberscount);
-            group.setHasJoined(true);
-            cometChatGroupsWithMessages.setGroup(group);
-            Log.d("msg-test", String.valueOf(group));
-        }
-
-    }*/
 }

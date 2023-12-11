@@ -18,6 +18,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.cometchat.chat.core.CometChat;
+import com.cometchat.chat.exceptions.CometChatException;
+import com.cometchat.chatuikit.shared.cometchatuikit.CometChatUIKit;
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.example.telebeetle.activities.CambioContrasenia2Activity;
@@ -134,9 +137,21 @@ public class ProfileFragment extends Fragment {
 
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(getActivity(), "Sesión cerrada exitosamente", Toast.LENGTH_SHORT).show();
+            CometChatUIKit.logout(new CometChat.CallbackListener<String>() {
+                @Override
+                public void onSuccess(String successMessage) {
+                    Log.d("msg-test-logout-chat", "Logout chat completed successfully");
+                }
+                @Override
+                public void onError(CometChatException e) {
+                    Log.d("msg-test-logout-chat", "Logout chat failed with exception: " + e.getMessage());
+                }
+            });
             Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
             getActivity().finish();
+
+
 
         });
 
