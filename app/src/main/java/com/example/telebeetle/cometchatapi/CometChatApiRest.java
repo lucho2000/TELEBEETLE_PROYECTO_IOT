@@ -133,4 +133,29 @@ public class CometChatApiRest {
     }
 
 
+    public void deleteGroupInCometChat(String group_guid) {
+
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("https://"+ appID +".api-us.cometchat.io/v3/groups/"+ group_guid)
+                .delete(null)
+                .addHeader("accept", "application/json")
+                .addHeader("apikey", apiKey)
+                .build();
+
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            public void onResponse(Call call, Response response)
+                    throws IOException {
+                String res = response.body().string();
+            }
+
+            public void onFailure(Call call, IOException e) {
+                Log.d("cometchat-msg-test", "Algo paso al intentar borrar el grupo de uid: " + group_guid +  "  en cometchat");
+            }
+        });
+    }
+
+
 }

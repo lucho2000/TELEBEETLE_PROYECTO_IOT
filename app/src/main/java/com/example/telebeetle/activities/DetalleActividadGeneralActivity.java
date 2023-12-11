@@ -97,6 +97,15 @@ public class DetalleActividadGeneralActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+        binding.ChatGrupal.setOnClickListener(view -> {
+            Intent intent = new Intent(DetalleActividadGeneralActivity.this, GeneralViewActivity.class);
+            intent.putExtra("loadFragment", "chat_from_detalle_evento");
+            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Evita la acumulación de instancias
+            //startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        });
         Button verApoyos = findViewById(R.id.verApoyos);
         verApoyos.setOnClickListener(view -> {
             Intent intent = new Intent(DetalleActividadGeneralActivity.this, verApoyosActivity.class);

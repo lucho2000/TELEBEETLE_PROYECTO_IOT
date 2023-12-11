@@ -69,7 +69,7 @@
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Apoyo"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -281,7 +281,7 @@
         android:id="@+id/textView12"
         android:layout_width="262dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="10dp"
         android:text="Este duelo se ha repetido en varias  ocasiones de semana de ingenieria  con un historial de 20 victorias, 11 empates  y 15 derrotas para la fibra toxica"
         android:textAlignment="center"
         android:textColor="#706E8F"
@@ -293,6 +293,7 @@
         android:id="@+id/textView15"
         android:layout_width="262dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Puedes apoyar este evento ya sea como parte de la barra o participante. Presiona  “Apoyar Evento” y escoge la opcion de tu preferencia!"
         android:textAlignment="center"
         android:textColor="#706E8F"
@@ -304,12 +305,12 @@
         android:id="@+id/Apoyar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="70dp"
         android:text="APOYAR EVENTO"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
+        app:layout_constraintStart_toStartOf="@+id/guideline3" />
+        <!-- app:layout_constraintTop_toBottomOf="@+id/textView15"-->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
         android:layout_width="wrap_content"
