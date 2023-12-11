@@ -208,6 +208,9 @@ public class CrearEventoActivity extends AppCompatActivity implements OnMapReady
                     equipo.put("ga", "ga");
                     evento.setListaApoyosParticipantes(equipo);
                     evento.setNroMaxParticipante(maximoParticipantes);
+                    HashMap<String, String> validado = new HashMap<>();
+                    validado.put("ga", "ga");
+                    evento.setListaApoyosParticipantesValidados(validado);
 
 
                     databaseReference = FirebaseDatabase.getInstance().getReference("evento");

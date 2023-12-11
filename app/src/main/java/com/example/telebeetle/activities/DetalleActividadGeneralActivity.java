@@ -29,6 +29,7 @@ import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.ActivityDetalleActividadGeneralBinding;
 import com.example.telebeetle.databinding.ActivityDetallesEvento1Binding;
+import com.example.telebeetle.fragments.EsperaParticipante;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +42,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
@@ -87,18 +89,14 @@ public class DetalleActividadGeneralActivity extends AppCompatActivity {
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
                         }
                     });
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-
-
         Button verApoyos = findViewById(R.id.verApoyos);
         verApoyos.setOnClickListener(view -> {
             Intent intent = new Intent(DetalleActividadGeneralActivity.this, verApoyosActivity.class);
@@ -106,7 +104,7 @@ public class DetalleActividadGeneralActivity extends AppCompatActivity {
         });
         Button verSolicitudes = findViewById(R.id.verSolicitudes);
         verSolicitudes.setOnClickListener(view -> {
-            showSheetSolicitudes();
+            showSheetSolicitudes(evento);
         });
         binding.goMapa.setOnClickListener(view -> {
             mostrarUbicacion(evento.getLatitud(), evento.getLongitud(), evento.getLugar());
@@ -120,7 +118,7 @@ public class DetalleActividadGeneralActivity extends AppCompatActivity {
         });
 
     }
-    private void showSheetSolicitudes(){
+    private void showSheetSolicitudes(Evento eventoga){
         final Dialog dialog = new Dialog(DetalleActividadGeneralActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.solicitudes_equipo_bottom_sheet_layout);
@@ -132,25 +130,35 @@ public class DetalleActividadGeneralActivity extends AppCompatActivity {
             }
         });
         databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
-
         List<Usuario> listaUsuarios = new ArrayList<>();
-
-        SolicitudesRegistroAdapter solicitudesRegistroAdapter = new SolicitudesRegistroAdapter();
-        solicitudesRegistroAdapter.setUsuarioList(listaUsuarios);
-        solicitudesRegistroAdapter.setContext(DetalleActividadGeneralActivity.this);
+        SolicitudesEquipoAdapter solicitudesEquipoAdapter = new SolicitudesEquipoAdapter();
+        solicitudesEquipoAdapter.setUsuarioList(listaUsuarios);
+        solicitudesEquipoAdapter.setContext(DetalleActividadGeneralActivity.this);
+        solicitudesEquipoAdapter.setEventoUID(eventoga.getUidEvento());
+        solicitudesEquipoAdapter.setParticipantes(eventoga.getListaApoyosParticipantesValidados());
+        solicitudesEquipoAdapter.setNel(eventoga.getListaApoyosParticipantes());
 
         RecyclerView solicitudes = dialog.findViewById(R.id.rv_solicitudesRegistro);
-        solicitudes.setAdapter(solicitudesRegistroAdapter);
+        solicitudes.setAdapter(solicitudesEquipoAdapter);
         solicitudes.setLayoutManager(new LinearLayoutManager(DetalleActividadGeneralActivity.this));
-
+        List<String> userIDs = new ArrayList<>();
+        Set<String> keys2 = eventoga.getListaApoyosParticipantes().keySet();
+        for (String key : keys2) {
+            if(!key.equalsIgnoreCase("ga")){
+                userIDs.add(eventoga.getListaApoyosParticipantes().get(key));
+            }
+        }
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Usuario usuario = dataSnapshot.getValue(Usuario.class);
-                    listaUsuarios.add(usuario);
+                    if(userIDs.contains(dataSnapshot.getKey())){
+                        usuario.setUidUsuario(dataSnapshot.getKey());
+                        listaUsuarios.add(usuario);
+                    }
                 }
-                solicitudesRegistroAdapter.notifyDataSetChanged();
+                solicitudesEquipoAdapter.notifyDataSetChanged();
                 if (solicitudes.getAdapter()!= null && solicitudes.getAdapter().getItemCount() == 0){
                     //vacio
                     Log.d("msg-test", "llega sin informacion");

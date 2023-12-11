@@ -23,6 +23,7 @@ import com.cometchat.chat.exceptions.CometChatException;
 import com.cometchat.chatuikit.shared.cometchatuikit.CometChatUIKit;
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
+import com.example.telebeetle.activities.CambioContrasenia2Activity;
 import com.example.telebeetle.activities.CambioContraseniaActivity;
 import com.example.telebeetle.activities.CondicionesActivity;
 import com.example.telebeetle.activities.GeneralViewActivity;
@@ -61,24 +62,18 @@ public class ProfileFragment extends Fragment {
 
    StorageReference storageReference;
 
-    ActivityResultLauncher<PickVisualMediaRequest> launcher  =
-            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
-                // Callback is invoked after the user selects a media item or closes the
-                // photo picker.
-                if (urlImagen != null) {
-                    Log.d("PhotoPicker", "Selected URI: " + urlImagen);
-                } else {
-                    Log.d("PhotoPicker", "No media selected");
-                }
+   DatabaseReference databaseReference;
 
-            });
+    ImageView imageView;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater,container,false);
-        ImageView imageView = binding.fotoperfil;
+        imageView = binding.fotoperfil;
+        firebaseAuth = FirebaseAuth.getInstance();
+        storageReference = FirebaseStorage.getInstance().getReference();
         //firebaseAuth = FirebaseAuth.getInstance();
        // FirebaseUser user = firebaseAuth.getCurrentUser();
        //Log.d("msg-test",user.getEmail());
@@ -116,7 +111,7 @@ public class ProfileFragment extends Fragment {
 
 
             if (provideID.equals("password")) {
-                Intent intent = new Intent(getActivity(), CambioContraseniaActivity.class );
+                Intent intent = new Intent(getActivity(), CambioContrasenia2Activity.class );
                 startActivity(intent);
             } else if (provideID.equals("google.com")) {
                 Toast.makeText(getActivity(),"Usted esta usando su cuenta google",Toast.LENGTH_SHORT).show();
@@ -167,6 +162,21 @@ public class ProfileFragment extends Fragment {
 
 
         });
+
+        ActivityResultLauncher<PickVisualMediaRequest> launcher  =
+                registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), urlImagen -> {
+                    // Callback is invoked after the user selects a media item or closes the
+                    // photo picker.
+                    if (urlImagen != null) {
+                        Log.d("msg-test", "Selected URI: " + urlImagen);
+                        subirImagenAFirebase(urlImagen);
+
+                    } else {
+                        Log.d("msg-test", "No media selected");
+                    }
+
+                });
+
         binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,50 +184,66 @@ public class ProfileFragment extends Fragment {
                         .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
                         .build());
 
-                Picasso.get().load(urlImagen)
-                        .resize(400,400)
-                        .transform(new CropCircleTransformation())
-                        .into(imageView);
             }
         });
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        String UIDusuarioActual = firebaseAuth.getUid();
-
-        storageReference = FirebaseStorage.getInstance().getReference();
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
-//        databaseReference.child(UIDusuarioActual).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.exists()){
-//
-//                    StorageReference carpetaFotosDonacionesRef = storageReference.child("fotos perfile");
-//                    StorageReference fotoRef = carpetaFotosDonacionesRef.child(new Date().toString());
-//
-//                    fotoRef.putFile(urlImagen).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                            Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-//                            while (!uriTask.isSuccessful());
-//                            Uri uriDownload = uriTask.getResult();
-//                            String urlAntigua = snapshot.child("profile").getValue(String.class);
-//                            Usuario usuario = snapshot.getValue(Usuario.class);
-//                            usuario.setProfile(uriDownload.toString());
-//                        }
-//                    });
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
 
 
 
         return binding.getRoot();
+    }
+
+    public void subirImagenAFirebase(Uri urlImagen){
+        StorageReference carpetaFotosDonacionesRef = storageReference.child("fotos perfiles");
+        StorageReference fotoRef = carpetaFotosDonacionesRef.child(new Date().toString());
+        String UIDusuarioActual = firebaseAuth.getUid();
+        fotoRef.putFile(urlImagen).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                while (!uriTask.isSuccessful());
+
+                uriTask.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String urlDescarga = uri.toString();
+
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
+                        databaseReference.child(UIDusuarioActual).child("profile").setValue(urlDescarga);
+
+                    }
+                });
+
+
+            }
+        });
+
+//        Picasso.get().load()
+//                .resize(400,400)
+//                .transform(new CropCircleTransformation())
+//                .into(binding.fotoperfil);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        databaseReference= FirebaseDatabase.getInstance().getReference("usuarios");
+        databaseReference.child(firebaseAuth.getCurrentUser().getUid()).child("profile").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String urlProfile = snapshot.getValue(String.class);
+                Picasso.get().load(urlProfile)
+                        .resize(400,400)
+                        .transform(new CropCircleTransformation())
+                        .into(imageView);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }

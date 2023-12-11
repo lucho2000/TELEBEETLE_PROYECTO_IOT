@@ -38,6 +38,16 @@ public class Evento implements Serializable {
 
     private HashMap<String, String> listaApoyosParticipantes;  //(lista de KEY de usuarios)
 
+    public HashMap<String, String> getListaApoyosParticipantesValidados() {
+        return listaApoyosParticipantesValidados;
+    }
+
+    public void setListaApoyosParticipantesValidados(HashMap<String, String> listaApoyosParticipantesValidados) {
+        this.listaApoyosParticipantesValidados = listaApoyosParticipantesValidados;
+    }
+
+    private HashMap<String, String> listaApoyosParticipantesValidados;  //(lista de KEY de usuarios)
+
     public String getLatitud() {
         return latitud;
     }

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -21,7 +22,10 @@ import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.ActivityDetallesEvento1Binding;
+import com.example.telebeetle.fragments.DialogParticipante;
+import com.example.telebeetle.fragments.EsperaParticipante;
 import com.example.telebeetle.fragments.OpcionApoyando;
+import com.example.telebeetle.fragments.OpcionApoyando2;
 import com.example.telebeetle.fragments.OpcionesApoyar;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -101,7 +105,6 @@ public class DetallesEvento1 extends AppCompatActivity {
                 //binding.Apoyar.setEnabled(false);
                 Bundle bundle = new Bundle();
                 bundle.putString("evento_uid", evento.getUidEvento());
-                bundle.putString("keyUser", key);
                 bundle.putSerializable("listaApoyosBarras", evento.getListaApoyosBarras());
                 getSupportFragmentManager().
                         beginTransaction().
@@ -110,11 +113,41 @@ public class DetallesEvento1 extends AppCompatActivity {
                 break;
             }
         }
+        Set<String> keys2 = evento.getListaApoyosParticipantes().keySet();
+        for (String key : keys2) {
+            if(!key.equalsIgnoreCase("ga") && evento.getListaApoyosParticipantes().get(key).equals(UIDusuarioActual)){ //validando
+                //binding.Apoyar.setEnabled(false);
+                Bundle bundle = new Bundle();
+                bundle.putString("evento_uid", evento.getUidEvento());
+                bundle.putSerializable("listaNoValidados", evento.getListaApoyosParticipantes());
+                getSupportFragmentManager().
+                        beginTransaction().
+                        setReorderingAllowed(true).
+                        add(R.id.fragmentContainerView, EsperaParticipante.class, bundle).commit();
+                break;
+            }
+        }
+        Set<String> keys3 = evento.getListaApoyosParticipantesValidados().keySet();
+        for (String key : keys3) {
+            if(!key.equalsIgnoreCase("ga") && evento.getListaApoyosParticipantesValidados().get(key).equals(UIDusuarioActual)){ //validando
+                //binding.Apoyar.setEnabled(false);
+                Bundle bundle = new Bundle();
+                bundle.putString("evento_uid", evento.getUidEvento());
+                bundle.putSerializable("listaValidados", evento.getListaApoyosParticipantesValidados());
+                getSupportFragmentManager().
+                        beginTransaction().
+                        setReorderingAllowed(true).
+                        add(R.id.fragmentContainerView, OpcionApoyando2.class, bundle).commit();
+                break;
+            }
+        }
         binding.Apoyar.setOnClickListener(view -> {
             Bundle bundleConEventoUid = new Bundle();
             bundleConEventoUid.putString("evento_uid", evento.getUidEvento());
+            bundleConEventoUid.putString("nroMaxParticipantes", evento.getNroMaxParticipante());
             bundleConEventoUid.putSerializable("listaApoyosBarras", evento.getListaApoyosBarras());
-            bundleConEventoUid.putSerializable("listaApoyosParticipantes", evento.getListaApoyosParticipantes());
+            bundleConEventoUid.putSerializable("listaApoyosParticipantes", evento.getListaApoyosParticipantesValidados());
+            bundleConEventoUid.putSerializable("noValidadosParticipantes", evento.getListaApoyosParticipantes());
             Log.d("msg_test","que mrd ");
             getSupportFragmentManager().
                     beginTransaction().
@@ -185,4 +218,12 @@ public class DetallesEvento1 extends AppCompatActivity {
             }
     );
 
+    public void deleteFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentById(R.id.fragmentContainerView);
+
+        if (fragment != null) {
+            fragmentManager.beginTransaction().remove(fragment).commit();
+        }
+    }
 }

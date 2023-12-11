@@ -206,7 +206,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(stringReceiverEmail));
 
             mimeMessage.setSubject("Baneado(a) de TeleBeetle");
-            mimeMessage.setText("Hola Usuario, \n\nUsted ha sido baneado de la apliacion por incumplir las normas. \n\n Telebeetle");
+            mimeMessage.setText("Hola Usuario, \n\nUsted ha sido baneado de la aplicacion por incumplir las normas. \n\n Telebeetle");
 
             Thread thread = new Thread(new Runnable() {
                 @Override
