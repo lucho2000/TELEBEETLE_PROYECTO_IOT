@@ -14,4 +14,11 @@
         <item name="cornerSizeBottomLeft">30dp</item>
     </style>
 
+
+    <style name="CustomTitleStyle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textColor">@color/black</item>
+
+    </style>
 </resources>

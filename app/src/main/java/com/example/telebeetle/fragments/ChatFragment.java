@@ -203,6 +203,8 @@ public class ChatFragment extends Fragment {
         ConversationsStyle conversationsStyle = new ConversationsStyle();
         conversationsStyle.setBorderWidth(0);
         conversationsStyle.setCornerRadius(0);
+        //int whiteColor = Color.parseColor("#FFFFFF");
+       // conversationsStyle.setTitleColor(whiteColor);
 
 
         //Conversation conversation = new Conversation("conversationstr1", CometChatConstants.CONVERSATION_TYPE_GROUP);
@@ -243,9 +245,13 @@ public class ChatFragment extends Fragment {
         messageListConfiguration.showAvatar(true);
 
         messagesConfiguration.setMessageListConfiguration(messageListConfiguration);*/
-
-
+        cometChatConversationsWithMessages.setTitle("Chats Grupales de Eventos");
+        cometChatConversationsWithMessages.setTitleAppearance(R.style.CustomTitleStyle);
+        //cometChatConversationsWithMessages.setSearchBackground(redColorValue);
+        //cometChatConversationsWithMessages.setSearchPlaceholderText("Search");
+        //cometChatConversationsWithMessages.hideSearch(false);
         cometChatConversationsWithMessages.setConversationsConfiguration(conversationsConfiguration);
+        //cometChatConversationsWithMessages.setBackground(redColorValue);
         //cometChatConversationsWithMessages.setMessagesConfiguration(messagesConfiguration);
         //return cometChatGroupsWithMessages;
         return cometChatConversationsWithMessages;

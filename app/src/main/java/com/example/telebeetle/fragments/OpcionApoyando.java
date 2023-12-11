@@ -1,9 +1,12 @@
 package com.example.telebeetle.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.example.telebeetle.R;
 import com.example.telebeetle.activities.DetallesEvento1;
+import com.example.telebeetle.activities.GeneralViewActivity;
 import com.example.telebeetle.cometchatapi.CometChatApiRest;
 import com.example.telebeetle.databinding.FragmentOpcionApoyandoBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -72,6 +76,22 @@ public class OpcionApoyando extends Fragment {
                 });
 
             }
+        });
+
+        binding.chat.setOnClickListener(view -> {
+            Intent intent = new Intent(requireActivity(), GeneralViewActivity.class);
+            intent.putExtra("loadFragment", "chat_from_detalle_evento");
+            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Evita la acumulación de instancias
+            //startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+
+            /*Intent intent = new Intent(requireActivity(), GeneralViewActivity.class);
+            intent.putExtra("loadFragment", "chat_from_detalle_evento");
+            //startActivity(intent)
+            startActivityForResult(intent, REQUEST_CODE_ACTIVITY_B);*/
+            requireActivity().finish();
+
         });
         return binding.getRoot();
     }
