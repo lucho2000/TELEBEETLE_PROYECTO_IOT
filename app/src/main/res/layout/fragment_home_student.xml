@@ -65,27 +65,6 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="238dp" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/mainTab"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topappBarLayout">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Todos" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mis eventos" />
-
-
-    </com.google.android.material.tabs.TabLayout>
 
     <SearchView
         android:id="@+id/searchView"
@@ -95,7 +74,7 @@
         android:background="@drawable/searchview_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mainTab"
+        app:layout_constraintTop_toBottomOf="@id/topappBarLayout"
         />
 
 
@@ -119,6 +98,12 @@
             android:text="Finalizado"
             tools:layout_editor_absoluteX="207dp"
             tools:layout_editor_absoluteY="124dp" />
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mis eventos"
+            tools:layout_editor_absoluteX="207dp"
+            tools:layout_editor_absoluteY="124dp" />
 
 
     </com.google.android.material.tabs.TabLayout>
@@ -129,7 +114,7 @@
         android:layout_marginEnd="1dp"
         android:layout_marginTop="10dp"
         android:layout_width="358dp"
-        android:layout_height="400dp"
+        android:layout_height="450dp"
         android:layout_below="@id/secondTab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

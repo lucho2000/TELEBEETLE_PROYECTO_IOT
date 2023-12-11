@@ -60,6 +60,9 @@ public class HomeStudentFragment extends Fragment {
                         case 1:
                             tab.setText("Finalizado");
                             break;
+                        case 2:
+                            tab.setText("Mis eventos");
+                            break;
                     }
                 }).attach();
                 viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
