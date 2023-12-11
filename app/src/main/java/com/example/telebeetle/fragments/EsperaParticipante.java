@@ -62,6 +62,8 @@ public class EsperaParticipante extends Fragment {
                         activity.deleteFragment(EsperaParticipante.this);
                     }
                 });
+
+                notificarBotonPresionado();
             }
         });
         return binding.getRoot();
@@ -70,5 +72,25 @@ public class EsperaParticipante extends Fragment {
         String user_uid = firebaseAuth.getCurrentUser().getUid().toLowerCase();
         Log.d("msg-test-user-uid",user_uid);
         cometChatApiRest.removeMemberFromGroupEventCometChat(evento_uid,user_uid);
+    }
+
+    // Interfaz para comunicarse con la actividad
+    public interface OnFragmentInteractionListener3 {
+        void onTipo3ButtonPressed();
+    }
+
+    // Variable para almacenar el listener
+    private OnFragmentInteractionListener3 mListener;
+
+    // Método para establecer el listener desde la actividad
+    public void setOnFragmentInteractionListener(OnFragmentInteractionListener3 listener) {
+        this.mListener = listener;
+    }
+
+    // Método para notificar a la actividad que el botón ha sido presionado
+    private void notificarBotonPresionado() {
+        if (mListener != null) {
+            mListener.onTipo3ButtonPressed();
+        }
     }
 }

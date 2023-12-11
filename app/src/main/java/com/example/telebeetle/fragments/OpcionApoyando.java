@@ -74,7 +74,7 @@ public class OpcionApoyando extends Fragment {
                         activity.deleteFragment(OpcionApoyando.this);
                     }
                 });
-
+                notificarBotonPresionado();
             }
         });
 
@@ -100,6 +100,26 @@ public class OpcionApoyando extends Fragment {
         Log.d("msg-test-user-uid",user_uid);
         cometChatApiRest.removeMemberFromGroupEventCometChat(evento_uid,user_uid);
 
+    }
+    // Interfaz para comunicarse con la actividad
+
+    public interface OnFragmentInteractionListener1 {
+        void onTipo1ButtonPressed();
+    }
+
+    // Variable para almacenar el listener
+    private OnFragmentInteractionListener1 mListener;
+
+    // Método para establecer el listener desde la actividad
+    public void setOnFragmentInteractionListener(OnFragmentInteractionListener1 listener) {
+        this.mListener = listener;
+    }
+
+    // Método para notificar a la actividad que el botón ha sido presionado
+    private void notificarBotonPresionado() {
+        if (mListener != null) {
+            mListener.onTipo1ButtonPressed();
+        }
     }
 
 }

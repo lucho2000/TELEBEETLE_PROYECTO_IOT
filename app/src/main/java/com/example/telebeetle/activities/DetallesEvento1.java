@@ -44,7 +44,7 @@ import java.util.Set;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
-public class DetallesEvento1 extends AppCompatActivity {
+public class DetallesEvento1 extends AppCompatActivity implements OpcionApoyando.OnFragmentInteractionListener1, OpcionApoyando2.OnFragmentInteractionListener2, EsperaParticipante.OnFragmentInteractionListener3 {
     ActivityDetallesEvento1Binding binding;
     private Double latitudFinal = -12.066553051720968;
     private Double longitudFinal = -77.08034059751783;
@@ -106,10 +106,25 @@ public class DetallesEvento1 extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("evento_uid", evento.getUidEvento());
                 bundle.putSerializable("listaApoyosBarras", evento.getListaApoyosBarras());
-                getSupportFragmentManager().
+                binding.textView13.setVisibility(View.GONE);
+                binding.textView15.setVisibility(View.GONE);
+                binding.Apoyar.setVisibility(View.GONE);
+
+
+                OpcionApoyando opcionApoyandoFragment = new OpcionApoyando();
+                opcionApoyandoFragment.setOnFragmentInteractionListener((OpcionApoyando.OnFragmentInteractionListener1) this);
+                opcionApoyandoFragment.setArguments(bundle);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .setReorderingAllowed(true)
+                        .add(R.id.fragmentContainerView, opcionApoyandoFragment, "opcionApoyandoTag")
+                        .commit();
+
+
+                /*getSupportFragmentManager().
                         beginTransaction().
                         setReorderingAllowed(true).
-                        add(R.id.fragmentContainerView, OpcionApoyando.class, bundle).commit();
+                        add(R.id.fragmentContainerView, OpcionApoyando.class, bundle).commit();*/
                 break;
             }
         }
@@ -120,10 +135,23 @@ public class DetallesEvento1 extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("evento_uid", evento.getUidEvento());
                 bundle.putSerializable("listaNoValidados", evento.getListaApoyosParticipantes());
-                getSupportFragmentManager().
+                binding.textView13.setVisibility(View.GONE);
+                binding.textView15.setVisibility(View.GONE);
+                binding.Apoyar.setVisibility(View.GONE);
+
+                EsperaParticipante esperaParticipante = new EsperaParticipante();
+                esperaParticipante.setOnFragmentInteractionListener((EsperaParticipante.OnFragmentInteractionListener3) this);
+                esperaParticipante.setArguments(bundle);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .setReorderingAllowed(true)
+                        .add(R.id.fragmentContainerView, esperaParticipante, "esperaParticipanteTag")
+                        .commit();
+
+                /*getSupportFragmentManager().
                         beginTransaction().
                         setReorderingAllowed(true).
-                        add(R.id.fragmentContainerView, EsperaParticipante.class, bundle).commit();
+                        add(R.id.fragmentContainerView, EsperaParticipante.class, bundle).commit();*/
                 break;
             }
         }
@@ -134,10 +162,24 @@ public class DetallesEvento1 extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("evento_uid", evento.getUidEvento());
                 bundle.putSerializable("listaValidados", evento.getListaApoyosParticipantesValidados());
-                getSupportFragmentManager().
+                binding.textView13.setVisibility(View.GONE);
+                binding.textView15.setVisibility(View.GONE);
+                binding.Apoyar.setVisibility(View.GONE);
+
+                OpcionApoyando2 opcionApoyando2 = new OpcionApoyando2();
+                opcionApoyando2.setOnFragmentInteractionListener((OpcionApoyando2.OnFragmentInteractionListener2) this);
+                opcionApoyando2.setArguments(bundle);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .setReorderingAllowed(true)
+                        .add(R.id.fragmentContainerView, opcionApoyando2, "opcionApoyando2Tag")
+                        .commit();
+
+
+                /*getSupportFragmentManager().
                         beginTransaction().
                         setReorderingAllowed(true).
-                        add(R.id.fragmentContainerView, OpcionApoyando2.class, bundle).commit();
+                        add(R.id.fragmentContainerView, OpcionApoyando2.class, bundle).commit();*/
                 break;
             }
         }
@@ -225,5 +267,30 @@ public class DetallesEvento1 extends AppCompatActivity {
         if (fragment != null) {
             fragmentManager.beginTransaction().remove(fragment).commit();
         }
+    }
+
+    @Override
+    public void onTipo1ButtonPressed() {
+        // Acciones específicas cuando el botón del FragmentTipo1 es presionado
+        mostrarElementosOcultos();
+    }
+
+    @Override
+    public void onTipo2ButtonPressed() {
+        // Acciones específicas cuando el botón del FragmentTipo2 es presionado
+        mostrarElementosOcultos();
+    }
+
+    @Override
+    public void onTipo3ButtonPressed() {
+        mostrarElementosOcultos();
+        // Acciones específicas cuando el botón del FragmentTipo3 es presionado
+    }
+
+    private void mostrarElementosOcultos() {
+        binding.textView13.setVisibility(View.VISIBLE);
+        binding.textView15.setVisibility(View.VISIBLE);
+        binding.Apoyar.setVisibility(View.VISIBLE);
+        // Código para volver a mostrar los elementos ocultos
     }
 }
