@@ -29,9 +29,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
@@ -114,6 +125,7 @@ public class SolicitudesEquipoAdapter extends RecyclerView.Adapter<SolicitudesEq
         condicion.setText(u.getCondicion());
         Button accept = holder.itemView.findViewById(R.id.accept);
         accept.setOnClickListener(v -> {
+            String text = "Estimado usuario "+u.getNombres()+" "+u.getApellidos()+". Se ha aceptado su solicitud para unirse al equipo";
             Set<String> keys = nel.keySet();
             for (String key : keys) {
                 if(!key.equalsIgnoreCase("ga") && nel.get(key).equals(u.getUidUsuario())){ //validando
@@ -132,6 +144,7 @@ public class SolicitudesEquipoAdapter extends RecyclerView.Adapter<SolicitudesEq
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     addUsertoEventoGroupCometChat(eventoUID, u.getUidUsuario());
+                    buttonSendEmail(u.getCorreo(),text);
                     Toast.makeText(context, "Exito al aceptar solicitud de participante", Toast.LENGTH_SHORT).show();
                     removeItem(position);
                 }
@@ -139,6 +152,7 @@ public class SolicitudesEquipoAdapter extends RecyclerView.Adapter<SolicitudesEq
         });
         Button deny = holder.itemView.findViewById(R.id.deny);
         deny.setOnClickListener(v -> {
+            String text = "Estimado usuario "+u.getNombres()+" "+u.getApellidos()+".Su solicitud para unirse al equipo ha sido denegada";
             Set<String> keys = nel.keySet();
             for (String key : keys) {
                 if(!key.equalsIgnoreCase("ga") && nel.get(key).equals(u.getUidUsuario())){ //validando
@@ -154,6 +168,7 @@ public class SolicitudesEquipoAdapter extends RecyclerView.Adapter<SolicitudesEq
             databaseReference.child(eventoUID).updateChildren(eventoUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
+                    buttonSendEmail(u.getCorreo(),text);
                     Toast.makeText(context, "Exito al denegar solicitud de participante", Toast.LENGTH_SHORT).show();
                     removeItem(position);
                 }
@@ -187,5 +202,56 @@ public class SolicitudesEquipoAdapter extends RecyclerView.Adapter<SolicitudesEq
         String listaUsersCometChatString = "[" + String.join(", ", Arrays.stream(listaUsersCometChatArreglo).map(s -> "\"" + s + "\"").toArray(String[]::new)) + "]";
         Log.d("msg_test","addUsertoEventoGroupCometChat");
         cometChatApiRest.addMemberToGroupEventCometChat(evento_uid,listaUsersCometChatString);
+    }
+    public void buttonSendEmail(String correoaEnviar,String text){
+
+        try {
+            String stringSenderEmail = "telesystemclinic@gmail.com";
+            String stringReceiverEmail = correoaEnviar;
+            String stringPasswordSenderEmail = "qyxm eonv gmql dqak";
+
+            String stringHost = "smtp.gmail.com";
+
+            Properties properties = System.getProperties();
+
+            properties.put("mail.smtp.host", stringHost);
+            properties.put("mail.smtp.port", "465");
+            properties.put("mail.smtp.ssl.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+
+            javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(stringSenderEmail, stringPasswordSenderEmail);
+                }
+            });
+
+            MimeMessage mimeMessage = new MimeMessage(session);
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(stringReceiverEmail));
+
+            mimeMessage.setSubject("Solicitud Respondida");
+            mimeMessage.setText(text);
+
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Transport.send(mimeMessage);
+                        //Toast.makeText(getContext(),"Correo enviado",Toast.LENGTH_SHORT).show();
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                        Log.d("msg-test", String.valueOf(e));
+                    }
+                }
+            });
+            thread.start();
+
+        } catch (AddressException e) {
+            e.printStackTrace();
+            Log.d("msg-test", String.valueOf(e));
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            Log.d("msg-test", String.valueOf(e));
+        }
     }
 }
