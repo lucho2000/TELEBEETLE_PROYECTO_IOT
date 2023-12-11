@@ -93,8 +93,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/TextFieldMonto"
-        android:layout_width="273dp"
-        android:layout_height="54dp"
+        android:layout_width="279dp"
+        android:layout_height="64dp"
         android:layout_marginTop="8dp"
         android:hint="Monto a donar"
         app:endIconMode="clear_text"
@@ -107,9 +107,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextMonto"
             android:layout_width="match_parent"
-            android:layout_height="47dp"
-            tools:layout_editor_absoluteX="39dp"
-            tools:layout_editor_absoluteY="468dp" />
+            android:layout_height="wrap_content" />
 
 
     </com.google.android.material.textfield.TextInputLayout>

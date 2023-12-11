@@ -57,20 +57,6 @@ public class QRDonarActivity extends AppCompatActivity {
     Usuario usuario1;
 
 
-
-    ActivityResultLauncher<PickVisualMediaRequest> launcher  =
-            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
-                // Callback is invoked after the user selects a media item or closes the
-                // photo picker.
-                if (urlImagen != null) {
-                    Log.d("PhotoPicker", "Selected URI: " + urlImagen);
-                } else {
-                    Log.d("PhotoPicker", "No media selected");
-                }
-
-            });
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,16 +68,18 @@ public class QRDonarActivity extends AppCompatActivity {
 
         Button botonEnviar = findViewById(R.id.buttonSubirImagen);
 
+        ActivityResultLauncher<PickVisualMediaRequest> launcher  =
+                registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), urlImagen -> {
+                    // Callback is invoked after the user selects a media item or closes the
+                    // photo picker.
+                    if (urlImagen != null) {
+                        Log.d("PhotoPicker", "Selected URI: " + urlImagen);
+                    } else {
+                        Log.d("PhotoPicker", "No media selected");
+                    }
 
+                });
         binding.imageView2.setOnClickListener(v -> {
-
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
-//
-//                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                intent.setType("image/*");
-//                startActivityForResult(intent, 1);
-//
-//            }
 
             launcher.launch(new PickVisualMediaRequest.Builder()
                     .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
@@ -99,23 +87,26 @@ public class QRDonarActivity extends AppCompatActivity {
         });
 
 
-
-
         //hacia la vista de la pantalla de espera perosnalizada
         botonEnviar.setOnClickListener(view -> {
 
-            Integer montoInt = Integer.parseInt(binding.editTextMonto.getText().toString() );
+            Integer montoInt;
+
+            try {
+                montoInt = Integer.parseInt(binding.editTextMonto.getText().toString() );
+            } catch (Exception e){
+                montoInt = 0;
+
+            }
 
             //se deberia sacar la condicion del usuario
             String usuarioActualUID = firebaseAuth.getCurrentUser().getUid();
             Log.d("msg-test", "ID USER: " +usuarioActualUID);
 
+            if( montoInt!=null && urlImagen!=null){
 
-            if( !montoInt.toString().isEmpty() && !urlImagen.toString().isEmpty()){
-
-
-
-                    database.getReference("usuarios").child(usuarioActualUID).addListenerForSingleValueEvent(new ValueEventListener() {
+                Integer finalMontoInt = montoInt;
+                database.getReference("usuarios").child(usuarioActualUID).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -130,13 +121,13 @@ public class QRDonarActivity extends AppCompatActivity {
                                 Log.d("msg-test", "Usuario llego con condicion: " + condicion);
 
                                 //revisando el rol
-                                if (condicion.equalsIgnoreCase("alumno") && montoInt > 0){
+                                if (condicion.equalsIgnoreCase("alumno") && finalMontoInt > 0){
 
-                                    crearDonaciones(montoInt, usuarioActualUID);
+                                    crearDonaciones(finalMontoInt, usuarioActualUID);
 
                                 } else { //egresado
-                                    if (montoInt > 100){
-                                        crearDonaciones(montoInt, usuarioActualUID);
+                                    if (finalMontoInt > 100){
+                                        crearDonaciones(finalMontoInt, usuarioActualUID);
                                     } else {
                                         Toast.makeText(QRDonarActivity.this, "El monto debe ser mayor a 100 soles para los egresados", Toast.LENGTH_SHORT).show();
                                     }
@@ -152,9 +143,8 @@ public class QRDonarActivity extends AppCompatActivity {
                         }
                     });
 
-
             } else {
-                Toast.makeText(QRDonarActivity.this, "Debe adjuntar la captura del monto ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QRDonarActivity.this, "Debe escribir el monto o adjuntar la captura de la donación ", Toast.LENGTH_SHORT).show();
             }
 
         });
