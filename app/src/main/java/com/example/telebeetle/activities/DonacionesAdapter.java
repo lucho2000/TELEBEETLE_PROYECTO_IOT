@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
@@ -49,10 +50,10 @@ public class DonacionesAdapter extends RecyclerView.Adapter<DonacionesAdapter.Do
 
         TextView textViewFechaYHora = holder.itemView.findViewById(R.id.fechaHora);
         String a = dona.getFecha() ;
-        textViewFechaYHora.setText(a);
+        textViewFechaYHora.setText("Fecha: " + a);
 
         TextView textViewPagado = holder.itemView.findViewById(R.id.textView28);
-        textViewPagado.setVisibility(View.INVISIBLE);
+        textViewPagado.setText("Monto: S./" + dona.getMonto());
 
         ImageView imageView = holder.itemView.findViewById(R.id.imageView8);
         Picasso.get().load(dona.getImagenCaptura()).into(imageView);
@@ -86,6 +87,19 @@ public class DonacionesAdapter extends RecyclerView.Adapter<DonacionesAdapter.Do
         Donacion donacion;
         public DonacionViewHolder(@NonNull View itemView) {
             super(itemView);
+
+
+            LinearLayout cardLayout = itemView.findViewById(R.id.linearLayout2);
+            cardLayout.setOnClickListener((new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, DetailDonationActivity2.class);
+                    //intent.putExtra("imageURL")
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("donacion", donacion);
+                    context.startActivity(intent);
+                }
+            }));
 
         }
     }
