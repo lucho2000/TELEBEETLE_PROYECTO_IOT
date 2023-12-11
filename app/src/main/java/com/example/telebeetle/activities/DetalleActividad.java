@@ -95,7 +95,7 @@ public class DetalleActividad extends AppCompatActivity {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             Evento evento = dataSnapshot.getValue(Evento.class);
                             if(evento.getActividad().equals(uidActividad)){
-                                evento.setUidEvento(snapshot.getKey());
+                                evento.setUidEvento(dataSnapshot.getKey());
                                 listaEvents.add(evento);
                             }
                         }

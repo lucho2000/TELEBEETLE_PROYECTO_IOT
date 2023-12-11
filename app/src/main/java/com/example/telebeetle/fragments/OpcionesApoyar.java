@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.activities.DetallesEvento1;
@@ -34,8 +35,9 @@ public class OpcionesApoyar extends Fragment {
     CometChatApiRest cometChatApiRest = new CometChatApiRest();
     FragmentOpcionesApoyarBinding binding;
     FirebaseAuth firebaseAuth;
-    HashMap<String, String> listaApoyosBarras, listaParticipantes;
+    HashMap<String, String> listaApoyosBarras, listaParticipantes, noValidadosParticipantes;
     DatabaseReference databaseReference;
+    DatabaseReference databaseReference2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,14 +46,18 @@ public class OpcionesApoyar extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference("evento");
         String uidUserActual =  firebaseAuth.getCurrentUser().getUid();
         String evento_uid;
+        String nroMaxParticipantes;
         Bundle bundle = getArguments();
         // Verificar si el Bundle no es nulo y contiene la clave esperada
-        if (bundle != null && bundle.containsKey("evento_uid") && bundle.containsKey("listaApoyosBarras") && bundle.containsKey("listaApoyosParticipantes")) {
+        if (bundle != null && bundle.containsKey("evento_uid") && bundle.containsKey("listaApoyosBarras") && bundle.containsKey("listaApoyosParticipantes") && bundle.containsKey("nroMaxParticipantes") && bundle.containsKey("noValidadosParticipantes")) {
             // Obtener el String del Bundle
             evento_uid = bundle.getString("evento_uid");
+            nroMaxParticipantes = bundle.getString("nroMaxParticipantes");
             listaApoyosBarras = (HashMap<String, String>) bundle.getSerializable("listaApoyosBarras");
             listaParticipantes = (HashMap<String, String>) bundle.getSerializable("listaApoyosParticipantes");
+            noValidadosParticipantes = (HashMap<String, String>) bundle.getSerializable("noValidadosParticipantes");
         } else {
+            nroMaxParticipantes = null;
             evento_uid = "evento_uid_blank";
         }
         Log.d("msg_test","GASAGAGSDAGSAGASGASAG ");
@@ -76,11 +82,24 @@ public class OpcionesApoyar extends Fragment {
 
         });
         binding.iconParticipante.setOnClickListener(view -> { //esto deberia estar en delegado de actividad
-            TextView textView = binding.textView10;
-            textView.setText("Se alcanzó el máximo número de participantes");
-            textView.setTextColor(0x706E8F);
+            if(listaParticipantes.size()==Integer.parseInt(nroMaxParticipantes)+1) {
+                Toast.makeText(getActivity(), "Se alcanzó el máximo número de participantes", Toast.LENGTH_SHORT).show();
+            }else{
+                noValidadosParticipantes.put(UUID.randomUUID().toString(), uidUserActual);
+                HashMap<String, Object> eventoUpdate = new HashMap<>();
+                eventoUpdate.put("listaApoyosParticipantes", noValidadosParticipantes);
+                //agregando el usuario a la lista de barras del evento
+                databaseReference.child(evento_uid).updateChildren(eventoUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        DialogParticipante dialogParticipante  = new DialogParticipante();
+                        dialogParticipante.setEvento_uid(evento_uid);
+                        dialogParticipante.setListaNoValidados(noValidadosParticipantes);
+                        dialogParticipante.show(getChildFragmentManager(),"DIALOGAPOYO");
+                    }
+                });
+            }
             Log.d("msg_test","iconParticipante");
-            //addUsertoEventoGroupCometChat(evento_uid);
         });
         binding.close.setOnClickListener(view -> {
             if (getActivity() instanceof DetallesEvento1) {
