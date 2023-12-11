@@ -26,7 +26,9 @@
             android:layout_width="141dp"
             android:layout_height="73dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:id="@+id/textView42"
@@ -53,11 +55,12 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="50dp"
             android:layout_marginTop="5dp"
-            android:backgroundTint="@color/colorLigero"
+            android:backgroundTint="#BCE9251E"
             android:text="Banear"
+            android:textSize="13sp"
             android:textColor="@color/white"
-            app:icon="@drawable/ic_close_24dp"
-            app:iconPadding="8dp"
+            app:icon="@drawable/baseline_close_24"
+            app:iconPadding="10dp"
             app:iconTint="@color/white" />
 
     </LinearLayout>

@@ -69,8 +69,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:dividerInsetStart="16dp"
-                    app:dividerInsetEnd="16dp"/>
+                    app:dividerInsetEnd="16dp"/> <!--app:dividerInsetStart="16dp" -->
 
                 <TextView
                     android:id="@+id/nameEvento"

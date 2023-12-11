@@ -120,11 +120,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        app:backgroundTint="#0961F5"
+        app:backgroundTint="@color/topAppBarColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/baseline_add_a_photo_24"
         style="?attr/floatingActionButtonLargeStyle"
+        app:fabCustomSize="75dp"
         app:tint="@color/white" />
     <!-- activity_gallery.xml -->
     <GridView

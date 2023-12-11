@@ -23,6 +23,7 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -53,6 +54,9 @@ import com.example.telebeetle.viewmodels.GroupChatViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.shape.CornerFamily;
+import com.google.android.material.shape.ShapeAppearanceModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -356,6 +360,7 @@ public class GeneralViewActivity extends AppCompatActivity {
 
 
                     } else { //rol_usuario fue seleccionado aqui
+                        Intent intent = getIntent();
                         CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) binding.fab.getLayoutParams();
                         p.setAnchorId(View.NO_ID);
                         binding.fab.setLayoutParams(p);
@@ -363,7 +368,7 @@ public class GeneralViewActivity extends AppCompatActivity {
                         menuToChoose = R.menu.student_bottom_menu;
 
                         // Obtener la información sobre el fragmento del Intent
-                        Intent intent = getIntent();
+
                         Log.d("msg-test-guidValue","AQUIIIFNSAKNFJASNFNASKF");
 
                         if (intent != null && intent.getStringExtra("FRAGMENT_TAG")!=null) {
@@ -509,7 +514,6 @@ public class GeneralViewActivity extends AppCompatActivity {
                             NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
                         }
-
                     }
                 } else {
                     Log.d("User", "User not found");

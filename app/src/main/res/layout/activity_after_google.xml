@@ -12,7 +12,7 @@
         android:layout_height="49dp"
         android:layout_centerVertical="true"
 
-        android:layout_marginStart="88dp"
+        android:layout_marginStart="84dp"
         android:layout_marginBottom="24dp"
         android:src="@drawable/baseline_new_releases_24"
         app:layout_constraintBottom_toTopOf="@+id/textView40"
@@ -22,7 +22,7 @@
         android:id="@+id/textView"
         android:layout_width="205dp"
         android:layout_height="51dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/bree_serif"
         android:text="Registro"
@@ -33,12 +33,12 @@
 
     <TextView
         android:id="@+id/textView40"
-        android:layout_width="358dp"
-        android:layout_height="68dp"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Para continuar con su registro debe completar los siguientes campos: "
         android:textColor="@color/primaryTextColor"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nombreCompleto"
         style="?attr/textInputFilledStyle"
-        android:layout_width="match_parent"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -71,7 +71,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/apellidos"
         style="?attr/textInputFilledStyle"
-        android:layout_width="match_parent"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -95,7 +95,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/codigoPUCP"
         style="?attr/textInputFilledStyle"
-        android:layout_width="match_parent"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -119,7 +119,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/condicion"
         style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
-        android:layout_width="match_parent"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"

@@ -165,8 +165,8 @@ public class CambioContrasenia2Activity extends AppCompatActivity {
 
         binding.buttonCancelar2.setOnClickListener(v->{
 
-            Intent intent = new Intent(CambioContrasenia2Activity.this, ProfileFragment.class);
-            startActivity(intent);
+            //Intent intent = new Intent(CambioContrasenia2Activity.this, ProfileFragment.class);
+            //startActivity(intent);
             finish();
 
         });

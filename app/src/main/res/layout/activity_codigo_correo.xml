@@ -33,7 +33,7 @@
         android:layout_width="332dp"
         android:layout_height="114dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="100dp"
         android:fontFamily="@font/bree_serif"
         android:text="Ingrese el código enviado a su correo"
         android:textAlignment="center"
@@ -45,17 +45,17 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/correo2"
         style="?attr/textInputFilledStyle"
-        android:layout_width="295dp"
+        android:layout_width="340dp"
         android:layout_height="54dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="16dp"
         android:hint="Código"
-        app:startIconDrawable="@drawable/baseline_numbers_24"
+        app:boxBackgroundColor="@color/windowBackgroundColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:boxBackgroundColor="@color/windowBackgroundColor"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCodigoCorreo">
+        app:layout_constraintTop_toBottomOf="@+id/textViewCodigoCorreo"
+        app:startIconDrawable="@drawable/baseline_numbers_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -65,29 +65,30 @@
 
     <Button
         android:id="@+id/buttonCancelar"
-        android:layout_width="190dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="48dp"
-        android:text="Cancelar"
-        android:textSize="20sp"
-        app:backgroundTint="#BCE9251E"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="70dp"
+        android:text="CANCELAR"
+        android:textColor="@color/canelarButtonTextDarkGrey"
+        android:textSize="16sp"
+        app:backgroundTint="@color/cancelarButtonGrey"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/correo2" />
 
     <Button
         android:id="@+id/buttonContinuar"
-        android:layout_width="190dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="28dp"
-        android:text="Continuar"
-        android:textSize="20sp"
-        app:backgroundTint="@color/colorPrimary"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="32dp"
+        android:text="CONTINUAR"
+        android:textSize="16sp"
+        app:backgroundTint="@color/colorLigero"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonCancelar" />
+        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintStart_toEndOf="@+id/buttonCancelar"
+        app:layout_constraintTop_toBottomOf="@+id/correo2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
