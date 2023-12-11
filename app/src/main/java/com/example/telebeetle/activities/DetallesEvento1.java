@@ -106,8 +106,8 @@ public class DetallesEvento1 extends AppCompatActivity implements OpcionApoyando
                 Bundle bundle = new Bundle();
                 bundle.putString("evento_uid", evento.getUidEvento());
                 bundle.putSerializable("listaApoyosBarras", evento.getListaApoyosBarras());
-                binding.textView13.setVisibility(View.GONE);
-                binding.textView15.setVisibility(View.GONE);
+                //binding.textView13.setVisibility(View.GONE);
+                //binding.textView15.setVisibility(View.GONE);
                 binding.Apoyar.setVisibility(View.GONE);
 
 
@@ -135,8 +135,8 @@ public class DetallesEvento1 extends AppCompatActivity implements OpcionApoyando
                 Bundle bundle = new Bundle();
                 bundle.putString("evento_uid", evento.getUidEvento());
                 bundle.putSerializable("listaNoValidados", evento.getListaApoyosParticipantes());
-                binding.textView13.setVisibility(View.GONE);
-                binding.textView15.setVisibility(View.GONE);
+                //binding.textView13.setVisibility(View.GONE);
+                //binding.textView15.setVisibility(View.GONE);
                 binding.Apoyar.setVisibility(View.GONE);
 
                 EsperaParticipante esperaParticipante = new EsperaParticipante();
@@ -162,8 +162,8 @@ public class DetallesEvento1 extends AppCompatActivity implements OpcionApoyando
                 Bundle bundle = new Bundle();
                 bundle.putString("evento_uid", evento.getUidEvento());
                 bundle.putSerializable("listaValidados", evento.getListaApoyosParticipantesValidados());
-                binding.textView13.setVisibility(View.GONE);
-                binding.textView15.setVisibility(View.GONE);
+                //binding.textView13.setVisibility(View.GONE);
+                //binding.textView15.setVisibility(View.GONE);
                 binding.Apoyar.setVisibility(View.GONE);
 
                 OpcionApoyando2 opcionApoyando2 = new OpcionApoyando2();
@@ -183,7 +183,11 @@ public class DetallesEvento1 extends AppCompatActivity implements OpcionApoyando
                 break;
             }
         }
+
         binding.Apoyar.setOnClickListener(view -> {
+            /*binding.textView13.setVisibility(View.GONE);
+            binding.textView15.setVisibility(View.GONE);
+            binding.Apoyar.setVisibility(View.GONE);*/
             Bundle bundleConEventoUid = new Bundle();
             bundleConEventoUid.putString("evento_uid", evento.getUidEvento());
             bundleConEventoUid.putString("nroMaxParticipantes", evento.getNroMaxParticipante());
@@ -288,8 +292,8 @@ public class DetallesEvento1 extends AppCompatActivity implements OpcionApoyando
     }
 
     private void mostrarElementosOcultos() {
-        binding.textView13.setVisibility(View.VISIBLE);
-        binding.textView15.setVisibility(View.VISIBLE);
+        //binding.textView13.setVisibility(View.VISIBLE);
+        //binding.textView15.setVisibility(View.VISIBLE);
         binding.Apoyar.setVisibility(View.VISIBLE);
         // Código para volver a mostrar los elementos ocultos
     }

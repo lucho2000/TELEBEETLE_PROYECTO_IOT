@@ -72,9 +72,10 @@ public class OpcionApoyando extends Fragment {
                     public void onComplete(@NonNull Task<Void> task) {
                         removeUserFromEventGroupCometChat(evento_uid);
                         activity.deleteFragment(OpcionApoyando.this);
+                        notificarBotonPresionado();
                     }
                 });
-                notificarBotonPresionado();
+
             }
         });
 

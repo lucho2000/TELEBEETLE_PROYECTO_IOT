@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.telebeetle.Entity.Actividad;
 import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.R;
+import com.example.telebeetle.cometchatapi.CometChatApiRest;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -152,6 +153,8 @@ public class EventAdapter2 extends RecyclerView.Adapter<com.example.telebeetle.a
                                 @Override
                                 public void onSuccess(Void unused) {
                                     Toast.makeText(context, "Borrado de evento exitoso", Toast.LENGTH_SHORT).show();
+                                    CometChatApiRest cometChatApiRest = new CometChatApiRest();
+                                    cometChatApiRest.deleteGroupInCometChat(e.getUidEvento());
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override

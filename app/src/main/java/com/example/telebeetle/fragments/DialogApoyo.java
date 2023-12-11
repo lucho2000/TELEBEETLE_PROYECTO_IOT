@@ -47,7 +47,7 @@ public class DialogApoyo extends DialogFragment {
             bundle.putString("evento_uid", evento_uid);
             bundle.putSerializable("listaApoyosBarras", listaApoyosBarras);
             opcionApoyando.setArguments(bundle);
-
+            //opcionApoyando.setOnFragmentInteractionListener( (OpcionApoyando.OnFragmentInteractionListener1) this);
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragmentContainerView, opcionApoyando);
             transaction.commit();

@@ -45,7 +45,7 @@ public class DialogParticipante extends DialogFragment {
             bundle.putString("evento_uid", evento_uid);
             bundle.putSerializable("listaNoValidados", listaNoValidados);
             esperaParticipante.setArguments(bundle);
-
+            //esperaParticipante.setOnFragmentInteractionListener((EsperaParticipante.OnFragmentInteractionListener3) this);
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragmentContainerView, esperaParticipante);
             transaction.commit();

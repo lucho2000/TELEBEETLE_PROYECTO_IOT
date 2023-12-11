@@ -60,10 +60,10 @@ public class EsperaParticipante extends Fragment {
                     public void onComplete(@NonNull Task<Void> task) {
                         removeUserFromEventGroupCometChat(evento_uid);
                         activity.deleteFragment(EsperaParticipante.this);
+                        notificarBotonPresionado();
                     }
                 });
 
-                notificarBotonPresionado();
             }
         });
         return binding.getRoot();
