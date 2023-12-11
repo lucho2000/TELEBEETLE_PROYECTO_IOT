@@ -17,10 +17,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.telebeetle.Entity.Actividad;
+import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
+import com.example.telebeetle.fragments.OpcionApoyando;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -57,6 +62,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
 
     DatabaseReference databaseReference;
     DatabaseReference databaseReference2;
+    DatabaseReference databaseReference3;
 
     @NonNull
     @Override
@@ -134,19 +140,62 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
                     return true;
                 }else if (item.getItemId() == R.id.menu_item_option2){
                     //showDialog(a.getNombreActividad());
-                    databaseReference2 = FirebaseDatabase.getInstance().getReference("actividad"); //datos de firebase de la coleccion de "evento"
-                    databaseReference2.child(a.getUidActividad()).removeValue()
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(context, "Borrado de actividad exitoso", Toast.LENGTH_SHORT).show();
+                    final boolean[] wenas = {false};
+                    databaseReference3 = FirebaseDatabase.getInstance().getReference("evento"); //datos de firebase de la coleccion de "evento"
+                    databaseReference3.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                                Evento evento1 = dataSnapshot.getValue(Evento.class);
+                                if(evento1.getActividad().equals(a.getUidActividad())){
+                                    wenas[0] = true;
+                                    break;
                                 }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(context, "Borrado de actividad fallido", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            }
+                            if(wenas[0]){
+                                Toast.makeText(context, "No es posible borrar la actividad, pues cuenta con eventos vinculados", Toast.LENGTH_LONG).show();
+                            }else{
+                                databaseReference2 = FirebaseDatabase.getInstance().getReference("actividad"); //datos de firebase de la coleccion de "evento"
+                                databaseReference2.child(a.getUidActividad()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                databaseReference = FirebaseDatabase.getInstance().getReference("usuarios"); //datos de firebase de la coleccion de "usuarios"
+                                                databaseReference.child(a.getDelegado()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                        if (snapshot.exists()) {
+                                                            Usuario user = snapshot.getValue(Usuario.class);
+                                                            HashMap<String, Object> eventoUpdate = new HashMap<>();
+                                                            eventoUpdate.put("rol", "usuario");
+                                                            databaseReference.child(snapshot.getKey()).updateChildren(eventoUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    Toast.makeText(context, "Borrado de actividad exitoso", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            });
+                                                        } else {
+                                                            Log.d("User", "User not found");
+                                                        }
+                                                    }
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
+                                                        Log.d("User", "Failed to read value.", error.toException());
+                                                    }
+                                                });
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(context, "Borrado de actividad fallido", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                     return true;
                 }else{
                     return false;

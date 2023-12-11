@@ -111,8 +111,6 @@ public class RegisterActivity extends AppCompatActivity {
         iniciarSesionTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
