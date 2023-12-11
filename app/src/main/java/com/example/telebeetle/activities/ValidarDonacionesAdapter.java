@@ -2,6 +2,7 @@ package com.example.telebeetle.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -81,7 +83,31 @@ public class ValidarDonacionesAdapter extends RecyclerView.Adapter<ValidarDonaci
 
         databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
         databaseReference2 = FirebaseDatabase.getInstance().getReference("donaciones_por_validar");
+        Query emailquery = databaseReference.orderByChild("uidUsuario").equalTo(d.getUidDonante());
 
+        emailquery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String nombres, apellidos;
+                    for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                         nombres = userSnapshot.child("nombres").getValue(String.class);
+                         apellidos = userSnapshot.child("apellidos").getValue(String.class);
+                        donante = holder.itemView.findViewById(R.id.donante);
+                        donante.setText("Donante: " + nombres + " " +apellidos);
+                    }
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("msg-test","error get donante");
+            }
+        });
+
+        /*
         databaseReference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -111,7 +137,7 @@ public class ValidarDonacionesAdapter extends RecyclerView.Adapter<ValidarDonaci
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        });*/
 
     }
 
