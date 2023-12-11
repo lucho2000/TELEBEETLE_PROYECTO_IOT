@@ -20,6 +20,9 @@ import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -33,6 +36,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +49,7 @@ public class GeneralActivity extends AppCompatActivity {
     List<Usuario>  listaAlumnos;
     List<Usuario>  listaEgresados;
 
-
+    LocalDate fechaActual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +77,57 @@ public class GeneralActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()){
                     Donacion donacion = snapshot1.getValue(Donacion.class);
                     int donadooo = Integer.parseInt(donacion.getMonto());
-                    totalDonado = totalDonado+donadooo;
+                    String fechaDonacion = donacion.getFecha();
+
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        fechaActual = LocalDate.now();
+                        // Definir un formato personalizado con barras
+                        DateTimeFormatter formatoConBarras = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        // Formatear la fecha con el formato personalizado
+                        String fechaFormateadaConBarras = fechaActual.format(formatoConBarras);
+
+                        totalDonado = totalDonado+donadooo;
+                        BarChart barChart = findViewById(R.id.barChart);
+                        List<BarEntry> entries = new ArrayList<>();
+                        entries.add(new BarEntry(1, totalDonado ));
+
+                        BarDataSet dataSet = new BarDataSet(entries, "Total Recaudaciones");
+                        dataSet.setColor(R.color.topAppBarColor); // Color de las barras
+                        dataSet.setValueTextSize(20f);
+
+                        BarData barData = new BarData(dataSet);
+
+                        // Configuración del eje X
+                        XAxis xAxis = barChart.getXAxis();
+                        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                        xAxis.setGranularity(1.0f);
+                        xAxis.setDrawGridLines(false);
+
+                        // Configuración del eje Y
+                        YAxis yAxisRight = barChart.getAxisRight();
+                        yAxisRight.setEnabled(false); // Deshabilitar eje Y derecho
+
+                        YAxis yAxisLeft = barChart.getAxisLeft();
+                        yAxisLeft.setDrawGridLines(false);
+
+                        Legend legend = barChart.getLegend();
+                        legend.setTextSize(10f); // Tamaño del texto de la leyenda
+
+
+                        // Configuración del gráfico
+                        barChart.setData(barData);
+                        barChart.setFitBars(true);
+                        barChart.getDescription().setEnabled(false); // Deshabilitar descripción
+                        barChart.animateY(1000); // Animación
+
+
+                    }
+
+
                 }
+
                 TextView donado = findViewById(R.id.textView31);
-                donado.setText("Monto total recaudado por Donaciones: S/"+totalDonado);
+                donado.setText("Monto total recaudado por Donaciones: S./" +totalDonado);
             }
 
             @Override

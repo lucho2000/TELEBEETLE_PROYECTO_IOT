@@ -45,7 +45,7 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="258dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
@@ -53,10 +53,10 @@
                         android:id="@+id/donacionAsunto"
                         android:layout_width="168dp"
                         android:layout_height="24dp"
-
+                        android:layout_gravity="center"
                         android:layout_marginTop="16dp"
-                        android:text="Donacion para la AITEL"
-                        android:textColor="#FF9800"
+                        android:text="Donación para la AITEL"
+                        android:textColor="@color/colorLigero"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/fechaHora"
                         app:layout_constraintEnd_toEndOf="@+id/fechaHora"
@@ -69,8 +69,8 @@
                         android:id="@+id/fechaHora"
                         android:layout_width="150dp"
                         android:layout_height="31dp"
+                        android:layout_gravity="center"
                         android:layout_marginBottom="8dp"
-                        android:textAlignment="center"
                         android:textColor="@color/colorLigero"
                         app:layout_constraintBottom_toTopOf="@+id/textView28"
                         app:layout_constraintEnd_toEndOf="@+id/textView28"
@@ -88,7 +88,9 @@
                         android:id="@+id/textView28"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginBottom="28dp"
+                        android:text="Hora"
                         android:textColor="@color/colorLigero"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
