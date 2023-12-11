@@ -14,6 +14,7 @@ import com.example.telebeetle.Entity.Usuario;
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.ActivityCambioContrasenia2Binding;
 import com.example.telebeetle.databinding.ActivityCambioContraseniaBinding;
+import com.example.telebeetle.fragments.ProfileFragment;
 import com.example.telebeetle.services.Regex;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -72,11 +73,12 @@ public class CambioContrasenia2Activity extends AppCompatActivity {
 
 
         binding.buttonAceptar2.setOnClickListener(v -> {
-            String passNew = binding.contrasenaNew.getEditText().getText().toString();
-            String passNew2 = binding.contrasenaNew2.getEditText().getText().toString();
+            String passNew = binding.contrasenaNew.getEditText().getText().toString(); //neuva contraseña
+            String confirmarPassNew = binding.contrasenaNew2.getEditText().getText().toString(); //confirmar contraseña
+            String contrasenaActual = binding.contrasenaActual.getEditText().getText().toString();
 
             Log.d("msg-test",passNew);
-            if(regex.contrasenaisValid(passNew) && passNew2.equalsIgnoreCase(passNew)){
+            if( !passNew.equals(contrasenaActual) &&  regex.contrasenaisValid(passNew) && passNew.equals(confirmarPassNew) ){
 
                 user.updatePassword(passNew)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -135,6 +137,7 @@ public class CambioContrasenia2Activity extends AppCompatActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(CambioContrasenia2Activity.this,"Hubo error al cambiar la contraseña",Toast.LENGTH_SHORT).show();
+                                Log.d("msg-test", "error" + e.toString());
                             }
                         });
 
@@ -162,7 +165,7 @@ public class CambioContrasenia2Activity extends AppCompatActivity {
 
         binding.buttonCancelar2.setOnClickListener(v->{
 
-            Intent intent = new Intent(CambioContrasenia2Activity.this,CambioContraseniaActivity.class);
+            Intent intent = new Intent(CambioContrasenia2Activity.this, ProfileFragment.class);
             startActivity(intent);
             finish();
 

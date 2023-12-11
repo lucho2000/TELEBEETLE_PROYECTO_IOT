@@ -34,7 +34,7 @@ public class Regex {
         return true;
     }
     public boolean inputisValid(String input){
-        String regex = "^[A-Za-zñÑáéíóúÁÉÍÓÚ]+(?: [A-Za-zñÑáéíóúÁÉÍÓÚ]+)?$";
+        String regex = "^([A-Za-zñÑáéíóúÁÉÍÓÚ]+)(?: ([A-Za-zñÑáéíóúÁÉÍÓÚ]+))*$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         return matcher.find();

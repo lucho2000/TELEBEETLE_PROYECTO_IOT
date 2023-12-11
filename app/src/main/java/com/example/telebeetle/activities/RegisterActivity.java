@@ -204,12 +204,12 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 if (!regex.inputisValid(nombreCompleto) ) {
-                    textNombre.setError("Ingrese por lo menos dos nombres");
+                    textNombre.setError("Ingrese al menos un nombre correcto");
                     valido++;
                 }
 
                 if (!regex.inputisValid(apellidos) ) {
-                    textApellido.setError("Ingrese por lo menos dos apellidos");
+                    textApellido.setError("Ingrese dos apellidos");
                     valido++;
                 }
 
