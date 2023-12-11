@@ -40,10 +40,8 @@ public class ApoyoAdapter extends RecyclerView.Adapter<ApoyoAdapter.ApoyoViewHol
         holder.usuario = usuario;
 
 
-        int drawableResourceId = R.drawable.juiocesaraliagamachuca;
-        Picasso picasso = Picasso.get();
         ImageView imageViewDelegado = holder.itemView.findViewById(R.id.fotoperfil);
-        picasso.load(drawableResourceId)
+        Picasso.get().load(usuario.getProfile())
                 .resize(75,75)
                 .transform(new CropCircleTransformation())
                 .into(imageViewDelegado);
@@ -51,6 +49,8 @@ public class ApoyoAdapter extends RecyclerView.Adapter<ApoyoAdapter.ApoyoViewHol
         nameApoyo.setText(usuario.getNombres() + " " + usuario.getApellidos());
         TextView codigoApoyo = holder.itemView.findViewById(R.id.codigoApoyo);
         codigoApoyo.setText(usuario.getCodigo());
+        TextView condicionApoyo = holder.itemView.findViewById(R.id.condicionApoyo);
+        condicionApoyo.setText(usuario.getCondicion());
 
     }
 

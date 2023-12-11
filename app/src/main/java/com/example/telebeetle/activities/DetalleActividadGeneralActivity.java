@@ -100,6 +100,7 @@ public class DetalleActividadGeneralActivity extends AppCompatActivity {
         Button verApoyos = findViewById(R.id.verApoyos);
         verApoyos.setOnClickListener(view -> {
             Intent intent = new Intent(DetalleActividadGeneralActivity.this, verApoyosActivity.class);
+            intent.putExtra("evento", evento);
             startActivity(intent);
         });
         Button verSolicitudes = findViewById(R.id.verSolicitudes);

@@ -1,41 +1,56 @@
 package com.example.telebeetle.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
-import com.example.telebeetle.Entity.Apoyo;
-import com.example.telebeetle.Entity.Usuario;
+import com.example.telebeetle.Entity.Evento;
 import com.example.telebeetle.R;
 import com.example.telebeetle.databinding.ActivityVerApoyosBinding;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class verApoyosActivity extends AppCompatActivity {
-
     ActivityVerApoyosBinding binding;
-
-    DatabaseReference databaseReference;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityVerApoyosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-
-        cargarApoyos();
-
+        Intent intent1 = getIntent();
+        Evento evento = (Evento) intent1.getSerializableExtra("evento");
+        Log.d("msg-test", evento.getEtapa());
+        ViewPager2 viewPager = binding.viewPager;
+        TabLayout tabLayout = binding.chooseApoyo;
+        MyPagerAdapter2 adapter = new MyPagerAdapter2(this, evento);
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                viewPager.setAdapter(adapter);
+                new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+                    switch (position) {
+                        case 0:
+                            tab.setText("Barra");
+                            break;
+                        case 1:
+                            tab.setText("Participantes");
+                            break;
+                    }
+                }).attach();
+                viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        //Toast.makeText(getContext(), "Tab " + (position + 1) + " selected", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
         Toolbar toolbar = findViewById(R.id.myToolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,42 +59,4 @@ public class verApoyosActivity extends AppCompatActivity {
             }
         });
     }
-
-
-    public void cargarApoyos(){
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
-
-        List<Usuario> listaUsuarios = new ArrayList<>();
-
-        ApoyoAdapter apoyoAdapter = new ApoyoAdapter();
-        apoyoAdapter.setListApoyo(listaUsuarios);
-        apoyoAdapter.setContext(verApoyosActivity.this);
-
-
-        binding.recyclerView2.setAdapter(apoyoAdapter);
-        binding.recyclerView2.setLayoutManager(new LinearLayoutManager(verApoyosActivity.this));
-
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Usuario usuario = dataSnapshot.getValue(Usuario.class);
-                    listaUsuarios.add(usuario);
-                }
-                apoyoAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-
-
-    }
-
 }
