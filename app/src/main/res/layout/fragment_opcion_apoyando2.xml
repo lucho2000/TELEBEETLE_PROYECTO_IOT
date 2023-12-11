@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="BARRA"
+        android:text="PARTICIPANTE"
         android:textColor="@color/textColorPrimary"
         android:textSize="16sp"
         android:textStyle="bold"
