@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.telebeetle.Entity.Donacion;
@@ -56,6 +57,8 @@ public class QRDonarActivity extends AppCompatActivity {
 
     Usuario usuario1;
 
+    ImageView previsualizaImagen;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,7 @@ public class QRDonarActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
+        previsualizaImagen = findViewById(R.id.imageViewPrevisualiza2);
 
         Button botonEnviar = findViewById(R.id.buttonSubirImagen);
 
@@ -166,8 +170,8 @@ public class QRDonarActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && data != null && data.getData() != null) {
             // La imagen seleccionada se encuentra en data.getData()
             urlImagen = data.getData();
-//            Picasso.get().load(urlImagen).into(previsualizaImagen);
-//            previsualizaImagen.setImageURI(urlImagen);
+            Picasso.get().load(urlImagen).into(previsualizaImagen);
+            previsualizaImagen.setImageURI(urlImagen);
             //Intent intent  = new Intent(CrearActivity.this, EscogerDelegadoActivity.class);
             //intent.putExtra("uri_extra", path);
             Log.d("msg-test", "Selected URI: " + urlImagen);
