@@ -68,25 +68,25 @@ public class FinalizarEventoActivity extends AppCompatActivity {
                         nombreActividad.setEnabled(false);
                         break;
                     }
-                    databaseReference = FirebaseDatabase.getInstance().getReference("evento");
-                    eventos.clear();
-                    uidEventos.clear();
-                    databaseReference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
-                                Evento evento1 = dataSnapshot1.getValue(Evento.class);
-                                if(actividadGo.getUidActividad().equals(evento1.getActividad())){
-                                    eventos.add(evento1.getEtapa());
-                                    uidEventos.add(dataSnapshot1.getKey());
-                                }
+                }
+                databaseReference = FirebaseDatabase.getInstance().getReference("evento");
+                eventos.clear();
+                uidEventos.clear();
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                            Evento evento1 = dataSnapshot1.getValue(Evento.class);
+                            if(actividadGo.getUidActividad().equals(evento1.getActividad()) && evento1.getEstado().equalsIgnoreCase("en proceso")){
+                                eventos.add(evento1.getEtapa());
+                                uidEventos.add(dataSnapshot1.getKey());
                             }
                         }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                        }
-                    });
-                }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
 
             }
             @Override
